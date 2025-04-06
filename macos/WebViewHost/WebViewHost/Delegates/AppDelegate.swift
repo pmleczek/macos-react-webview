@@ -9,6 +9,8 @@ import AppKit
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationDidFinishLaunching(_ notification: Notification) {
-    print("applicationDidFinishLaunching")
+    if let window = NSApp.windows.first {
+      hideTitleBar(window)
+    }
   }
 }
