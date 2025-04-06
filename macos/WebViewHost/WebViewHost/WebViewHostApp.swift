@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct WebViewHostApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
+  
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
