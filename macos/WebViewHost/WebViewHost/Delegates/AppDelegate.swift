@@ -11,6 +11,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationDidFinishLaunching(_ notification: Notification) {
     if let window = NSApp.windows.first {
       hideTitleBar(window)
+      positionTrafficLights(
+        window,
+        x: WindowConstants.TRAFFIC_LIGHTS_INSET_X,
+        y: WindowConstants.TRAFFIC_LIGHTS_INSET_Y
+      )
     }
   }
 }
