@@ -1,5 +1,11 @@
+import { WindowDrag } from "@components";
+
 const HeaderBar = () => {
-  return <div id="header-bar"></div>;
+  return (
+    <WindowDrag>
+      <div id="header-bar"></div>
+    </WindowDrag>
+  );
 };
 
 export default HeaderBar;
