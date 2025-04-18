@@ -1,7 +1,10 @@
+import { HeaderBar } from "./components";
+
 const App = () => {
   return (
     <div id="container">
-      <div>
+      <HeaderBar />
+      <div id="main-container">
         <span>Test</span>
       </div>
     </div>
