@@ -1,4 +1,4 @@
-import { HeaderBar } from "./components";
+import { HeaderBar } from "@components";
 
 const App = () => {
   return (
