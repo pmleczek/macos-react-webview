@@ -12,11 +12,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 
     var body: some View {
-        VStack {
-          Text("Test test test")
-            .font(.title)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      ReactWebView()
     }
 }
 

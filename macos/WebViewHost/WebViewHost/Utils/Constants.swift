@@ -7,6 +7,10 @@
 
 import AppKit
 
+enum WebViewConstants {
+  static let DEV_SERVER_URL: String = "http://localhost:5173/"
+}
+
 enum WindowConstants {
   static let TRAFFIC_LIGHTS_INSET_X: CGFloat = 16.0
   static let TRAFFIC_LIGHTS_INSET_Y: CGFloat = 24.0
