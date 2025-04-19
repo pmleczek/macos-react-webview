@@ -1,14 +1,16 @@
 import { useCallback, useRef, useState } from "react";
+import { emit } from "ipc";
 
+import { EventType } from "../../utils/constants";
 import type { Coordinates, WindowDragProps } from "./types";
 
 const WindowDrag = ({ children }: WindowDragProps) => {
   const [shouldTrackMovement, setShouldTrackMovement] = useState(false);
   const initialPosition = useRef<Coordinates | null>(null);
 
-  const handleDoubleClick = () => {
-    console.log("WindowDrag:handleDoubleClick");
-  };
+  const handleDoubleClick = useCallback(() => {
+    emit(EventType.WINDOW_MAXIMIZE);
+  }, []);
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -29,7 +31,7 @@ const WindowDrag = ({ children }: WindowDragProps) => {
           Math.abs(initialPosition.current.y - clientY) > 5)
       ) {
         setShouldTrackMovement(false);
-        console.log("Start dragging");
+        emit(EventType.WINDOW_START_DRAGGING);
       }
     },
     []
@@ -39,7 +41,7 @@ const WindowDrag = ({ children }: WindowDragProps) => {
     if (shouldTrackMovement) {
       setShouldTrackMovement(false);
     } else {
-      console.log("Stop dragging");
+      emit(EventType.WINDOW_STOP_DRAGGING);
     }
   }, [shouldTrackMovement]);
 
