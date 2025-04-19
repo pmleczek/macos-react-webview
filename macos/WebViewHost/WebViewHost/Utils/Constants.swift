@@ -9,6 +9,7 @@ import AppKit
 
 enum WebViewConstants {
   static let DEV_SERVER_URL: String = "http://localhost:5173/"
+  static let IPC_MESSAGE_NAME: String = "ipc"
 }
 
 enum WindowConstants {
