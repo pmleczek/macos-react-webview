@@ -3,7 +3,7 @@ declare global {
     webkit?: {
       messageHandlers: {
         ipc: {
-          postMessage: (payload: Object) => void;
+          postMessage: (payload: string) => void;
         };
       };
     };

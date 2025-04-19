@@ -1,5 +1,3 @@
 export function emit(type: string) {
-  window?.webkit?.messageHandlers?.ipc?.postMessage({
-    type,
-  });
+  window?.webkit?.messageHandlers?.ipc?.postMessage(type);
 }
