@@ -21,6 +21,9 @@ struct ReactWebView: NSViewRepresentable, WebViewDelegate {
     webView.navigationDelegate = context.coordinator
     webView.allowsBackForwardNavigationGestures = false
     webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+    
+    webView.setValue(false, forKey: "drawsBackground")
+    
     // TODO: remove later
     webView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
     webView.isInspectable = true
