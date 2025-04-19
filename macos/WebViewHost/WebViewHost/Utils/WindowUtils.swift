@@ -14,37 +14,27 @@ func hideTitleBar(_ window: NSWindow) {
 }
 
 func positionTrafficLights(_ window: NSWindow, x: CGFloat, y: CGFloat) {
-  guard let closeButton = window.standardWindowButton(.closeButton),
-        let minimizeButton = window.standardWindowButton(.miniaturizeButton),
-        let fullscreenButton = window.standardWindowButton(.zoomButton)
-  else {
+  guard let trafficLights = getTrafficLights(window) else {
     return
   }
   
+  let closeButton = trafficLights[0]
   let titleBar = closeButton.superview?.superview
-  let windowButtonHeight = closeButton.frame.height
+  let buttonHeight = closeButton.frame.height
   
   if let titleBar {
-    let titleBarHeight = windowButtonHeight + y
+    let titleBarHeight = buttonHeight + y
     var titleBarFrame = titleBar.frame
     titleBarFrame.size.height = titleBarHeight
     titleBarFrame.origin.y = window.frame.size.height - titleBarHeight
     titleBar.frame = titleBarFrame
     
-    var closeButtonFrame = closeButton.frame
-    var minimizeButtonFrame = minimizeButton.frame
-    var fullscreenButtonFrame = fullscreenButton.frame
-    
-    let buttonSpacingX = minimizeButtonFrame.origin.x - closeButtonFrame.origin.x
-    
-    closeButtonFrame.origin.x = x
-    closeButton.setFrameOrigin(closeButtonFrame.origin)
-    
-    minimizeButtonFrame.origin.x = x + buttonSpacingX
-    minimizeButton.setFrameOrigin(minimizeButtonFrame.origin)
-    
-    fullscreenButtonFrame.origin.x = x + 2 * buttonSpacingX
-    fullscreenButton.setFrameOrigin(fullscreenButtonFrame.origin)
+    let spacing = trafficLights[1].frame.origin.x - closeButton.frame.origin.x
+    for (idx, button) in trafficLights.enumerated() {
+      var frame = button.frame
+      frame.origin.x = x + spacing * CGFloat(idx)
+      button.setFrameOrigin(frame.origin)
+    }
   }
 }
 
