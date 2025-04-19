@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { emit } from "ipc";
 
-import { EventType } from "../../utils/constants";
+import { EventType } from "@utils/constants";
 import type { Coordinates, WindowDragProps } from "./types";
 
 const WindowDrag = ({ children }: WindowDragProps) => {
