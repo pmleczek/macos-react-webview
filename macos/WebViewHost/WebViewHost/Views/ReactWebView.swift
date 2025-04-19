@@ -37,8 +37,8 @@ struct ReactWebView: NSViewRepresentable, WebViewDelegate {
     nsView.load(request)
   }
   
-  func onEventReceived(value: String) {
-    print("Received event from WebView app: \(value)")
+  func onEventReceived(_ payload: String) {
+    IPCEventHandler.handleEvent(payload)
   }
   
   func makeCoordinator() -> Coordinator {
@@ -59,7 +59,7 @@ struct ReactWebView: NSViewRepresentable, WebViewDelegate {
 extension ReactWebView.Coordinator: WKScriptMessageHandler {
   func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
     if message.name == WebViewConstants.IPC_MESSAGE_NAME {
-      delegate?.onEventReceived(value: message.body as! String)
+      delegate?.onEventReceived(message.body as! String)
     }
   }
 }

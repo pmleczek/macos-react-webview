@@ -6,5 +6,5 @@
 //
 
 protocol WebViewDelegate {
-  func onEventReceived(value: String)
+  func onEventReceived(_ payload: String)
 }
