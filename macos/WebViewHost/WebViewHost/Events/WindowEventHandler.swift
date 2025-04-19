@@ -14,14 +14,16 @@ enum WindowEventType {
 }
 
 class WindowEventHandler {
+  static var eventHandler: Any? = nil
+  
   static func handleEvent(_ type: String) {
     switch type {
     case WindowEventType.MAXIMIZE:
       handleMaximize()
     case WindowEventType.START_DRAGGING:
-      print("Start dragging")
+      handleStartDragging()
     case WindowEventType.STOP_DRAGGING:
-      print("Stop dragging")
+      handleStopDragging()
     default:
       break
     }
@@ -30,6 +32,27 @@ class WindowEventHandler {
   static func handleMaximize() {
     if let window = NSApp.windows.first {
       window.performZoom(nil)
+    }
+  }
+  
+  static func handleStartDragging() {
+    if (eventHandler != nil) {
+      NSEvent.removeMonitor(eventHandler as Any)
+    }
+    
+    eventHandler = NSEvent.addLocalMonitorForEvents(matching: .leftMouseDragged) { event in
+      if let window = NSApp.windows.first {
+        window.performDrag(with: event)
+      }
+      
+      return event
+    }
+  }
+  
+  static func handleStopDragging() {
+    if (eventHandler != nil) {
+      NSEvent.removeMonitor(eventHandler as Any)
+      eventHandler = nil
     }
   }
 }
