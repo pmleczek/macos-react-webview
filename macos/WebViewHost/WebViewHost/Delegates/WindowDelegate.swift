@@ -18,6 +18,12 @@ final class WindowDelegate: NSObject, NSWindowDelegate {
     }
   }
   
+  func windowWillExitFullScreen(_ notification: Notification) {
+    if let window = NSApp.windows.first {
+      hideTrafficLights(window)
+    }
+  }
+  
   func windowDidExitFullScreen(_ notification: Notification) {
     if let window = NSApp.windows.first {
       positionTrafficLights(
@@ -25,6 +31,8 @@ final class WindowDelegate: NSObject, NSWindowDelegate {
         x: WindowConstants.TRAFFIC_LIGHTS_INSET_X,
         y: WindowConstants.TRAFFIC_LIGHTS_INSET_Y
       )
+      
+      showTrafficLights(window)
     }
   }
 }

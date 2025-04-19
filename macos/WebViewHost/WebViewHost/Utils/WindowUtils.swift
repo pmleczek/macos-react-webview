@@ -47,3 +47,30 @@ func positionTrafficLights(_ window: NSWindow, x: CGFloat, y: CGFloat) {
     fullscreenButton.setFrameOrigin(fullscreenButtonFrame.origin)
   }
 }
+
+func hideTrafficLights(_ window: NSWindow) {
+  if let trafficLights = getTrafficLights(window) {
+    trafficLights.forEach { button in
+      button.isHidden = true
+    }
+  }
+}
+
+func showTrafficLights(_ window: NSWindow) {
+  if let trafficLights = getTrafficLights(window) {
+    trafficLights.forEach { button in
+      button.isHidden = false
+    }
+  }
+}
+
+func getTrafficLights(_ window: NSWindow) -> [NSButton]? {
+  guard let closeButton = window.standardWindowButton(.closeButton),
+        let minimizeButton = window.standardWindowButton(.miniaturizeButton),
+        let zoomButton = window.standardWindowButton(.zoomButton)
+  else {
+    return nil
+  }
+  
+  return [closeButton, minimizeButton, zoomButton]
+}
