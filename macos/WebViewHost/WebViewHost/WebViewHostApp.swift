@@ -30,5 +30,14 @@ struct WebViewHostApp: App {
             ContentView()
         }
         .modelContainer(sharedModelContainer)
+        .commands {
+          CommandGroup(after: .appInfo) {
+            Divider()
+            Button("Settings...") {
+              print("Open settings")
+            }
+            .keyboardShortcut(",", modifiers: [.command])
+          }
+        }
     }
 }
