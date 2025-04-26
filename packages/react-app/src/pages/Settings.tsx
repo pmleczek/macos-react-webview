@@ -1,10 +1,12 @@
-import { SidebarLayout } from "@layouts";
+import { HeaderLayout, SidebarLayout } from "@layouts";
 
 const Settings = () => {
   return (
-    <SidebarLayout>
-      <span>Settings</span>
-    </SidebarLayout>
+    <HeaderLayout>
+      <SidebarLayout>
+        <span>Settings</span>
+      </SidebarLayout>
+    </HeaderLayout>
   );
 };
 
