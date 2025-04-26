@@ -1,1 +1,1 @@
-export { RoutingContainer } from "./components";
+export { Route, RoutingContainer } from "./components";

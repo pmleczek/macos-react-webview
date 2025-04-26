@@ -4,7 +4,7 @@ import { on, off } from "ipc";
 import { HeaderBar } from "@components";
 import { SidebarLayout } from "@layouts";
 import { EventType } from "@utils/constants";
-import { RoutingContainer } from "./routing";
+import { Route, RoutingContainer } from "./routing";
 
 const App = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -25,6 +25,7 @@ const App = () => {
 
   return (
     <RoutingContainer>
+      <Route path="/" component={SidebarLayout} />
       <div id="container">
         <HeaderBar />
         <SidebarLayout>
