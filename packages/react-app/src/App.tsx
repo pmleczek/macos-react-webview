@@ -1,14 +1,11 @@
-import { HeaderBar } from "@components";
-import { SidebarLayout } from "@layouts";
 import { Route, RoutingContainer } from "./routing";
+import { Home, Settings } from "./pages";
 
 const App = () => {
   return (
     <RoutingContainer>
-      <Route path="/" component={SidebarLayout} />
-      <div id="container">
-        <HeaderBar />
-      </div>
+      <Route path="/" component={Home} />
+      <Route path="/settings" component={Settings} />
     </RoutingContainer>
   );
 };
