@@ -12,4 +12,10 @@ export interface RouteProps {
 
 export interface RoutingContainerProps {
   children: ReactNode;
+  initialRoute: string;
+}
+
+export interface NavigationState {
+  route: string;
+  params: object;
 }

@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import type { RouteEntry, RoutingContainerProps } from "./types";
+import type {
+  NavigationState,
+  RouteEntry,
+  RoutingContainerProps,
+} from "./types";
+import { NavigationStateContext } from "../contexts";
 
 const isValidRouteEntry = (props: unknown): props is RouteEntry => {
   if (props && typeof props === "object") {
@@ -10,8 +15,15 @@ const isValidRouteEntry = (props: unknown): props is RouteEntry => {
   return false;
 };
 
-const RoutingContainer = ({ children }: RoutingContainerProps) => {
+const RoutingContainer = ({
+  children,
+  initialRoute,
+}: RoutingContainerProps) => {
   const [routes, setRoutes] = useState<RouteEntry[]>([]);
+  const [navigationState, setNavigationState] = useState<NavigationState>({
+    route: initialRoute,
+    params: {},
+  });
 
   useEffect(() => {
     const childrenArray = React.Children.toArray(children);
@@ -30,7 +42,14 @@ const RoutingContainer = ({ children }: RoutingContainerProps) => {
 
   console.log(routes);
 
-  return children;
+  return (
+    <NavigationStateContext.Provider value={{
+      state: navigationState,
+      updateState: setNavigationState,
+    }}>
+      {children}
+    </NavigationStateContext.Provider>
+  );
 };
 
 export default RoutingContainer;

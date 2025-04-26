@@ -3,7 +3,7 @@ import { Home, Settings } from "@pages";
 
 const App = () => {
   return (
-    <RoutingContainer>
+    <RoutingContainer initialRoute="/">
       <Route path="/" component={Home} />
       <Route path="/settings" component={Settings} />
     </RoutingContainer>
