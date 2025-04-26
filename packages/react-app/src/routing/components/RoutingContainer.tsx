@@ -40,8 +40,6 @@ const RoutingContainer = ({
     setRoutes(routeEntries);
   }, [children]);
 
-  console.log(routes);
-
   return (
     <NavigationStateContext.Provider value={{
       state: navigationState,
