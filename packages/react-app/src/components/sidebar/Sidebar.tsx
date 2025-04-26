@@ -1,7 +1,10 @@
+import SidebarItem from "./SidebarItem";
+
 const Sidebar = () => {
   return (
     <div id="sidebar-container">
-      <span>Sidebar</span>
+      <SidebarItem label="Home" selected />
+      <SidebarItem label="Settings" />
     </div>
   );
 };
