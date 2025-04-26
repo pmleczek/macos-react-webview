@@ -1,5 +1,10 @@
 import { ComponentType, ReactNode } from "react";
 
+export interface RouteEntry {
+  component: ComponentType<any>;
+  path: string;
+}
+
 export interface RouteProps {
   component: ComponentType<any>;
   path: string;

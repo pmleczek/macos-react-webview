@@ -1,8 +1,9 @@
 import type { RouteProps } from "./types";
 
-// eslint-disable-next-line
-const Route = (_: RouteProps) => {
-  return null;
+const Route = (props: RouteProps) => {
+  const RouteComponent = props.component;
+
+  return <RouteComponent />;
 };
 
 export default Route;
