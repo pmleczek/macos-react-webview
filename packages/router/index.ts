@@ -1,1 +1,1 @@
-console.log("Hello via Bun!");
+export { default as createRouter } from "./src/createRouter";
