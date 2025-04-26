@@ -4,6 +4,7 @@ import { on, off } from "ipc";
 import { HeaderBar } from "@components";
 import { SidebarLayout } from "@layouts";
 import { EventType } from "@utils/constants";
+import { RoutingContainer } from "./routing";
 
 const App = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -23,17 +24,19 @@ const App = () => {
   }, []);
 
   return (
-    <div id="container">
-      <HeaderBar />
-      <SidebarLayout>
-        <span>
-          Test{" "}
-          {showSettings && (
-            <span>Settings (CMD + ,) menu item was selected</span>
-          )}
-        </span>
-      </SidebarLayout>
-    </div>
+    <RoutingContainer>
+      <div id="container">
+        <HeaderBar />
+        <SidebarLayout>
+          <span>
+            Test{" "}
+            {showSettings && (
+              <span>Settings (CMD + ,) menu item was selected</span>
+            )}
+          </span>
+        </SidebarLayout>
+      </div>
+    </RoutingContainer>
   );
 };
 
