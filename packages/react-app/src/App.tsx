@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { on, off } from "ipc";
 
 import { HeaderBar } from "@components";
+import { SidebarLayout } from "@layouts";
 import { EventType } from "@utils/constants";
-import { SidebarLayout } from "./layouts";
 
 const App = () => {
   const [showSettings, setShowSettings] = useState(false);
