@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { on, off } from "ipc";
 
-import { HeaderBar } from "@components";
+import { HeaderBar, Sidebar } from "@components";
 import { EventType } from "@utils/constants";
 
 const App = () => {
@@ -25,6 +25,7 @@ const App = () => {
     <div id="container">
       <HeaderBar />
       <div id="main-container">
+        <Sidebar />
         <span>
           Test{" "}
           {showSettings && (

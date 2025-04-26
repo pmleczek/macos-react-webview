@@ -32,3 +32,11 @@ p, span, h1, h2, h3, h4, h5, h6 {
   height: 52px;
   border-bottom: 1px solid #2a2a2a;
 }
+
+#sidebar-container {
+  border-right: 1px solid #2a2a2a;
+  height: 100%;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
