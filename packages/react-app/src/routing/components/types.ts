@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 
 export interface RouteEntry {
   component: ComponentType<any>;
@@ -18,4 +18,10 @@ export interface RoutingContainerProps {
 export interface NavigationState {
   route: string;
   params: object;
+}
+
+export interface LinkProps {
+  children: ReactNode;
+  to: string;
+  params?: object;
 }
