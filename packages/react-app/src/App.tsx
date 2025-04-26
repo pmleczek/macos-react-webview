@@ -1,5 +1,5 @@
 import { Route, RoutingContainer } from "./routing";
-import { Home, Settings } from "./pages";
+import { Home, Settings } from "@pages";
 
 const App = () => {
   return (
