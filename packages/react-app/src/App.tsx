@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { on, off } from "ipc";
 
-import { HeaderBar, Sidebar } from "@components";
+import { HeaderBar } from "@components";
 import { EventType } from "@utils/constants";
+import { SidebarLayout } from "./layouts";
 
 const App = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -24,15 +25,14 @@ const App = () => {
   return (
     <div id="container">
       <HeaderBar />
-      <div id="main-container">
-        <Sidebar />
+      <SidebarLayout>
         <span>
           Test{" "}
           {showSettings && (
             <span>Settings (CMD + ,) menu item was selected</span>
           )}
         </span>
-      </div>
+      </SidebarLayout>
     </div>
   );
 };

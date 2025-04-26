@@ -72,3 +72,16 @@ p, span, h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   color: #d0d0d0;
 }
+
+.sidebar-layout-container {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sidebar-layout-content-container {
+  flex: 1;
+  height: 100%;
+}
