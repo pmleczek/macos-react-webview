@@ -5,11 +5,17 @@
 //  Created by Patryk Mleczek on 4/12/25.
 //
 
+import Combine
 import SwiftUI
 import WebKit
 
 struct ReactWebView: NSViewRepresentable, WebViewDelegate {
+  @EnvironmentObject var ipcEventEmitter: IPCEventEmitter
+  @ObservedObject var viewModel: WebViewModel
+  
   func makeNSView(context: Context) -> WKWebView {
+    ipcEventEmitter.setWebViewModel(viewModel)
+    
     let preferences = WKWebpagePreferences()
     preferences.allowsContentJavaScript = true
     
@@ -51,10 +57,23 @@ struct ReactWebView: NSViewRepresentable, WebViewDelegate {
   class Coordinator: NSObject, WKNavigationDelegate {
     var parent: ReactWebView
     var delegate: WebViewDelegate?
+    var onSendValueFromNative: AnyCancellable? = nil
     
     init(_ nsView: ReactWebView) {
       self.parent = nsView
       self.delegate = nsView
+    }
+    
+    deinit {
+      onSendValueFromNative?.cancel()
+    }
+    
+    func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
+      self.onSendValueFromNative = self.parent.viewModel.onSendValueFromNative
+        .receive(on: RunLoop.main)
+        .sink(receiveValue: { value in
+          webView.evaluateJavaScript(value)
+        })
     }
   }
 }

@@ -10,9 +10,10 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @ObservedObject var viewModel = WebViewModel()
 
     var body: some View {
-      ReactWebView()
+      ReactWebView(viewModel: viewModel)
         .ignoresSafeArea()
     }
 }
