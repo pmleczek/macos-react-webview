@@ -1,12 +1,12 @@
-import { Route, RoutingContainer } from "./routing";
+import { Route, Router } from "./routing";
 import { Home, Settings } from "@pages";
 
 const App = () => {
   return (
-    <RoutingContainer initialRoute="/">
-      <Route path="/" component={Home} />
-      <Route path="/settings" component={Settings} />
-    </RoutingContainer>
+    <Router>
+      <Route name="Home" component={Home} />
+      <Route name="Settings" component={Settings} />
+    </Router>
   );
 };
 
