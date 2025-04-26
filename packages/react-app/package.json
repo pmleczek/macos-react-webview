@@ -12,7 +12,8 @@
   "dependencies": {
     "ipc": "workspace:*",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "router": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
