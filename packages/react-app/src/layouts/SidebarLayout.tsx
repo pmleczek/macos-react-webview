@@ -1,7 +1,7 @@
 import { Sidebar } from "@components";
-import type { SidebarLayoutProps } from "./types";
+import type { LayoutProps } from "./types";
 
-const SidebarLayout = ({ children }: SidebarLayoutProps) => {
+const SidebarLayout = ({ children }: LayoutProps) => {
   return (
     <div className="sidebar-layout-container">
       <Sidebar />
