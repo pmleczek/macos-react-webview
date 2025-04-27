@@ -2,6 +2,9 @@
   "name": "router",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "build": "bun test && bun build ./index.ts --outdir ./dist "
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/react": "^19.1.0"
