@@ -15,6 +15,10 @@ p, span, h1, h2, h3, h4, h5, h6 {
   cursor: default;
 }
 
+a {
+  -webkit-user-drag: none;
+}
+
 #header-bar {
   height: 52px;
   border-bottom: 1px solid #2a2a2a;
