@@ -1,13 +1,20 @@
-import { Route, Router } from "./routing";
+import { createBrowserRouter, RouterProvider } from "react-router";
+
 import { Home, Settings } from "@pages";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: Home,
+  },
+  {
+    path: "/settings",
+    Component: Settings,
+  },
+]);
+
 const App = () => {
-  return (
-    <Router>
-      <Route name="Home" component={Home} />
-      <Route name="Settings" component={Settings} />
-    </Router>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

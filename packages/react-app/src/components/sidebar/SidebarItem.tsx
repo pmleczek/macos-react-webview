@@ -1,13 +1,15 @@
-import { Link } from "../../routing";
+import { NavLink } from "react-router";
+
 import type { SidebarItemProps } from "./types";
 
-const SidebarItem = ({ label, selected }: SidebarItemProps) => {
+const SidebarItem = ({ label, to }: SidebarItemProps) => {
   return (
-    <Link to="Settings">
-      <div className={`sidebar-item ${selected ? "selected" : ""}`}>
-        <span className="sidebar-item-label">{label}</span>
-      </div>
-    </Link>
+    <NavLink
+      to={to}
+      className={({ isActive }) => `sidebar-item ${isActive ? "selected" : ""}`}
+    >
+      <span className="sidebar-item-label">{label}</span>
+    </NavLink>
   );
 };
 
