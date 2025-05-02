@@ -38,6 +38,7 @@ a {
   height: 32px;
   display: flex;
   align-items: center;
+  gap: 8px;
   padding: 8px 12px;
   border-radius: 6px;
   -webkit-transition-property: background-color;

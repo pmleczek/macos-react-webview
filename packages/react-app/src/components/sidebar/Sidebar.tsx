@@ -1,10 +1,29 @@
 import SidebarItem from "./SidebarItem";
+import type { SidebarItemEntry } from "./types";
+
+const sidebarItems: SidebarItemEntry[] = [
+  {
+    iconName: "home",
+    label: "Home",
+    to: "/",
+  },
+  {
+    iconName: "settings",
+    label: "Settings",
+    to: "/settings",
+  },
+];
 
 const Sidebar = () => {
   return (
     <div id="sidebar-container">
-      <SidebarItem label="Home" to="/" />
-      <SidebarItem label="Settings" to="/settings" />
+      {sidebarItems.map((sidebarItem: SidebarItemEntry) => (
+        <SidebarItem
+          icon={sidebarItem.iconName}
+          label={sidebarItem.label}
+          to={sidebarItem.to}
+        />
+      ))}
     </div>
   );
 };
