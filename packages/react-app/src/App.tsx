@@ -1,11 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
-import { Home, Settings } from "@pages";
+import { Home, Settings, Table } from "@pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: Home,
+  },
+  {
+    path: "/table",
+    Component: Table,
   },
   {
     path: "/settings",

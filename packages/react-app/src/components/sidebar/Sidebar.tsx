@@ -8,6 +8,11 @@ const sidebarItems: SidebarItemEntry[] = [
     to: "/",
   },
   {
+    iconName: "table",
+    label: "Table",
+    to: "/table",
+  },
+  {
     iconName: "settings",
     label: "Settings",
     to: "/settings",
