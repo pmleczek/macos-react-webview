@@ -84,3 +84,8 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+.page-container {
+  height: 100%;
+  padding: 16px;
+}
