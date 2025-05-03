@@ -1,8 +1,16 @@
-import type { TableBaseProps } from "./types";
+import type { TableRowProps } from "./types";
 import styles from "./index.module.css";
 
-const Row = ({ children }: TableBaseProps) => {
-  return <tr className={styles.table_row}>{children}</tr>;
+const Row = ({ children, hoverable }: TableRowProps) => {
+  return (
+    <tr
+      className={`${styles.table_row} ${
+        hoverable ? styles.table_row_hoverable : ""
+      }`}
+    >
+      {children}
+    </tr>
+  );
 };
 
 export default Row;
