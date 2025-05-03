@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.7.0",
     "@tabler/icons-react": "^3.31.0",
     "ipc": "workspace:*",
     "react": "^19.0.0",
