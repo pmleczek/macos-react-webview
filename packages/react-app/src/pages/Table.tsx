@@ -35,7 +35,20 @@ const TablePage = () => {
             </Table.Header>
             <Table.Body>
               {generateSampleItems(10).map((item: SampleItem) => (
-                <Table.Row key={item.id} hoverable>
+                <Table.Row
+                  key={item.id}
+                  hoverable
+                  contextMenuItems={[
+                    {
+                      label: "Edit",
+                      handler: () => console.log(),
+                    },
+                    {
+                      label: "Delete",
+                      handler: () => console.log(),
+                    },
+                  ]}
+                >
                   <Table.Cell>{item.id}</Table.Cell>
                   <Table.Cell>{item.date.toLocaleString()}</Table.Cell>
                   <Table.Cell>{item.emoji}</Table.Cell>
