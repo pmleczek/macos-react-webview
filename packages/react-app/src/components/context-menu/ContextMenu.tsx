@@ -1,22 +1,22 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback } from "react";
+import { useSetAtom } from "jotai";
 
+import { contextMenuAtom } from "./atoms";
 import type { ContextMenuProps } from "./types";
-import ContextMenuProvider from "./Provider";
-import { ContextMenuContext } from "../../contexts";
 
 const ContextMenu = ({ as, children, className, items }: ContextMenuProps) => {
-  const context = useContext(ContextMenuContext);
+  const setContextMenuState = useSetAtom(contextMenuAtom);
 
   const handleContextMenu = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       event.preventDefault();
-      context?.setContextMenuState({
+      setContextMenuState({
         x: event.pageX,
         y: event.pageY,
         items,
       });
     },
-    [context, items]
+    [items, setContextMenuState]
   );
 
   if (as) {
@@ -34,7 +34,5 @@ const ContextMenu = ({ as, children, className, items }: ContextMenuProps) => {
     </div>
   );
 };
-
-ContextMenu.Provider = ContextMenuProvider;
 
 export default ContextMenu;

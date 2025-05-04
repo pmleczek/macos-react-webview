@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
-import { ContextMenu } from "@components";
 import { Home, Settings, Table } from "@pages";
 
 const router = createBrowserRouter([
@@ -19,11 +18,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return (
-    <ContextMenu.Provider>
-      <RouterProvider router={router} />
-    </ContextMenu.Provider>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

@@ -1,38 +1,35 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
+import { useAtom } from "jotai";
 
-import { ContextMenuContext } from "../../contexts";
 import { useHandleClickOutside } from "@hooks";
+import { contextMenuAtom } from "./atoms";
 import styles from "./index.module.css";
 import Icon from "../icon";
 
 const Menu = () => {
-  const context = useContext(ContextMenuContext);
+  const [state, setState] = useAtom(contextMenuAtom);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useHandleClickOutside({
     ref: menuRef,
     onClickOutside: () => {
-      if (context) {
-        context.setContextMenuState(null);
-      }
+      setState(null);
     },
   });
 
-  if (!context || !context.contextMenuState) {
+  if (!state) {
     return null;
   }
-
-  const { contextMenuState, setContextMenuState } = context;
 
   const handleClick = (
     handlerFunction?: (() => void) | (() => Promise<void>)
   ) => {
     handlerFunction?.();
-    setContextMenuState(null);
+    setState(null);
   };
 
   const hasAnyIcon =
-    contextMenuState.items.find((item) => !!item.icon) != undefined;
+    state.items.find((item) => !!item.icon) != undefined;
   const iconPlaceholder = hasAnyIcon ? (
     <span className={styles.icon_placeholder} />
   ) : null;
@@ -42,11 +39,11 @@ const Menu = () => {
       ref={menuRef}
       className={styles.menu_container}
       style={{
-        left: contextMenuState.x,
-        top: contextMenuState.y,
+        left: state.x,
+        top: state.y,
       }}
     >
-      {contextMenuState.items.map((item) => (
+      {state.items.map((item) => (
         <button
           onClick={() => handleClick(item.handler)}
           className={styles.menu_item}

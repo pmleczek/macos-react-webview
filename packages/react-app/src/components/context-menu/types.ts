@@ -21,3 +21,9 @@ export interface ContextMenuProviderProps {
 export interface MenuProps {
   items: ContextMenuItem[];
 }
+
+export type ContextMenuAtom = {
+  x: number;
+  y: number;
+  items: ContextMenuItem[];
+} | null;
