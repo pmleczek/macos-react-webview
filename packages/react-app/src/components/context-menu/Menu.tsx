@@ -1,11 +1,22 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 
 import { ContextMenuContext } from "../../contexts";
+import { useHandleClickOutside } from "@hooks";
 import styles from "./index.module.css";
 import Icon from "../icon";
 
 const Menu = () => {
   const context = useContext(ContextMenuContext);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useHandleClickOutside({
+    ref: menuRef,
+    onClickOutside: () => {
+      if (context) {
+        context.setContextMenuState(null);
+      }
+    },
+  });
 
   if (!context || !context.contextMenuState) {
     return null;
@@ -28,6 +39,7 @@ const Menu = () => {
 
   return (
     <div
+      ref={menuRef}
       className={styles.menu_container}
       style={{
         left: contextMenuState.x,
