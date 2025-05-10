@@ -1,32 +1,73 @@
-import { useEffect } from "react";
-import { useSetAtom } from "jotai";
 
-import { tableStateAtom } from "./atoms";
-import type { TableProps } from "./types";
-import Body from "./Body";
+import type { Column, TableContextMenuItem, TableProps } from "./types";
 import Cell from "./Cell";
-import Head from "./Head";
-import Header from "./Header";
+import Checkbox from "./Checkbox";
 import Row from "./Row";
 import styles from "./index.module.css";
 
-const Table = ({ checkboxes = false, children }: TableProps) => {
-  const setTableState = useSetAtom(tableStateAtom);
+const Table = <T,>(props: TableProps<T>) => {
+  const {
+    checkboxes,
+    columns,
+    contextMenuItems,
+    data,
+    disableHovering,
+    keyExtractor,
+    renderRow,
+  } = props;
 
-  useEffect(() => {
-    setTableState({
-      renderCheckboxes: checkboxes,
-      selectedIndices: [],
-    });
-  }, [checkboxes, setTableState]);
-
-  return <table className={styles.table}>{children}</table>;
+  return (
+    <table className={styles.table}>
+      {/* Table header */}
+      <thead className={styles.table_header}>
+        <Row>
+          {checkboxes && (
+            <td className={styles.table_cell_checkbox}>
+              <Checkbox dataCount={data.length} />
+            </td>
+          )}
+          {columns.map((column: Column<T>) => {
+            const isObject = typeof column !== "string";
+            return (
+              <th
+                key={isObject ? column.key : column}
+                className={styles.table_head}
+              >
+                {isObject ? column.label : column}
+              </th>
+            );
+          })}
+        </Row>
+      </thead>
+      {/* Table body */}
+      <tbody className={styles.table_body}>
+        {data.map((item: T, index: number) => (
+          <Row
+            contextMenuItems={
+              contextMenuItems &&
+              contextMenuItems.map((menuItem: TableContextMenuItem<T>) => ({
+                icon: menuItem.icon,
+                label: menuItem.label,
+                handler: () => menuItem.onSelect(item, index),
+              }))
+            }
+            hoverable={!disableHovering}
+            index={index}
+            key={keyExtractor(item, index)}
+          >
+            {checkboxes && (
+              <td className={styles.table_cell_checkbox}>
+                <Checkbox index={index} />
+              </td>
+            )}
+            {renderRow(item, index)}
+          </Row>
+        ))}
+      </tbody>
+    </table>
+  );
 };
 
-Table.Body = Body;
 Table.Cell = Cell;
-Table.Head = Head;
-Table.Header = Header;
-Table.Row = Row;
 
 export default Table;

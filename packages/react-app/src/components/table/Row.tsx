@@ -1,9 +1,8 @@
 import cs from "classnames";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 
-import { tableSelectedRowAtom, tableStateAtom } from "./atoms";
+import { selectedRowAtom } from "./atoms";
 import type { TableRowProps } from "./types";
-import Checkbox from "./Checkbox";
 import styles from "./index.module.css";
 import ContextMenu from "../context-menu";
 
@@ -13,8 +12,7 @@ const Row = ({
   hoverable,
   index,
 }: TableRowProps) => {
-  const tableState = useAtomValue(tableStateAtom);
-  const [selectedRow, setSelectedRow] = useAtom(tableSelectedRowAtom);
+  const [selectedRow, setSelectedRow] = useAtom(selectedRowAtom);
 
   const isHoverable = hoverable && selectedRow == -1;
 
@@ -28,14 +26,9 @@ const Row = ({
           isHoverable && styles.table_row_hoverable,
           selectedRow === index && styles.selected
         )}
-        onContextMenu={() => setSelectedRow(index)}
+        onContextMenu={() => setSelectedRow(index ?? -1)}
         onContextMenuHide={() => setSelectedRow(-1)}
       >
-        {tableState?.renderCheckboxes && (
-          <td className={styles.table_cell_checkbox}>
-            <Checkbox />
-          </td>
-        )}
         {children}
       </ContextMenu>
     );
@@ -47,11 +40,6 @@ const Row = ({
         isHoverable ? styles.table_row_hoverable : ""
       }`}
     >
-      {tableState?.renderCheckboxes && (
-        <td className={styles.table_cell_checkbox}>
-          <Checkbox />
-        </td>
-      )}
       {children}
     </tr>
   );

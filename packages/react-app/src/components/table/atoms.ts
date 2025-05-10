@@ -1,7 +1,5 @@
 import { atom } from "jotai";
 
-import type { TableStateAtom } from "./types";
+export const selectedRowsAtom = atom<Set<number>>(new Set<number>());
 
-export const tableStateAtom = atom<TableStateAtom>();
-
-export const tableSelectedRowAtom = atom<number>(-1);
+export const selectedRowAtom = atom<number>(-1);

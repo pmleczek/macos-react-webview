@@ -77,9 +77,6 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  transition-property: background-color;
-  transition-duration: 50ms;
-  transition-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
   display: flex;
   justify-content: center;
 }

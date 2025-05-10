@@ -27,40 +27,53 @@ const TablePage = () => {
     <HeaderLayout>
       <SidebarLayout>
         <div className="page-container">
-          <Table checkboxes>
-            <Table.Header>
-              <Table.Row index={-1}>
-                <Table.Head>ID</Table.Head>
-                <Table.Head>Date</Table.Head>
-                <Table.Head>Emoji</Table.Head>
-                <Table.Head>Price</Table.Head>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {data.map((item: SampleItem, index: number) => (
-                <Table.Row
-                  index={index}
-                  key={item.id}
-                  hoverable
-                  contextMenuItems={[
-                    {
-                      label: "Edit",
-                      handler: () => console.log(),
-                    },
-                    {
-                      label: "Delete",
-                      handler: () => console.log(),
-                    },
-                  ]}
-                >
-                  <Table.Cell>{item.id}</Table.Cell>
-                  <Table.Cell>{item.date.toLocaleString()}</Table.Cell>
-                  <Table.Cell>{item.emoji}</Table.Cell>
-                  <Table.Cell>{item.price}</Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
+          <Table<SampleItem>
+            checkboxes
+            columns={[
+              {
+                key: "id",
+                label: "Id",
+              },
+              {
+                key: "date",
+                label: "Date",
+              },
+              {
+                key: "emoji",
+                label: "Emoji",
+              },
+              {
+                key: "price",
+                label: "Price",
+              },
+            ]}
+            contextMenuItems={[
+              {
+                label: "Edit",
+                onSelect: (item) => {
+                  console.log("Edit");
+                  console.log(item);
+                },
+              },
+              {
+                label: "Delete",
+                onSelect: (item) => {
+                  console.log("Delete");
+                  console.log(item);
+                },
+              },
+            ]}
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderRow={(item: SampleItem) => (
+              <>
+                <Table.Cell>{item.id}</Table.Cell>
+                <Table.Cell>{item.date.toLocaleDateString()}</Table.Cell>
+                <Table.Cell>{item.emoji}</Table.Cell>
+                <Table.Cell>{item.price}</Table.Cell>
+              </>
+            )}
+          />
         </div>
       </SidebarLayout>
     </HeaderLayout>
