@@ -12,6 +12,7 @@
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
     "@tabler/icons-react": "^3.31.0",
+    "classnames": "^2.5.1",
     "ipc": "workspace:*",
     "jotai": "^2.12.3",
     "react": "^19.0.0",
