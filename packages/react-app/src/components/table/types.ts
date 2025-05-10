@@ -6,7 +6,23 @@ export interface TableBaseProps {
   children?: ReactNode;
 }
 
+export interface TableProps extends TableBaseProps {
+  checkboxes?: boolean;
+}
+
 export interface TableRowProps extends TableBaseProps {
   hoverable?: boolean;
   contextMenuItems?: ContextMenuItem[];
 }
+
+export interface TableCheckboxProps {
+  checked?: boolean;
+  onChange: (newValue: boolean) => void;
+}
+
+export type TableStateAtom =
+  | {
+      renderCheckboxes: boolean;
+      selectedIndices: number[];
+    }
+  | undefined;

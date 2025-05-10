@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { faker } from "@faker-js/faker";
 
 import { Table } from "@components";
@@ -20,11 +21,13 @@ const generateSampleItems = (count: number): SampleItem[] => {
 };
 
 const TablePage = () => {
+  const [data, setData] = useState<SampleItem[]>(generateSampleItems(10));
+
   return (
     <HeaderLayout>
       <SidebarLayout>
         <div className="page-container">
-          <Table>
+          <Table checkboxes>
             <Table.Header>
               <Table.Row>
                 <Table.Head>ID</Table.Head>
@@ -34,7 +37,7 @@ const TablePage = () => {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {generateSampleItems(10).map((item: SampleItem) => (
+              {data.map((item: SampleItem) => (
                 <Table.Row
                   key={item.id}
                   hoverable

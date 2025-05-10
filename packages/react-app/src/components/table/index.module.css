@@ -27,6 +27,13 @@
   flex: 1;
 }
 
+.table_cell_checkbox {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .table_row {
   display: flex;
   align-items: center;
@@ -57,4 +64,32 @@
 
 .table_body .table_row:not(:last-child) {
   border-bottom: 1px solid #2a2a2a;
+}
+
+.table_checkbox {
+  border-radius: 6px;
+  border: 1px solid #414141;
+  background-color: #121212;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: 50ms;
+  transition-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
+  display: flex;
+  justify-content: center;
+}
+
+.table_checkbox:checked {
+  background-color: #ffffff;
+}
+
+.table_checkbox:checked::after {
+  content: "";
+  width: 6px;
+  border-bottom: 2px solid #121212;
+  height: 12px;
+  border-right: 2px solid #121212;
+  transform: rotate(45deg);
+  margin-top: 2px;
 }
