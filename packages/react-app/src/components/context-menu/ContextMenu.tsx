@@ -4,7 +4,14 @@ import { useSetAtom } from "jotai";
 import { contextMenuAtom } from "./atoms";
 import type { ContextMenuProps } from "./types";
 
-const ContextMenu = ({ as, children, className, items }: ContextMenuProps) => {
+const ContextMenu = ({
+  as,
+  children,
+  className,
+  items,
+  onContextMenu,
+  onContextMenuHide,
+}: ContextMenuProps) => {
   const setContextMenuState = useSetAtom(contextMenuAtom);
 
   const handleContextMenu = useCallback(
@@ -14,9 +21,11 @@ const ContextMenu = ({ as, children, className, items }: ContextMenuProps) => {
         x: event.pageX,
         y: event.pageY,
         items,
+        onHide: onContextMenuHide,
       });
+      onContextMenu?.();
     },
-    [items, setContextMenuState]
+    [items, onContextMenu, onContextMenuHide, setContextMenuState]
   );
 
   if (as) {

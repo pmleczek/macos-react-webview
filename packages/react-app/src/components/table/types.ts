@@ -11,8 +11,9 @@ export interface TableProps extends TableBaseProps {
 }
 
 export interface TableRowProps extends TableBaseProps {
-  hoverable?: boolean;
   contextMenuItems?: ContextMenuItem[];
+  hoverable?: boolean;
+  index: number;
 }
 
 export interface TableCheckboxProps {

@@ -29,7 +29,7 @@ const TablePage = () => {
         <div className="page-container">
           <Table checkboxes>
             <Table.Header>
-              <Table.Row>
+              <Table.Row index={-1}>
                 <Table.Head>ID</Table.Head>
                 <Table.Head>Date</Table.Head>
                 <Table.Head>Emoji</Table.Head>
@@ -37,8 +37,9 @@ const TablePage = () => {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {data.map((item: SampleItem) => (
+              {data.map((item: SampleItem, index: number) => (
                 <Table.Row
+                  index={index}
                   key={item.id}
                   hoverable
                   contextMenuItems={[

@@ -6,6 +6,8 @@ export interface ContextMenuProps {
   children?: ReactNode;
   className?: string;
   items: ContextMenuItem[];
+  onContextMenu?: () => void;
+  onContextMenuHide?: () => void;
 }
 
 export interface ContextMenuItem {
@@ -26,4 +28,5 @@ export type ContextMenuAtom = {
   x: number;
   y: number;
   items: ContextMenuItem[];
+  onHide?: () =>  void;
 } | null;

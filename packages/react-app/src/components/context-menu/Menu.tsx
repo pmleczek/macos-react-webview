@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { useAtom } from "jotai";
 
 import { useHandleClickOutside } from "@hooks";
@@ -10,10 +10,15 @@ const Menu = () => {
   const [state, setState] = useAtom(contextMenuAtom);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const hideMenu = useCallback(() => {
+    state?.onHide?.();
+    setState(null);
+  }, [state, setState]);
+
   useHandleClickOutside({
     ref: menuRef,
     onClickOutside: () => {
-      setState(null);
+      hideMenu();
     },
   });
 
@@ -25,11 +30,10 @@ const Menu = () => {
     handlerFunction?: (() => void) | (() => Promise<void>)
   ) => {
     handlerFunction?.();
-    setState(null);
+    hideMenu();
   };
 
-  const hasAnyIcon =
-    state.items.find((item) => !!item.icon) != undefined;
+  const hasAnyIcon = state.items.find((item) => !!item.icon) != undefined;
   const iconPlaceholder = hasAnyIcon ? (
     <span className={styles.icon_placeholder} />
   ) : null;
