@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { faker } from "@faker-js/faker";
 
-import { Table } from "@components";
+import { Button, Table } from "@components";
 import { HeaderLayout, SidebarLayout } from "@layouts";
+import styles from "./index.module.css";
+import NewItemModal from "./NewItemModal";
 
 interface SampleItem {
   id: string;
@@ -22,11 +24,19 @@ const generateSampleItems = (count: number): SampleItem[] => {
 
 const TablePage = () => {
   const [data, setData] = useState<SampleItem[]>(generateSampleItems(10));
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const deleteItem = useCallback((selectedItem: SampleItem) => {
+    setData((prev) => prev.filter((item) => item.id !== selectedItem.id));
+  }, []);
 
   return (
     <HeaderLayout>
       <SidebarLayout>
         <div className="page-container">
+          <div className={styles.filter_container}>
+            <Button label="New item" onClick={() => setShowModal(true)} />
+          </div>
           <Table<SampleItem>
             checkboxes
             columns={[
@@ -57,10 +67,7 @@ const TablePage = () => {
               },
               {
                 label: "Delete",
-                onSelect: (item) => {
-                  console.log("Delete");
-                  console.log(item);
-                },
+                onSelect: deleteItem,
               },
             ]}
             data={data}
@@ -75,6 +82,7 @@ const TablePage = () => {
             )}
           />
         </div>
+        <NewItemModal show={showModal} setShow={setShowModal} />
       </SidebarLayout>
     </HeaderLayout>
   );
