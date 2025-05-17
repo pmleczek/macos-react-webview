@@ -1,6 +1,12 @@
-import { IconSettings, IconSmartHome, IconTable } from "@tabler/icons-react";
+import {
+  IconSettings,
+  IconSmartHome,
+  IconTable,
+  IconX,
+} from "@tabler/icons-react";
 
 const icons = {
+  close: IconX,
   home: IconSmartHome,
   settings: IconSettings,
   table: IconTable,
