@@ -6,14 +6,21 @@
 //
 
 import Foundation
+import SwiftData
 
 enum EventScope {
   static let DATA = "data"
   static let WINDOW = "window"
 }
 
-class IPCEventHandler {
-  static func handleEvent(_ event: String) {
+class IPCEventHandler: ObservableObject {
+  var modelContext: ModelContext? = nil
+    
+  func setModelContext(_ context: ModelContext) {
+    self.modelContext = context
+  }
+  
+  func handleEvent(_ event: String) {
     let (eventType, eventPayload) = parseMessage(event)
     let (scope, type) = splitEventType(eventType)
     
@@ -21,14 +28,14 @@ class IPCEventHandler {
     case EventScope.WINDOW:
       WindowEventHandler.handleEvent(type)
     case EventScope.DATA:
-      DataEventHandler.handleEvent(type, eventPayload)
+      DataEventHandler.handleEvent(type, eventPayload, self.modelContext!)
     default:
       break
     }
     
   }
   
-  static func parseMessage(_ message: String) -> (String, [String: Any]) {
+  func parseMessage(_ message: String) -> (String, [String: Any]) {
     if let data = message.data(using: .utf8) {
       do {
         if let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
@@ -47,7 +54,7 @@ class IPCEventHandler {
     return ("", [:])
   }
   
-  static func splitEventType(_ eventType: String) -> (String, String) {
+  func splitEventType(_ eventType: String) -> (String, String) {
     let parts = eventType.components(separatedBy: ":")
     return (parts[0], parts[1])
   }

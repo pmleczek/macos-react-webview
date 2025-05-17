@@ -11,10 +11,13 @@ import WebKit
 
 struct ReactWebView: NSViewRepresentable, WebViewDelegate {
   @EnvironmentObject var ipcEventEmitter: IPCEventEmitter
+  @EnvironmentObject var ipcEventHandler: IPCEventHandler
+  @Environment(\.modelContext) private var modelContext
   @ObservedObject var viewModel: WebViewModel
   
   func makeNSView(context: Context) -> WKWebView {
     ipcEventEmitter.setWebViewModel(viewModel)
+    ipcEventHandler.setModelContext(modelContext)
     
     let preferences = WKWebpagePreferences()
     preferences.allowsContentJavaScript = true
@@ -47,7 +50,7 @@ struct ReactWebView: NSViewRepresentable, WebViewDelegate {
   }
   
   func onEventReceived(_ payload: String) {
-    IPCEventHandler.handleEvent(payload)
+    ipcEventHandler.handleEvent(payload)
   }
   
   func makeCoordinator() -> Coordinator {

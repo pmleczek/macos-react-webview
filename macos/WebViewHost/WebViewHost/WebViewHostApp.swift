@@ -12,6 +12,7 @@ import SwiftData
 struct WebViewHostApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var ipcEventEmitter: IPCEventEmitter = IPCEventEmitter()
+    @StateObject var ipcEventHandler: IPCEventHandler = IPCEventHandler()
   
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -30,6 +31,7 @@ struct WebViewHostApp: App {
         WindowGroup {
             ContentView()
             .environmentObject(ipcEventEmitter)
+            .environmentObject(ipcEventHandler)
         }
         .modelContainer(sharedModelContainer)
         .commands {
