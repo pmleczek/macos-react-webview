@@ -1,4 +1,5 @@
 import type { ButtonProps } from "./types";
+import Icon from "./Icon";
 import styles from "./index.module.css";
 
 const Button = ({ label, onClick, type }: ButtonProps) => {
@@ -12,5 +13,7 @@ const Button = ({ label, onClick, type }: ButtonProps) => {
     </button>
   );
 };
+
+Button.Icon = Icon;
 
 export default Button;
