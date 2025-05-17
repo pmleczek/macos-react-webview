@@ -1,0 +1,26 @@
+.text_input {
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  height: 36px;
+  font-size: 14px;
+  line-height: 18px;
+  padding-left: 12px;
+  width: 100%;
+}
+
+.text_input:focus-visible {
+  outline: 1px solid #ffffff;
+}
+
+.text_input::placeholder {
+  color: #717171;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.text_input_label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  padding-bottom: 8px;
+}

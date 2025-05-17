@@ -5,4 +5,5 @@ export { default as Icon } from "./icon";
 export { default as Modal } from "./modal";
 export { default as Sidebar } from "./sidebar";
 export { Table } from "./table";
+export { default as TextInput } from "./text-input";
 export { default as WindowDrag } from "./window-drag";
