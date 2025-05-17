@@ -3,6 +3,7 @@ import cs from "classnames";
 import type { ModalProps } from "./types";
 import Container from "./Container";
 import Header from "./Header";
+import Footer from "./Footer";
 import styles from "./index.module.css";
 
 const Modal = ({ blur, children, onHide, show }: ModalProps) => {
@@ -27,5 +28,6 @@ const Modal = ({ blur, children, onHide, show }: ModalProps) => {
 
 Modal.Container = Container;
 Modal.Header = Header;
+Modal.Footer = Footer;
 
 export default Modal;

@@ -16,3 +16,7 @@ export interface ModalHeaderProps {
   onHide: () => void;
   title?: string;
 }
+
+export interface ModalFooterProps {
+  children?: ReactNode;
+}
