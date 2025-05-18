@@ -15,9 +15,14 @@ enum EventScope {
 
 class IPCEventHandler: ObservableObject {
   var modelContext: ModelContext? = nil
+  var webViewModel: WebViewModel? = nil
     
   func setModelContext(_ context: ModelContext) {
     self.modelContext = context
+  }
+  
+  func setWebViewModel(_ webViewModel: WebViewModel) {
+    self.webViewModel = webViewModel
   }
   
   func handleEvent(_ event: String) {
@@ -28,11 +33,24 @@ class IPCEventHandler: ObservableObject {
     case EventScope.WINDOW:
       WindowEventHandler.handleEvent(type)
     case EventScope.DATA:
-      DataEventHandler.handleEvent(type, eventPayload, self.modelContext!)
+      DataEventHandler.handleEvent(type, eventPayload, self.modelContext!, self)
     default:
       break
     }
     
+  }
+  
+  func emit(_ eventType: String, _ payload: String = "{}") {
+    guard self.webViewModel != nil else {
+      return
+    }
+    
+    let javaScript = toJavaScript(eventType, payload)
+    self.webViewModel?.onSendValueFromNative.send(javaScript)
+  }
+  
+  private func toJavaScript(_ eventType: String, _ payload: String = "{}") -> String {
+    return "var event = new CustomEvent('webview-event', { 'detail': { 'type': '\(eventType)', 'payload': \(payload) } }); window.dispatchEvent(event)"
   }
   
   func parseMessage(_ message: String) -> (String, [String: Any]) {
