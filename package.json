@@ -9,6 +9,7 @@
     "dev": "bun --filter 'react-app' dev"
   },
   "devDependencies": {
+    "eslint": "^9.27.0",
     "prettier": "^3.5.3"
   }
 }
