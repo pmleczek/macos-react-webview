@@ -1,16 +1,31 @@
 import type { EventDetails } from "./types";
 
-const listenerMap: { [eventType: string]: ((payload: Object) => void)[] } = {};
+interface ListenerMapEntry {
+  singleUse: boolean;
+  callback: (payload: Object) => void;
+}
+
+interface ListenerOptions {
+  singleUse?: boolean;
+}
+
+const listenerMap: { [eventType: string]: ListenerMapEntry[] } = {};
 
 export function on(
   eventType: string,
-  callback: (payload: Object) => void
+  callback: (payload: Object) => void,
+  options?: ListenerOptions
 ): string {
+  const listenerEntry: ListenerMapEntry = {
+    callback,
+    singleUse: options?.singleUse ?? false,
+  };
+
   if (eventType in listenerMap) {
-    listenerMap[eventType].push(callback);
+    listenerMap[eventType].push(listenerEntry);
     return `${eventType}_${listenerMap[eventType].length - 1}`;
   } else {
-    listenerMap[eventType] = [callback];
+    listenerMap[eventType] = [listenerEntry];
     return `${eventType}_0`;
   }
 }
@@ -33,8 +48,11 @@ export function off(listenerId: string) {
 
 function handleEvent(event: CustomEventInit<EventDetails>) {
   if (event.detail?.type && event.detail.type in listenerMap) {
-    listenerMap[event.detail.type].forEach((listener) =>
-      listener(event.detail?.payload ?? {})
+    listenerMap[event.detail.type].forEach((entry) =>
+      entry.callback(event.detail?.payload ?? {})
+    );
+    listenerMap[event.detail.type] = listenerMap[event.detail.type].filter(
+      (entry) => !entry.singleUse
     );
   }
 }
