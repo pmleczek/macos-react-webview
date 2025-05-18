@@ -1,22 +1,16 @@
 import { useCallback, useState } from "react";
 import { faker } from "@faker-js/faker";
 
+import type { SampleItem } from "./types";
 import { Button, Table } from "@components";
 import { HeaderLayout, SidebarLayout } from "@layouts";
 import styles from "./index.module.css";
 import NewItemModal from "./NewItemModal";
 
-interface SampleItem {
-  id: string;
-  date: Date;
-  emoji: string;
-  price: string;
-}
-
 const generateSampleItems = (count: number): SampleItem[] => {
   return Array.from({ length: count }).map(() => ({
     id: faker.string.alphanumeric({ casing: "lower", length: 8 }),
-    date: faker.date.anytime(),
+    date: faker.date.anytime().toLocaleDateString(),
     emoji: faker.internet.emoji({ types: ["food", "nature"] }),
     price: faker.finance.amount({ min: 0.1, max: 29.99, symbol: "$" }),
   }));
@@ -75,14 +69,18 @@ const TablePage = () => {
             renderRow={(item: SampleItem) => (
               <>
                 <Table.Cell>{item.id}</Table.Cell>
-                <Table.Cell>{item.date.toLocaleDateString()}</Table.Cell>
+                <Table.Cell>{item.date}</Table.Cell>
                 <Table.Cell>{item.emoji}</Table.Cell>
                 <Table.Cell>{item.price}</Table.Cell>
               </>
             )}
           />
         </div>
-        <NewItemModal show={showModal} setShow={setShowModal} />
+        <NewItemModal
+          onSuccess={(item) => setData((prev) => [...prev, item])}
+          show={showModal}
+          setShow={setShowModal}
+        />
       </SidebarLayout>
     </HeaderLayout>
   );

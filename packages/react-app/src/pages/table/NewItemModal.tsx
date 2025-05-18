@@ -1,7 +1,9 @@
 import { useCallback, useState } from "react";
+import { emitWithResponse } from "ipc";
 
-import type { NewItemModalProps } from "./types";
+import type { NewItemModalProps, SampleItem } from "./types";
 import { Button, Modal, TextInput } from "@components";
+import { EventType } from "@utils/constants";
 import styles from "./index.module.css";
 
 interface FormState {
@@ -18,7 +20,7 @@ const initialState: FormState = {
   price: "",
 };
 
-const NewItemModal = ({ show, setShow }: NewItemModalProps) => {
+const NewItemModal = ({ onSuccess, show, setShow }: NewItemModalProps) => {
   const [state, setState] = useState<FormState>(initialState);
 
   const handleChange = useCallback(
@@ -36,9 +38,19 @@ const NewItemModal = ({ show, setShow }: NewItemModalProps) => {
     setShow(false);
   }, [setShow]);
 
-  const handleCreate = useCallback(() => {
-    console.log(state);
-  }, [state]);
+  const handleCreate = useCallback(async () => {
+    const response = await emitWithResponse(
+      EventType.DATA_CREATE_ITEM,
+      EventType.DATA_CREATE_ITEM_REPONSE,
+      state
+    );
+
+    if (response && typeof response === "object") {
+      onSuccess(response as SampleItem);
+    }
+    setState(initialState);
+    setShow(false);
+  }, [onSuccess, state, setShow]);
 
   return (
     <Modal show={show} onHide={() => setShow(false)}>
