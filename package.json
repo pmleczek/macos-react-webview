@@ -7,7 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "bun --filter 'react-app' dev"
+    "dev": "bun --filter 'react-app' dev",
+    "lint": "bun --filter '*' lint",
+    "lint:fix": "bun --filter '*' lint:fix"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
