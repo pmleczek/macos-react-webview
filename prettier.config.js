@@ -1,5 +1,5 @@
 /** @type {import('prettier').Config} */
-module.exports = {
+export default {
   experimentalTernaries: false,
   experimentalOperatorPosition: 'end',
   printWidth: 80,
