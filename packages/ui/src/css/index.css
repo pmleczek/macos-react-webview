@@ -1,6 +1,6 @@
 :root {
-  background-color: var(--gray-950);
-  color: var(--gray-50);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
   font-family: var(--font-inter);
   overscroll-behavior: none;
   user-select: none;

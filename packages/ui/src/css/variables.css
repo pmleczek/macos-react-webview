@@ -16,3 +16,9 @@
   /* Fonts */
   --font-inter: 'Inter', sans-serif;
 }
+
+/* Light mode color scheme */
+:root {
+  --background-color: var(--gray-50);
+  --foreground-color: var(--gray-950);
+}
