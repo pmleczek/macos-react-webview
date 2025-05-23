@@ -30,8 +30,8 @@ final class Item: Codable {
       price = try container.decode(String.self, forKey: .price)
     }
     
-    init(id: String, date: String, emoji: String, price: String) {
-      self.id = id
+    init(date: String, emoji: String, price: String) {
+      self.id = UUID().uuidString
       self.date = date
       self.emoji = emoji
       self.price = price
