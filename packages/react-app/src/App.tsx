@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
+import "ui";
 
 import { Menu } from "@components/context-menu";
 import { Home, Settings, Table } from "@pages";

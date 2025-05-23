@@ -1,0 +1,16 @@
+:root {
+  background-color: var(--gray-950);
+  color: var(--gray-50);
+  font-family: var(--font-inter);
+  overscroll-behavior: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+p, span, h1, h2, h3, h4, h5, h6 {
+  cursor: default;
+}
+
+a {
+  -webkit-user-drag: none;
+}
