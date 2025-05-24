@@ -1,57 +1,57 @@
-import { EventType } from '@utils/constants';
 import { emit } from 'ipc';
 import { useCallback, useRef, useState } from 'react';
 
-import type { Coordinates, WindowDragProps } from './types';
+import constants from './constants';
+import type { DraggableAreaProps } from './types';
 
-const DRAG_THRESHOLD = 5;
-
-const DraggableArea = ({ children }: WindowDragProps) => {
-  const [shouldTrackMovement, setShouldTrackMovement] = useState(false);
-  const initialPosition = useRef<Coordinates | null>(null);
+const DraggableArea = ({ children, className }: DraggableAreaProps) => {
+  const [tracking, setTracking] = useState(false);
+  const initialPosition = useRef<number[] | null>(null);
 
   const handleDoubleClick = useCallback(() => {
-    emit(EventType.WINDOW_MAXIMIZE);
+    emit(constants.WINDOW_MAXIMIZE);
   }, []);
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
-      const { clientX, clientY } = event;
-      initialPosition.current = { x: clientX, y: clientY };
-      setShouldTrackMovement(true);
+      initialPosition.current = [event.clientX, event.clientY];
+      setTracking(true);
     },
     [],
   );
 
   const handleMouseMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
-      const { clientX, clientY } = event;
-      if (
-        initialPosition.current &&
-        (Math.abs(initialPosition.current.x - clientX) > DRAG_THRESHOLD ||
-          Math.abs(initialPosition.current.y - clientY) > DRAG_THRESHOLD)
-      ) {
-        setShouldTrackMovement(false);
-        emit(EventType.WINDOW_START_DRAGGING);
+      if (!initialPosition.current) {
+        return;
+      }
+
+      const dx = Math.abs(initialPosition.current[0] - event.clientX);
+      const dy = Math.abs(initialPosition.current[1] - event.clientY);
+
+      if (dx > constants.DRAG_THRESHOLD || dy > constants.DRAG_THRESHOLD) {
+        setTracking(false);
+        emit(constants.WINDOW_START_DRAGGING);
       }
     },
     [],
   );
 
   const handleMouseUp = useCallback(() => {
-    if (shouldTrackMovement) {
-      setShouldTrackMovement(false);
+    if (tracking) {
+      setTracking(false);
     } else {
-      emit(EventType.WINDOW_STOP_DRAGGING);
+      emit(constants.WINDOW_STOP_DRAGGING);
     }
-  }, [shouldTrackMovement]);
+  }, [tracking]);
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
+      className={className}
       onDoubleClick={handleDoubleClick}
       onMouseDown={handleMouseDown}
-      onMouseMove={shouldTrackMovement ? handleMouseMove : undefined}
+      onMouseMove={tracking ? handleMouseMove : undefined}
       onMouseUp={handleMouseUp}
     >
       {children}
