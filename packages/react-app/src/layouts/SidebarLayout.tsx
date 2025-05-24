@@ -4,14 +4,17 @@ import type { LayoutProps } from './types';
 
 const items: SidebarItem[] = [
   {
+    icon: 'home',
     label: 'Home',
     to: '/',
   },
   {
+    icon: 'table',
     label: 'Table',
     to: '/table',
   },
   {
+    icon: 'settings',
     label: 'Settings',
     to: '/settings',
   },

@@ -1,5 +1,5 @@
 import type { ButtonIconProps } from "./types";
-import { Icon as IconComponent } from "@components";
+import { Icon as IconComponent } from "ui";
 import styles from "./index.module.css";
 
 const Icon = ({ icon, iconProps, onClick, type }: ButtonIconProps) => {

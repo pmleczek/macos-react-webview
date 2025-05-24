@@ -6,7 +6,12 @@ const Sidebar = ({ items }: SidebarProps) => {
   return (
     <div className={styles.container}>
       {items.map((item) => (
-        <Item label={item.label} to={item.to} />
+        <Item
+          key={item.label}
+          icon={item.icon}
+          label={item.label}
+          to={item.to}
+        />
       ))}
     </div>
   );

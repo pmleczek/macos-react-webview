@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { useHandleClickOutside } from "@hooks";
 import { contextMenuAtom } from "./atoms";
 import styles from "./index.module.css";
-import Icon from "../icon";
+import { Icon } from "ui";
 
 const Menu = () => {
   const [state, setState] = useAtom(contextMenuAtom);

@@ -1,5 +1,5 @@
 import type { ElementType, ReactNode } from "react";
-import { IconName } from "../icon";
+import { IconName } from "ui";
 
 export interface ContextMenuProps {
   as?: ElementType;
