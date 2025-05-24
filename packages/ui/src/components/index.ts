@@ -1,3 +1,4 @@
+export { default as DraggableArea } from './draggable-area';
 export type { IconName } from './icon';
 export { default as Icon } from './icon';
 export type { SidebarItem } from './sidebar';

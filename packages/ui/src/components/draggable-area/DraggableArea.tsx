@@ -1,10 +1,12 @@
-import { useCallback, useRef, useState } from "react";
-import { emit } from "ipc";
+import { EventType } from '@utils/constants';
+import { emit } from 'ipc';
+import { useCallback, useRef, useState } from 'react';
 
-import { EventType } from "@utils/constants";
-import type { Coordinates, WindowDragProps } from "./types";
+import type { Coordinates, WindowDragProps } from './types';
 
-const WindowDrag = ({ children }: WindowDragProps) => {
+const DRAG_THRESHOLD = 5;
+
+const DraggableArea = ({ children }: WindowDragProps) => {
   const [shouldTrackMovement, setShouldTrackMovement] = useState(false);
   const initialPosition = useRef<Coordinates | null>(null);
 
@@ -18,7 +20,7 @@ const WindowDrag = ({ children }: WindowDragProps) => {
       initialPosition.current = { x: clientX, y: clientY };
       setShouldTrackMovement(true);
     },
-    []
+    [],
   );
 
   const handleMouseMove = useCallback(
@@ -26,15 +28,14 @@ const WindowDrag = ({ children }: WindowDragProps) => {
       const { clientX, clientY } = event;
       if (
         initialPosition.current &&
-        // TODO: Move to a constant
-        (Math.abs(initialPosition.current.x - clientX) > 5 ||
-          Math.abs(initialPosition.current.y - clientY) > 5)
+        (Math.abs(initialPosition.current.x - clientX) > DRAG_THRESHOLD ||
+          Math.abs(initialPosition.current.y - clientY) > DRAG_THRESHOLD)
       ) {
         setShouldTrackMovement(false);
         emit(EventType.WINDOW_START_DRAGGING);
       }
     },
-    []
+    [],
   );
 
   const handleMouseUp = useCallback(() => {
@@ -46,6 +47,7 @@ const WindowDrag = ({ children }: WindowDragProps) => {
   }, [shouldTrackMovement]);
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       onDoubleClick={handleDoubleClick}
       onMouseDown={handleMouseDown}
@@ -57,4 +59,4 @@ const WindowDrag = ({ children }: WindowDragProps) => {
   );
 };
 
-export default WindowDrag;
+export default DraggableArea;
