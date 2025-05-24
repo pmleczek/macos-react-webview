@@ -15,6 +15,7 @@ struct ContentView: View {
     var body: some View {
       ReactWebView(viewModel: viewModel)
         .ignoresSafeArea()
+        .background(Color(red: 0xfa / 255.0, green: 0xfa / 255.0, blue: 0xfa / 255.0))
     }
 }
 

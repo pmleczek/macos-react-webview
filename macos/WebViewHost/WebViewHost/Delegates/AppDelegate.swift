@@ -12,6 +12,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   
   func applicationDidFinishLaunching(_ notification: Notification) {
     if let window = NSApp.windows.first {
+      NSApp.appearance = NSAppearance(named: .aqua)
+      
       hideTitleBar(window)
       positionTrafficLights(
         window,
