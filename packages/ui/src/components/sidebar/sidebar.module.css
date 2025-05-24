@@ -46,3 +46,13 @@
   letter-spacing: -0.1px;
   line-height: 20px;
 }
+
+.header {
+  color: var(--gray-600);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  padding-left: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}

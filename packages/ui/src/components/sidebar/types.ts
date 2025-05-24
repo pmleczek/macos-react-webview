@@ -2,18 +2,30 @@ import type { To } from 'react-router';
 
 import type { IconName } from '../icon';
 
-export interface SidebarItem {
+interface SidebarHeader {
+  type: 'header';
+  label: string;
+}
+
+interface SidebarLink {
+  type?: undefined;
   icon?: IconName;
   label: string;
   to: To;
 }
+
+export type SidebarItem = SidebarHeader | SidebarLink;
 
 export interface SidebarProps {
   items: SidebarItem[];
 }
 
-export interface SidebarItemProps {
+export interface SidebarLinkProps {
   icon?: IconName;
   label: string;
   to: To;
+}
+
+export interface SidebarHeaderProps {
+  label: string;
 }

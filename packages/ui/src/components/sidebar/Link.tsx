@@ -3,9 +3,9 @@ import { NavLink } from 'react-router';
 
 import Icon from '../icon';
 import styles from './sidebar.module.css';
-import type { SidebarItemProps } from './types';
+import type { SidebarLinkProps } from './types';
 
-const Item = ({ icon, label, to }: SidebarItemProps) => {
+const Link = ({ icon, label, to }: SidebarLinkProps) => {
   return (
     <NavLink
       className={({ isActive }) => cs(styles.item, isActive && styles.active)}
@@ -17,4 +17,4 @@ const Item = ({ icon, label, to }: SidebarItemProps) => {
   );
 };
 
-export default Item;
+export default Link;

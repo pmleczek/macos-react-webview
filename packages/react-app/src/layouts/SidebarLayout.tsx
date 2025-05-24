@@ -18,6 +18,10 @@ const items: SidebarItem[] = [
     label: 'Settings',
     to: '/settings',
   },
+  {
+    type: 'header',
+    label: 'Favorites',
+  },
 ];
 
 const SidebarLayout = ({ children }: LayoutProps) => {
