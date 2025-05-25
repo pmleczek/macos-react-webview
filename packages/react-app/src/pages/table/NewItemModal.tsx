@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
 import { emitWithResponse } from "ipc";
+import { Button } from "ui";
 
 import type { NewItemModalProps, SampleItem } from "./types";
-import { Button, Modal, TextInput } from "@components";
+import { Modal, TextInput } from "@components";
 import { EventType } from "@utils/constants";
 import styles from "./index.module.css";
 

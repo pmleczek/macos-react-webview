@@ -1,4 +1,4 @@
-import { Button } from "@components";
+import { Button } from "ui";
 import type { ModalHeaderProps } from "./types";
 import styles from "./index.module.css";
 

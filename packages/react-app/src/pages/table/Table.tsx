@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
 import { faker } from '@faker-js/faker';
+import { Button } from 'ui';
 
 import type { SampleItem } from './types';
-import { Button, Table } from '@components';
+import { Table } from '@components';
 import { SidebarLayout } from '@layouts';
 import styles from './index.module.css';
 import NewItemModal from './NewItemModal';
