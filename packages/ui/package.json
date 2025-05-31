@@ -1,17 +1,16 @@
 {
   "name": "ui",
-  "module": "index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "type": "module",
   "scripts": {
+    "dev": "bun dev.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "classnames": "^2.5.1",
     "ipc": "workspace:*",
-    "lucide-react": "^0.511.0",
-    "react": "^19.0.0",
-    "react-router": "^7.5.3"
+    "lucide-react": "^0.511.0"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -19,6 +18,9 @@
     "esbuild": "^0.25.5"
   },
   "peerDependencies": {
+    "classnames": ">=2.0.0",
+    "react": ">=19.0.0",
+    "react-router": ">=7.0.0",
     "typescript": "^5.0.0"
   }
 }

@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import "ui";
+import "ui/dist/index.css";
 
 import { Menu } from "@components/context-menu";
 import { Home, Settings, Table } from "@pages";
