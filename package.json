@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "bun --filter 'react-app' dev",
+    "dev": "concurrently \"bun --filter 'ipc' dev\" \"bun --filter 'ui' dev\" \"bun --filter 'react-app' dev\"",
     "lint": "bun --filter '*' lint",
     "lint:fix": "bun --filter '*' lint:fix"
   },
