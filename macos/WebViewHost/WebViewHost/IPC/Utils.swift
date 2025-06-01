@@ -1,0 +1,43 @@
+//
+//  Utils.swift
+//  WebViewHost
+//
+//  Created by Patryk Mleczek on 6/1/25.
+//
+
+import Foundation
+
+func jsonToDict(_ jsonString: String) -> [String: Any]? {
+  guard let data = jsonString.data(using: .utf8) else {
+    return nil
+  }
+  
+  do {
+    let object = try JSONSerialization.jsonObject(with: data, options: [])
+    return object as? [String: Any]
+  } catch {
+    return nil
+  }
+}
+
+func parseEvent(_ eventType: String) -> (scope: String, type: String)? {
+  let parts = eventType.split(separator: ":", maxSplits: 1).map(String.init)
+  
+  guard parts.count == 2 else {
+    return nil
+  }
+  
+  return (scope: parts[0], type: parts[1])
+}
+
+func toJavaScript(_ eventType: String, _ payload: String) -> String {
+  return """
+  var event = new CustomEvent('webview-event', {
+    detail: {
+      type: '\(eventType)',
+      payload: \(payload)
+    }
+  });
+  window.dispatchEvent(event);
+  """
+}

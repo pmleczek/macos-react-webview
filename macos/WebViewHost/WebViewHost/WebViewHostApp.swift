@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct WebViewHostApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject var ipcEventHandler: IPCEventHandler = IPCEventHandler()
+    @StateObject var ipcHandler: IPCHandler = IPCHandler()
   
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -29,14 +29,14 @@ struct WebViewHostApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-            .environmentObject(ipcEventHandler)
+            .environmentObject(ipcHandler)
         }
         .modelContainer(sharedModelContainer)
         .commands {
           CommandGroup(after: .appInfo) {
             Divider()
             Button("Settings...") {
-              ipcEventHandler.emit("menu-item:settings")
+              ipcHandler.emit("menu-item:settings")
             }
             .keyboardShortcut(",", modifiers: [.command])
           }

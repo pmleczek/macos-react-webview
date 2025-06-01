@@ -10,13 +10,13 @@ import SwiftUI
 import WebKit
 
 struct ReactWebView: NSViewRepresentable, WebViewDelegate {
-  @EnvironmentObject var ipcEventHandler: IPCEventHandler
+  @EnvironmentObject var ipcHandler: IPCHandler
   @Environment(\.modelContext) private var modelContext
   @ObservedObject var viewModel: WebViewModel
   
   func makeNSView(context: Context) -> WKWebView {
-    ipcEventHandler.setWebViewModel(viewModel)
-    ipcEventHandler.setModelContext(modelContext)
+    ipcHandler.setModelContext(modelContext)
+    ipcHandler.setViewModel(viewModel)
     
     let preferences = WKWebpagePreferences()
     preferences.allowsContentJavaScript = true
@@ -40,16 +40,18 @@ struct ReactWebView: NSViewRepresentable, WebViewDelegate {
   }
   
   func updateNSView(_ nsView: WKWebView, context: Context) {
+#if DEBUG
     guard let url = URL(string: WebViewConstants.DEV_SERVER_URL) else {
       return
     }
     
     let request = URLRequest(url: url)
     nsView.load(request)
+#endif // DEBUG
   }
   
   func onEventReceived(_ payload: String) {
-    ipcEventHandler.handleEvent(payload)
+    ipcHandler.handle(payload)
   }
   
   func makeCoordinator() -> Coordinator {
