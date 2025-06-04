@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		870C1EA12DF0F2C00005218D /* dist in Resources */ = {isa = PBXBuildFile; fileRef = 870C1EA02DF0F2C00005218D /* dist */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		870C1EA02DF0F2C00005218D /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dist; path = "../../packages/react-app/dist"; sourceTree = "<group>"; };
 		87AAC4082DA18D68006E0C9F /* WebViewHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -32,6 +37,7 @@
 		87AAC3FF2DA18D68006E0C9F = {
 			isa = PBXGroup;
 			children = (
+				870C1EA02DF0F2C00005218D /* dist */,
 				87AAC40A2DA18D68006E0C9F /* WebViewHost */,
 				87AAC4092DA18D68006E0C9F /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				870C1EA12DF0F2C00005218D /* dist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +263,7 @@
 				DEVELOPMENT_TEAM = 6628W9LXM3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -284,6 +292,7 @@
 				DEVELOPMENT_TEAM = 6628W9LXM3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (

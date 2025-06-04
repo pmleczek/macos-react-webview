@@ -1,10 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createHashRouter, RouterProvider } from "react-router";
 import "ui/dist/index.css";
 
 import { Menu } from "@components/context-menu";
 import { Home, Settings, Table } from "@pages";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     Component: Home,

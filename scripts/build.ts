@@ -1,4 +1,4 @@
-import { $, readableStreamToText, sleep } from 'bun';
+import { readableStreamToText, sleep } from 'bun';
 import chalk from 'chalk';
 
 let BUILD_TYPE = process.env.BUILD_TYPE;
@@ -116,7 +116,6 @@ const killApp = async () => {
         ' Terminating running instances failed with exit code ' +
         chalk.red(exitCode),
     );
-    process.exit(exitCode);
   }
 };
 
@@ -172,6 +171,46 @@ const runDev = async () => {
   ]);
 };
 
+const buildJSPackage = async (packageName: string, cmd: string) => {
+  console.log(INFO_ICON + ' Building package ' + chalk.blueBright(packageName));
+
+  const start = Date.now();
+  const subprocess = Bun.spawn([...cmd.split(' ')], {
+    stderr: 'pipe',
+    stdout: 'pipe',
+  });
+
+  const exitCode = await subprocess.exited;
+
+  const stop = Date.now();
+  const secondsElapsed = (stop - start) / 1000;
+
+  if (exitCode === 0) {
+    console.log(
+      CHECK_ICON +
+        ' Build succeeded in ' +
+        chalk.blueBright(`${secondsElapsed}s`),
+    );
+  } else {
+    console.write(await readableStreamToText(subprocess.stdout));
+    console.write(await readableStreamToText(subprocess.stderr));
+    console.log(
+      CROSS_ICON +
+        ' Building package ' +
+        chalk.blueBright(packageName) +
+        ' failed with exit code ' +
+        chalk.red(exitCode),
+    );
+    process.exit(exitCode);
+  }
+};
+
+const buildJS = async () => {
+  await buildJSPackage('ipc', 'bun --filter ipc release');
+  await buildJSPackage('ui', 'bun --filter ui release');
+  await buildJSPackage('react-app', 'bun --filter react-app build');
+};
+
 if (BUILD_TYPE === 'Debug') {
   await buildNative();
   await runDev();
@@ -184,7 +223,11 @@ if (BUILD_TYPE === 'Debug') {
     INFO_ICON + ' Press ' + chalk.bold.blueBright('^ + C') + ' to quit',
   );
 } else {
-  console.log('Release');
+  await buildJS();
+  await buildNative();
+
+  await killApp();
+  await runApp();
 }
 
 process.on('SIGINT', async () => {

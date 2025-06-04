@@ -29,12 +29,17 @@ struct ReactWebView: NSViewRepresentable, WebViewDelegate {
     webView.navigationDelegate = context.coordinator
     webView.allowsBackForwardNavigationGestures = false
     webView.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+    webView.configuration.setValue(true, forKey: "allowUniversalAccessFromFileURLs")
     
     webView.setValue(false, forKey: "drawsBackground")
     
     // TODO: remove later
     webView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
     webView.isInspectable = true
+    
+#if !DEBUG
+    webView.loadHTMLString("", baseURL: nil)
+#endif
     
     return webView
   }
@@ -47,6 +52,12 @@ struct ReactWebView: NSViewRepresentable, WebViewDelegate {
     
     let request = URLRequest(url: url)
     nsView.load(request)
+#else
+    guard let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "dist") else {
+      return
+    }
+    
+    nsView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
 #endif // DEBUG
   }
   
