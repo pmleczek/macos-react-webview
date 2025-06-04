@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"bun --filter 'ipc' dev\" \"bun --filter 'ui' dev\" \"bun --filter 'react-app' dev\"",
+    "dev": "BUILD_TYPE=Debug bun scripts/build.ts",
     "lint": "bun --filter '*' lint",
     "lint:fix": "bun --filter '*' lint:fix"
   },
