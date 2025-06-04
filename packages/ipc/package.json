@@ -2,11 +2,14 @@
   "name": "ipc",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "types": "dist/types",
   "type": "module",
   "scripts": {
     "dev": "bun dev.ts",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "release:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
+    "release": "bun release:types && bun build.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

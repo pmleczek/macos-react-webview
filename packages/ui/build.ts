@@ -1,6 +1,6 @@
 import * as esbuild from 'esbuild';
 
-const context = await esbuild.context({
+await esbuild.build({
   entryPoints: ['index.ts'],
   bundle: true,
   outdir: 'dist',
@@ -14,6 +14,5 @@ const context = await esbuild.context({
     '.ttf': 'file',
   },
   logLevel: 'info',
+  minify: true,
 });
-
-await context.watch();
