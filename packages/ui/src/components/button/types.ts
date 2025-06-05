@@ -4,6 +4,8 @@ import type { ButtonHTMLAttributes } from 'react';
 import type { IconName } from '../icon';
 
 interface BaseButtonProps {
+  className?: string;
+  disabled?: boolean;
   onClick?: () => void;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }

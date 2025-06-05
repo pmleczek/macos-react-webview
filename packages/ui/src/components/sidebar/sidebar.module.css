@@ -68,3 +68,18 @@
   border-right: 1px solid var(--background-color-darker);
   padding-right: 12px;
 }
+
+.drag_area_button {
+  color: var(--foreground-color-lighter);
+  height: 32px;
+  width: 32px;
+
+  &:disabled {
+    color: var(--gray-400)
+  }
+
+  &:disabled:hover {
+    background: none;
+    color: var(--gray-400);
+  }
+}

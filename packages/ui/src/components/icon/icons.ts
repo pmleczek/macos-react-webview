@@ -1,6 +1,8 @@
-import { Home, Settings, Table2, X } from 'lucide-react';
+import { Home, MoveLeft, MoveRight, Settings, Table2, X } from 'lucide-react';
 
 const icons = {
+  arrow_left: MoveLeft,
+  arrow_right: MoveRight,
   close: X,
   home: Home,
   settings: Settings,

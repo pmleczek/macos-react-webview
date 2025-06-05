@@ -1,10 +1,23 @@
+import cs from 'classnames';
+
 import styles from './button.module.css';
 import Icon from './Icon';
 import type { ButtonProps } from './types';
 
-const Button = ({ label, onClick, type = 'button' }: ButtonProps) => {
+const Button = ({
+  className,
+  disabled,
+  label,
+  onClick,
+  type = 'button',
+}: ButtonProps) => {
   return (
-    <button className={styles.container} onClick={onClick} type={type}>
+    <button
+      className={cs(styles.container, className)}
+      disabled={disabled}
+      onClick={onClick}
+      type={type}
+    >
       <span className={styles.label}>{label}</span>
     </button>
   );
