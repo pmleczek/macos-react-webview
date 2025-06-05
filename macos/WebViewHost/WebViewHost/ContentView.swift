@@ -13,9 +13,17 @@ struct ContentView: View {
     @ObservedObject var viewModel = WebViewModel()
 
     var body: some View {
-      ReactWebView(viewModel: viewModel)
-        .ignoresSafeArea()
-        .background(Color(red: 0xfa / 255.0, green: 0xfa / 255.0, blue: 0xfa / 255.0))
+      ZStack(alignment: .topLeading) {
+        ReactWebView(viewModel: viewModel)
+          .ignoresSafeArea()
+          .background(Color(red: 0xfa / 255.0, green: 0xfa / 255.0, blue: 0xfa / 255.0))
+        NativeDragRegion()
+          .frame(height: 52)
+          .frame(maxWidth: .infinity)
+          .background(.clear)
+          .edgesIgnoringSafeArea(.top)
+          .allowsHitTesting(true)
+      }
     }
 }
 

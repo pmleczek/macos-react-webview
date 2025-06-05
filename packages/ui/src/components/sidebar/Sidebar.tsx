@@ -1,7 +1,7 @@
-import DragArea from './DragArea';
 import Header from './Header';
 import Link from './Link';
 import styles from './sidebar.module.css';
+import TopBar from './TopBar';
 import type { SidebarItem, SidebarProps } from './types';
 
 const renderItem = (item: SidebarItem) => {
@@ -17,7 +17,7 @@ const renderItem = (item: SidebarItem) => {
 const Sidebar = ({ items }: SidebarProps) => {
   return (
     <div className={styles.container}>
-      <DragArea />
+      <TopBar />
       <div className={styles.inner_container}>
         {items.map((item) => renderItem(item))}
       </div>
