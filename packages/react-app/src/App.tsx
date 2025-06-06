@@ -2,7 +2,7 @@ import { createHashRouter, RouterProvider } from "react-router";
 import "ui/dist/index.css";
 
 import { Menu } from "@components/context-menu";
-import { Home, Settings, Table } from "@pages";
+import { Home, Settings, Space, Table } from "@pages";
 
 const router = createHashRouter([
   {
@@ -17,6 +17,10 @@ const router = createHashRouter([
     path: "/settings",
     Component: Settings,
   },
+  {
+    path: "/spaces/:id",
+    Component: Space,
+  }
 ]);
 
 const App = () => {
