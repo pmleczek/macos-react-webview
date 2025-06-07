@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
+    "@tanstack/react-query": "^5.80.6",
     "classnames": "^2.5.1",
     "ipc": "workspace:*",
     "jotai": "^2.12.3",
