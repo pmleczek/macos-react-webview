@@ -6,11 +6,45 @@ import type { SidebarItem, SidebarProps } from './types';
 
 const renderItem = (item: SidebarItem) => {
   if (item.type === 'header') {
-    return <Header key={item.label} label={item.label} />;
+    return (
+      <Header
+        key={item.label}
+        label={item.label}
+        icon={item.icon}
+        onClick={item.onClick}
+      />
+    );
+  }
+
+  if (item.type === 'group') {
+    return (
+      <div key={item.header.label}>
+        <Header
+          label={item.header.label}
+          icon={item.header.icon}
+          onClick={item.header.onClick}
+        />
+        {item.items.map((linkItem) => (
+          <Link
+            key={linkItem.label}
+            emoji={linkItem.emoji}
+            icon={linkItem.icon}
+            label={linkItem.label}
+            to={linkItem.to}
+          />
+        ))}
+      </div>
+    );
   }
 
   return (
-    <Link key={item.label} icon={item.icon} label={item.label} to={item.to} />
+    <Link
+      key={item.label}
+      emoji={item.emoji}
+      icon={item.icon}
+      label={item.label}
+      to={item.to}
+    />
   );
 };
 

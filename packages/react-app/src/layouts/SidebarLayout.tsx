@@ -22,6 +22,22 @@ const items: SidebarItem[] = [
     type: 'header',
     label: 'Favorites',
   },
+  {
+    type: 'group',
+    header: {
+      type: 'header',
+      label: 'Spaces',
+      icon: 'plus',
+      onClick: () => console.log('Create new space'),
+    },
+    items: [
+      {
+        emoji: '🌎',
+        label: 'Default',
+        to: '/spaces/default',
+      },
+    ],
+  },
 ];
 
 const SidebarLayout = ({ children }: LayoutProps) => {

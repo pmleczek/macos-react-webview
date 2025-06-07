@@ -50,14 +50,32 @@
   line-height: 20px;
 }
 
+.link_emoji {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.header_container {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+}
+
+.header_button {
+  color: var(--gray-600);
+
+  &:hover {
+    color: var(--gray-800);
+  }
+}
+
 .header {
   color: var(--gray-600);
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  padding-left: 8px;
-  padding-top: 8px;
-  padding-bottom: 8px;
 }
 
 .drag_area {
@@ -75,7 +93,7 @@
   width: 32px;
 
   &:disabled {
-    color: var(--gray-400)
+    color: var(--gray-400);
   }
 
   &:disabled:hover {
