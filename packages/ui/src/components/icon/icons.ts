@@ -1,4 +1,5 @@
 import {
+  ChevronRight,
   Home,
   MoveLeft,
   MoveRight,
@@ -11,6 +12,7 @@ import {
 const icons = {
   arrow_left: MoveLeft,
   arrow_right: MoveRight,
+  chevron_right: ChevronRight,
   close: X,
   home: Home,
   plus: Plus,
