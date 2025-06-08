@@ -32,6 +32,7 @@
       "@hooks": ["src/hooks"],
       "@layouts": ["src/layouts"],
       "@pages": ["src/pages"],
+      "@state/*": ["src/state/*"],
       "@utils/*": ["src/utils/*"],
     },
   },
