@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from 'react';
 
-import type { UseHandleClickOutsideParams } from "./types";
+import type { UseHandleClickOutsideParams } from './types';
 
 const useHandleClickOutside = ({
   onClickOutside,
@@ -12,14 +12,14 @@ const useHandleClickOutside = ({
         onClickOutside();
       }
     },
-    [onClickOutside, ref]
+    [onClickOutside, ref],
   );
 
   useEffect(() => {
-    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener('mousedown', handleMouseDown);
 
     return () => {
-      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener('mousedown', handleMouseDown);
     };
   }, [handleMouseDown]);
 };

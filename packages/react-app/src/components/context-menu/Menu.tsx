@@ -1,10 +1,9 @@
 import { useCallback, useRef } from "react";
 import { useAtom } from "jotai";
 
-import { useHandleClickOutside } from "@hooks";
 import { contextMenuAtom } from "./atoms";
 import styles from "./index.module.css";
-import { Icon } from "ui";
+import { Icon, useHandleClickOutside } from "ui";
 
 const Menu = () => {
   const [state, setState] = useAtom(contextMenuAtom);
