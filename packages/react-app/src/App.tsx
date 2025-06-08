@@ -1,9 +1,11 @@
-import { createHashRouter, RouterProvider } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { IPCHandlerProvider } from 'ipc';
 import 'ui/dist/index.css';
+import { createHashRouter, RouterProvider } from 'react-router';
 
 import { Menu } from '@components/context-menu';
+import { ipcHandler } from '@data';
 import { Home, Settings, Space, Table } from '@pages';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createHashRouter([
   {
@@ -28,10 +30,12 @@ const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <Menu />
-    </QueryClientProvider>
+    <IPCHandlerProvider ipcHandler={ipcHandler}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <Menu />
+      </QueryClientProvider>
+    </IPCHandlerProvider>
   );
 };
 

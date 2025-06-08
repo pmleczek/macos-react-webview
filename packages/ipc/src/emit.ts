@@ -1,27 +1,34 @@
-import { on } from "./events";
+import type IPCHandler from './handler';
 
-export function emit(type: string, payload?: Object) {
-  const message = JSON.stringify({
-    type,
-    payload,
-  });
-  window?.webkit?.messageHandlers?.ipc?.postMessage(message);
-}
+const emitEventViaIPC = (type: string, payload?: object) => {
+  const message = JSON.stringify({ type, payload });
+  window.webkit?.messageHandlers.ipc.postMessage(message);
+};
 
-export async function emitWithResponse(
-  type: string,
-  responseType: string,
-  payload?: Object
-): Promise<Object> {
-  const message = JSON.stringify({
-    type,
-    payload,
-  });
-  window?.webkit?.messageHandlers?.ipc?.postMessage(message);
+export const emitOneWayEvent = <T extends object | undefined = undefined>(
+  event: string,
+  data?: T,
+): void => {
+  emitEventViaIPC(event, data);
+};
+
+export const emitTwoWayEvent = <
+  T extends object | undefined = undefined,
+  U extends object | undefined = undefined,
+>(
+  event: string,
+  data: T,
+  ipcHandler: IPCHandler,
+): Promise<U> => {
+  emitEventViaIPC(event, data);
 
   return new Promise((resolve) => {
-    on(responseType, (data: Object) => {
-      resolve(data);
-    }, { singleUse: true });
+    ipcHandler.register(
+      event,
+      (data) => {
+        resolve(data as U);
+      },
+      { singleUse: true },
+    );
   });
-}
+};

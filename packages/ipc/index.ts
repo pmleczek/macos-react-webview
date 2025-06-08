@@ -1,6 +1,3 @@
-import { registerGlobalEventListener } from "./src/events";
-
-registerGlobalEventListener();
-
-export { emit, emitWithResponse } from "./src/emit";
-export { on, off } from "./src/events";
+export { emitOneWayEvent, emitTwoWayEvent } from './src/emit';
+export { default as IPCHandler } from './src/handler';
+export { default as IPCHandlerProvider } from './src/IPCHandlerProvider';

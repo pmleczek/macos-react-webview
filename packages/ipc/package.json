@@ -5,7 +5,7 @@
   "types": "dist/types",
   "type": "module",
   "scripts": {
-    "dev": "bun dev.ts",
+    "dev": "bun release:types && bun dev.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
