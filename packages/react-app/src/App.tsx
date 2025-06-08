@@ -5,16 +5,12 @@ import { createHashRouter, RouterProvider } from 'react-router';
 
 import { Menu } from '@components/context-menu';
 import { ipcHandler } from '@data';
-import { Home, Settings, Space, Table } from '@pages';
+import { Home, Settings, Space } from '@pages';
 
 const router = createHashRouter([
   {
     path: '/',
     Component: Home,
-  },
-  {
-    path: '/table',
-    Component: Table,
   },
   {
     path: '/settings',
