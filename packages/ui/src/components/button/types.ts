@@ -10,8 +10,11 @@ interface BaseButtonProps {
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
+export type ButtonVariant = 'primary' | 'secondary';
+
 export interface ButtonProps extends BaseButtonProps {
   label: string;
+  variant?: ButtonVariant;
 }
 
 export interface IconButtonProps extends BaseButtonProps {

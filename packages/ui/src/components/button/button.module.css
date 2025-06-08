@@ -6,8 +6,6 @@
 }
 
 .container {
-  background-color: var(--foreground-light);
-  color: var(--background-color);
   border-radius: 10px;
   padding-left: 16px;
   padding-right: 16px;
@@ -16,9 +14,22 @@
   transition-property: background-color;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.container.primary {
+  background-color: var(--foreground-light);
+  color: var(--background-color);
 
   &:hover {
     background-color: var(--foreground-lighter);
+  }
+}
+
+.container.secondary {
+  border: 1px solid var(--background-color-darker);
+
+  &:hover {
+    background-color: var(--background-color-darker);
   }
 }
 

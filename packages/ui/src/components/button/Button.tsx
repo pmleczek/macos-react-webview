@@ -10,10 +10,11 @@ const Button = ({
   label,
   onClick,
   type = 'button',
+  variant = 'primary',
 }: ButtonProps) => {
   return (
     <button
-      className={cs(styles.container, className)}
+      className={cs(styles.container, className, styles[variant])}
       disabled={disabled}
       onClick={onClick}
       type={type}
