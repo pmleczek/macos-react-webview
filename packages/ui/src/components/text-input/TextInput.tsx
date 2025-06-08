@@ -1,34 +1,30 @@
-import { useCallback, useId } from "react";
+import { useCallback } from 'react';
 
-import type { TextInputProps } from "./types";
-import styles from "./index.module.css";
+import Label from './Label';
+import styles from './textinput.module.css';
+import type { TextInputProps } from './types';
 
 const TextInput = ({
-  label,
-  maxLength,
+  id,
+  leftItem,
   onChange,
   placeholder,
   value,
 }: TextInputProps) => {
-  const id = useId();
-
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(event.target.value);
+      onChange?.(event.target.value);
     },
-    [onChange]
+    [onChange],
   );
 
-  if (label) {
+  if (leftItem) {
     return (
-      <div>
-        <label className={styles.text_input_label} htmlFor={id}>
-          {label}
-        </label>
+      <div className={styles.input_wrapper}>
+        <div className={styles.item_left}>{leftItem}</div>
         <input
           id={id}
           className={styles.text_input}
-          maxLength={maxLength}
           onChange={handleChange}
           placeholder={placeholder}
           value={value}
@@ -39,13 +35,15 @@ const TextInput = ({
 
   return (
     <input
+      id={id}
       className={styles.text_input}
-      maxLength={maxLength}
       onChange={handleChange}
       placeholder={placeholder}
       value={value}
     />
   );
 };
+
+TextInput.Label = Label;
 
 export default TextInput;

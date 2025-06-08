@@ -1,0 +1,44 @@
+.label {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  padding-bottom: 8px;
+  display: block;
+}
+
+.text_input {
+  width: 100%;
+  height: 36px;
+  border: 1px solid var(--background-color-darker);
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 18px;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  &::placeholder {
+    color: var(--gray-400);
+  }
+}
+
+.input_wrapper {
+  position: relative;
+}
+
+.item_left {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.input_wrapper .text_input {
+  padding-left: 48px;
+}
+
+.item_left > * {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--background-color-darker);
+  border-radius: 8px 0 0 8px;
+  background-color: var(--background-color-dark);
+}
