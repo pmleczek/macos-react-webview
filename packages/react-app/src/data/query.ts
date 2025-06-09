@@ -14,13 +14,13 @@ export const fetchSpaces = async () => {
     ipcHandler,
   );
 
-  response.push({
+  const defaultSpace: Space = {
     emoji: '🌎',
     title: 'Default',
     slug: 'default',
     createdAt: new Date(),
     updatedAt: new Date(),
-  });
+  };
 
-  return response;
+  return [defaultSpace, ...response];
 };
