@@ -1,13 +1,13 @@
+import { fetchSpaces } from '@data/query';
+import { modalAtomFamily } from '@state/atoms';
+import { useQuery } from '@tanstack/react-query';
 import { useSetAtom } from 'jotai';
 import { useMemo } from 'react';
 import { Sidebar, SidebarItem } from 'ui';
 
-import type { LayoutProps } from './types';
-import { useQuery } from '@tanstack/react-query';
-import { fetchSpaces } from '@data/query';
 import NewSpaceModal from './NewSpaceModal';
+import type { LayoutProps } from './types';
 import { sidebarSpaceSection } from './utils';
-import { modalAtomFamily } from '@state/atoms';
 
 const NAVIGATION_LINKS: SidebarItem[] = [
   {

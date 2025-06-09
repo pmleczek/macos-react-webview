@@ -1,11 +1,11 @@
-import { QueryClientProvider } from '@tanstack/react-query';
-import { IPCHandlerProvider } from 'ipc';
 import 'ui/dist/index.css';
-import { createHashRouter, RouterProvider } from 'react-router';
 
 import { Menu } from '@components/context-menu';
 import { ipcHandler, queryClient } from '@data';
 import { Home, Settings, Space } from '@pages';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { IPCHandlerProvider } from 'ipc';
+import { createHashRouter, RouterProvider } from 'react-router';
 
 const router = createHashRouter([
   {

@@ -1,5 +1,5 @@
-import type { ElementType, ReactNode } from "react";
-import { IconName } from "ui";
+import type { ElementType, ReactNode } from 'react';
+import { IconName } from 'ui';
 
 export interface ContextMenuProps {
   as?: ElementType;
@@ -28,5 +28,5 @@ export type ContextMenuAtom = {
   x: number;
   y: number;
   items: ContextMenuItem[];
-  onHide?: () =>  void;
+  onHide?: () => void;
 } | null;

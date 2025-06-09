@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import { useSetAtom } from "jotai";
+import { useSetAtom } from 'jotai';
+import React, { useCallback } from 'react';
 
-import { contextMenuAtom } from "./atoms";
-import type { ContextMenuProps } from "./types";
+import { contextMenuAtom } from './atoms';
+import type { ContextMenuProps } from './types';
 
 const ContextMenu = ({
   as,
@@ -25,7 +25,7 @@ const ContextMenu = ({
       });
       onContextMenu?.();
     },
-    [items, onContextMenu, onContextMenuHide, setContextMenuState]
+    [items, onContextMenu, onContextMenuHide, setContextMenuState],
   );
 
   if (as) {

@@ -1,5 +1,5 @@
-import { atom } from "jotai";
+import { atom } from 'jotai';
 
-import type { ContextMenuAtom } from "./types";
+import type { ContextMenuAtom } from './types';
 
 export const contextMenuAtom = atom<ContextMenuAtom>(null);

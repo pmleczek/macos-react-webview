@@ -1,9 +1,9 @@
-import { useCallback, useRef } from "react";
-import { useAtom } from "jotai";
+import { useAtom } from 'jotai';
+import { useCallback, useRef } from 'react';
+import { Icon, useHandleClickOutside } from 'ui';
 
-import { contextMenuAtom } from "./atoms";
-import styles from "./index.module.css";
-import { Icon, useHandleClickOutside } from "ui";
+import { contextMenuAtom } from './atoms';
+import styles from './index.module.css';
 
 const Menu = () => {
   const [state, setState] = useAtom(contextMenuAtom);
@@ -26,7 +26,7 @@ const Menu = () => {
   }
 
   const handleClick = (
-    handlerFunction?: (() => void) | (() => Promise<void>)
+    handlerFunction?: (() => void) | (() => Promise<void>),
   ) => {
     handlerFunction?.();
     hideMenu();
