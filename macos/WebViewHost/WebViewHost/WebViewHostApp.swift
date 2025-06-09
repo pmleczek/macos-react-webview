@@ -15,7 +15,6 @@ struct WebViewHostApp: App {
   
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
             Space.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
