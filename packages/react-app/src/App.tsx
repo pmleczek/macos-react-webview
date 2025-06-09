@@ -1,10 +1,10 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { IPCHandlerProvider } from 'ipc';
 import 'ui/dist/index.css';
 import { createHashRouter, RouterProvider } from 'react-router';
 
 import { Menu } from '@components/context-menu';
-import { ipcHandler } from '@data';
+import { ipcHandler, queryClient } from '@data';
 import { Home, Settings, Space } from '@pages';
 
 const router = createHashRouter([
@@ -21,8 +21,6 @@ const router = createHashRouter([
     Component: Space,
   },
 ]);
-
-const queryClient = new QueryClient();
 
 const App = () => {
   return (
