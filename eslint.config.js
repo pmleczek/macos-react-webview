@@ -5,11 +5,17 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import prettierPluginRecommendedConfig from 'eslint-plugin-prettier/recommended';
-import simpleImportSort from "eslint-plugin-simple-import-sort";
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default [
   {
-    ignores: ['dist/', 'macos/', 'node_modules/', 'vite-env.d.ts', 'index.d.ts'],
+    ignores: [
+      '**/dist/',
+      'macos/',
+      '**/node_modules/',
+      'vite-env.d.ts',
+      'index.d.ts',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -20,11 +26,11 @@ export default [
   prettierPluginRecommendedConfig,
   {
     plugins: {
-      "simple-import-sort": simpleImportSort,
+      'simple-import-sort': simpleImportSort,
     },
     rules: {
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
     },
   },
 ];
