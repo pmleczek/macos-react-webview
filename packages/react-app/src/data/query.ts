@@ -17,6 +17,7 @@ export const fetchSpaces = async () => {
   response.push({
     emoji: '🌎',
     title: 'Default',
+    slug: 'default',
     createdAt: new Date(),
     updatedAt: new Date(),
   });
