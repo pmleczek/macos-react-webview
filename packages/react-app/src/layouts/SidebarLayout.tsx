@@ -1,17 +1,19 @@
+import { useSetAtom } from 'jotai';
+import { useMemo } from 'react';
 import { Sidebar, SidebarItem } from 'ui';
 
 import type { LayoutProps } from './types';
+import { useQuery } from '@tanstack/react-query';
+import { fetchSpaces } from '@data/query';
+import NewSpaceModal from './NewSpaceModal';
+import { sidebarSpaceSection } from './utils';
+import { modalAtomFamily } from '@state/atoms';
 
-const items: SidebarItem[] = [
+const NAVIGATION_LINKS: SidebarItem[] = [
   {
     icon: 'home',
     label: 'Home',
     to: '/',
-  },
-  {
-    icon: 'table',
-    label: 'Table',
-    to: '/table',
   },
   {
     icon: 'settings',
@@ -22,29 +24,28 @@ const items: SidebarItem[] = [
     type: 'header',
     label: 'Favorites',
   },
-  {
-    type: 'group',
-    header: {
-      type: 'header',
-      label: 'Spaces',
-      icon: 'plus',
-      onClick: () => console.log('Create new space'),
-    },
-    items: [
-      {
-        emoji: '🌎',
-        label: 'Default',
-        to: '/spaces/default',
-      },
-    ],
-  },
 ];
 
 const SidebarLayout = ({ children }: LayoutProps) => {
+  const { data } = useQuery({
+    queryKey: ['spaces'],
+    queryFn: fetchSpaces,
+  });
+
+  const setShowModal = useSetAtom(modalAtomFamily('new-page-modal'));
+
+  const sidebarItems: SidebarItem[] = useMemo(() => {
+    return [
+      ...NAVIGATION_LINKS,
+      sidebarSpaceSection(data ?? [], () => setShowModal(true)),
+    ];
+  }, [data, setShowModal]);
+
   return (
     <div className="sidebar-layout-container">
-      <Sidebar items={items} />
+      <Sidebar items={sidebarItems} />
       <div className="sidebar-layout-content-container">{children}</div>
+      <NewSpaceModal />
     </div>
   );
 };

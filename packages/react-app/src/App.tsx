@@ -17,7 +17,7 @@ const router = createHashRouter([
     Component: Settings,
   },
   {
-    path: '/spaces/:id',
+    path: '/spaces/:slug',
     Component: Space,
   },
 ]);
