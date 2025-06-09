@@ -5,6 +5,7 @@ import {
   MoveRight,
   Plus,
   Settings,
+  Smile,
   Table2,
   X,
 } from 'lucide-react';
@@ -14,6 +15,7 @@ const icons = {
   arrow_right: MoveRight,
   chevron_right: ChevronRight,
   close: X,
+  emoji: Smile,
   home: Home,
   plus: Plus,
   settings: Settings,
