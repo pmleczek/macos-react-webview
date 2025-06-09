@@ -18,7 +18,9 @@ class IPCHandler: ObservableObject {
   private var modelContext: ModelContext? = nil
   private var viewModel: WebViewModel? = nil
   
-  private var controllers: [IPCController] = []
+  private var controllers: [IPCController] = [
+    DataController()
+  ]
   
   func setModelContext(_ modelContext: ModelContext) {
     self.modelContext = modelContext

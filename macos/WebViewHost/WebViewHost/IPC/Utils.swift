@@ -20,6 +20,21 @@ func jsonToDict(_ jsonString: String) -> [String: Any]? {
   }
 }
 
+func toJsonString(from object: Codable) -> String {
+  let encoder = JSONEncoder()
+  
+  do {
+    let jsonData = try encoder.encode(object)
+    if let jsonString = String(data: jsonData, encoding: .utf8) {
+      return jsonString
+    }
+  } catch {
+    return ""
+  }
+  
+  return ""
+}
+
 func parseEvent(_ eventType: String) -> (scope: String, type: String)? {
   let parts = eventType.split(separator: ":", maxSplits: 1).map(String.init)
   
@@ -35,7 +50,7 @@ func toJavaScript(_ eventType: String, _ payload: String) -> String {
   var event = new CustomEvent('webview-event', {
     detail: {
       type: '\(eventType)',
-      payload: \(payload)
+      payload: '\(payload)'
     }
   });
   window.dispatchEvent(event);
