@@ -11,7 +11,7 @@ import SwiftData
 struct IncomingIPCEvent {
   let scope: String
   let type: String
-  let payload: String?
+  let payload: [String: Any]?
 }
 
 class IPCHandler: ObservableObject {
@@ -51,7 +51,7 @@ class IPCHandler: ObservableObject {
     }
     
     if let (scope, type) = parseEvent(eventType) {
-      let payload = eventDict["payload"] as? String
+      let payload = eventDict["payload"] as? [String: Any]
       let incomingEvent = IncomingIPCEvent(scope: scope, type: type, payload: payload)
       for controller in controllers {
         if controller.handle(incomingEvent) {

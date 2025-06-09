@@ -25,6 +25,9 @@ class DataController: IPCController {
     if (event.type == "get-spaces") {
       handleGetSpaces(event)
     }
+    if (event.type == "create-space") {
+      handleCreateSpace(event)
+    }
     
     return true
   }
@@ -35,6 +38,19 @@ class DataController: IPCController {
     }
     
     let serviceResponse = service.getSpaces()
+    guard serviceResponse.isSuccessful, let data = serviceResponse.data else {
+      return
+    }
+    
+    ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: data))
+  }
+  
+  func handleCreateSpace(_ event: IncomingIPCEvent) {
+    guard let service = self.spaceService, let payload = event.payload else {
+      return
+    }
+    
+    let serviceResponse = service.createSpace(payload)
     guard serviceResponse.isSuccessful, let data = serviceResponse.data else {
       return
     }
