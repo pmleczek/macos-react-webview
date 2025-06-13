@@ -12,24 +12,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let windowDelegate = WindowDelegate()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-      window = NSWindow(
-        contentRect: NSMakeRect(0, 0, 1200, 800),
-        styleMask: [
-          .titled,
-          .closable,
-          .resizable,
-          .miniaturizable,
-        ],
-        backing: .buffered,
-        defer: false
-      )
-      
-      window.center()
-      window.title = "WebViewHost"
-      window.makeKeyAndOrderFront(nil)
-      window.backgroundColor = .white
-      
-      window.delegate = windowDelegate
+      window = makeWindow(NSMakeRect(0, 0, 1200, 800), windowDelegate)
+      positionTrafficLights(window)
       
       NSApp.activate(ignoringOtherApps: true)
     }

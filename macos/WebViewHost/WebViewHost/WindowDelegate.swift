@@ -9,14 +9,18 @@ import Cocoa
 
 class WindowDelegate: NSObject, NSWindowDelegate {
   func windowDidResize(_ notification: Notification) {
-    print("window resized")
+    let window = NSApp.windows.first!
+    positionTrafficLights(window)
   }
   
   func windowWillExitFullScreen(_ notification: Notification) {
-    print("window will exit fullscreen")
+    let window = NSApp.windows.first!
+    setTrafficLightsHidden(window, true)
   }
   
   func windowDidExitFullScreen(_ notification: Notification) {
-    print("window did exit fullscreen")
+    let window = NSApp.windows.first!
+    positionTrafficLights(window)
+    setTrafficLightsHidden(window, false)
   }
 }
