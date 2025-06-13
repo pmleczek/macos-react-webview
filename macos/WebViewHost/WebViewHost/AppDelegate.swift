@@ -9,6 +9,7 @@ import Cocoa
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var window: NSWindow!
+    private let windowDelegate = WindowDelegate()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
       window = NSWindow(
@@ -27,6 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       window.title = "WebViewHost"
       window.makeKeyAndOrderFront(nil)
       window.backgroundColor = .white
+      
+      window.delegate = windowDelegate
       
       NSApp.activate(ignoringOtherApps: true)
     }
