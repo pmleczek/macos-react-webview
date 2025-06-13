@@ -15,6 +15,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       window = makeWindow(NSMakeRect(0, 0, 1200, 800), windowDelegate)
       positionTrafficLights(window)
       
+      let reactWebView = ReactWebView(
+          frame: window.contentView!.bounds,
+          viewModel: WebViewModel()
+      )
+      reactWebView.autoresizingMask = [.width, .height]
+      window.contentView?.addSubview(reactWebView)
+      
       NSApp.activate(ignoringOtherApps: true)
     }
 

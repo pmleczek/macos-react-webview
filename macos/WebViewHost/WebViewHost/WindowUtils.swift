@@ -22,6 +22,7 @@ func makeWindow(_ contentRect: NSRect, _ delegate: WindowDelegate) -> NSWindow {
       .closable,
       .resizable,
       .miniaturizable,
+      .fullSizeContentView,
     ],
     backing: .buffered,
     defer: false
