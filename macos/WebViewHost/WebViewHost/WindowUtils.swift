@@ -85,4 +85,12 @@ func positionTrafficLights(
     }
   }
 }
-  
+
+func convertToAppKit(_ rect: CGRect, _ windowHeight: CGFloat) -> CGRect {
+    return CGRect(
+        x: rect.origin.x,
+        y: windowHeight - rect.origin.y - rect.height,
+        width: rect.width,
+        height: rect.height
+    )
+}
