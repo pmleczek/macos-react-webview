@@ -166,6 +166,7 @@ const runDev = async () => {
     'bunx',
     'concurrently',
     '"bun --filter \'ipc\' dev"',
+    '"bun --filter \'api\' dev"',
     '"bun --filter \'ui\' dev"',
     '"bun --filter \'react-app\' dev"',
   ]);
@@ -207,6 +208,7 @@ const buildJSPackage = async (packageName: string, cmd: string) => {
 
 const buildJS = async () => {
   await buildJSPackage('ipc', 'bun --filter ipc release');
+  await buildJSPackage('api', 'bun --filter api release');
   await buildJSPackage('ui', 'bun --filter ui release');
   await buildJSPackage('react-app', 'bun --filter react-app build');
 };
