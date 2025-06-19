@@ -2,7 +2,7 @@ import 'ui/dist/index.css';
 
 import { Menu } from '@components/context-menu';
 import { queryClient } from '@data';
-import { Home, Settings, Space } from '@pages';
+import { Home, Notifications, Settings, Space } from '@pages';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ipcHandler, IPCHandlerProvider } from 'ipc';
 import { createHashRouter, RouterProvider } from 'react-router';
@@ -11,6 +11,10 @@ const router = createHashRouter([
   {
     path: '/',
     Component: Home,
+  },
+  {
+    path: '/notifications',
+    Component: Notifications,
   },
   {
     path: '/settings',

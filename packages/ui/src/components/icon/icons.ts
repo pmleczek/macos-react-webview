@@ -1,4 +1,5 @@
 import {
+  Bell,
   ChevronRight,
   Home,
   MoveLeft,
@@ -13,6 +14,7 @@ import {
 const icons = {
   arrow_left: MoveLeft,
   arrow_right: MoveRight,
+  bell: Bell,
   chevron_right: ChevronRight,
   close: X,
   emoji: Smile,
