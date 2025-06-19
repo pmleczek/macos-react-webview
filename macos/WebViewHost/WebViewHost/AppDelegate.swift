@@ -10,6 +10,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var window: NSWindow!
     private let windowDelegate = WindowDelegate()
+    private let ipcHandler = IPCHandler()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
       window = makeWindow(NSMakeRect(0, 0, 1200, 800), windowDelegate)
@@ -17,7 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       
       let reactWebView = ReactWebView(
           frame: window.contentView!.bounds,
-          viewModel: WebViewModel()
+          viewModel: WebViewModel(),
+          ipcHandler: ipcHandler
       )
       reactWebView.autoresizingMask = [.width, .height]
       window.contentView?.addSubview(reactWebView)

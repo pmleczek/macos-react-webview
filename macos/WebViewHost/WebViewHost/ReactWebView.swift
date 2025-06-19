@@ -23,10 +23,14 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
   private var webView: WKWebView!
   private var viewModel: WebViewModel
   private var onSendValueFromNative: AnyCancellable?
+  private var ipcHandler: IPCHandler?
   
-  init(frame: NSRect, viewModel: WebViewModel) {
+  init(frame: NSRect, viewModel: WebViewModel, ipcHandler: IPCHandler) {
     self.viewModel = viewModel
     super.init(frame: frame)
+    
+    self.ipcHandler = ipcHandler
+    self.ipcHandler?.setViewModel(self.viewModel)
     
     let preferences = WKWebpagePreferences()
     preferences.allowsContentJavaScript = true
@@ -74,7 +78,7 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
   func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
     if message.name == WebViewConstants.controllerName,
       let payload = message.body as? String {
-        print(payload)
+        self.ipcHandler?.handle(payload)
       }
     }
 }
