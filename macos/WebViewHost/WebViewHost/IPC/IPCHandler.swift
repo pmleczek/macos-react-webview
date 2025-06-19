@@ -19,6 +19,7 @@ class IPCHandler: ObservableObject {
   private var viewModel: WebViewModel? = nil
   
   private var controllers: [IPCController] = [
+    NotificationController()
   ]
   
 //  func setModelContext(_ modelContext: ModelContext) {
