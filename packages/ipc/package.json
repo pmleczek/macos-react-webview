@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
-    "release": "bun release:types && bun build.ts"
+    "release": "rm -rf dist && bun release:types && bun build.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
