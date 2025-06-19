@@ -1,4 +1,4 @@
-import type IPCHandler from './handler';
+import { ipcHandler } from '.';
 
 const emitEventViaIPC = (type: string, payload?: object) => {
   const message = JSON.stringify({ type, payload });
@@ -17,16 +17,15 @@ export const emitTwoWayEvent = <
   U extends object | undefined = undefined,
 >(
   event: string,
-  data: T,
-  ipcHandler: IPCHandler,
+  data?: T,
 ): Promise<U> => {
   emitEventViaIPC(event, data);
 
   return new Promise((resolve) => {
     ipcHandler.register(
       event,
-      (data) => {
-        resolve(data as U);
+      (responseData) => {
+        resolve(responseData as U);
       },
       { singleUse: true },
     );

@@ -1,6 +1,5 @@
 import { emitTwoWayEvent } from 'ipc';
 
-import ipcHandler from './ipcHandler';
 import { Space } from './types';
 
 const QUERY = {
@@ -8,11 +7,7 @@ const QUERY = {
 } as const;
 
 export const fetchSpaces = async () => {
-  const response = await emitTwoWayEvent<undefined, Space[]>(
-    QUERY.GET_SPACES,
-    undefined,
-    ipcHandler,
-  );
+  const response = await emitTwoWayEvent<undefined, Space[]>(QUERY.GET_SPACES);
 
   const defaultSpace: Space = {
     emoji: '🌎',
