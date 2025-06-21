@@ -20,6 +20,11 @@
   background-color: var(--foreground-light);
   color: var(--background-color);
 
+  &:disabled, &:disabled * {
+    background-color: var(--gray-600) !important;
+    cursor: default !important;
+  }
+
   &:hover {
     background-color: var(--foreground-lighter);
   }
