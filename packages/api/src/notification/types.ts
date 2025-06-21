@@ -38,3 +38,25 @@ export interface ScheduleRequest {
 export interface ScheduleResponse {
   id: string | null;
 }
+
+export interface ScheduledNotification {
+  id: string;
+  repeats: boolean;
+}
+
+export type GetScheduledResponse = ScheduledNotification[];
+
+export interface DisplayedNotification {
+  id: string;
+  date: Date;
+}
+
+export type GetDisplayedResponse = DisplayedNotification[];
+
+export interface CancelScheduledRequest {
+  ids: string[];
+}
+
+export interface DismissDisplayedRequest {
+  ids: string[];
+}

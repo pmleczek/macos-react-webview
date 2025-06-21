@@ -7,6 +7,26 @@
 
 import UserNotifications
 
+struct ScheduledNotification: Codable {
+    let id: String
+    let repeats: Bool
+
+    init(id: String, repeats: Bool? = nil) {
+        self.id = id
+        self.repeats = repeats ?? false
+    }
+}
+
+struct DisplayedNotification: Codable {
+  let id: String
+  let date: Double
+  
+  init(id: String, date: Double) {
+    self.id = id
+    self.date = date
+  }
+}
+
 class NotificationController: NSObject, IPCController, UNUserNotificationCenterDelegate {
   var ipcHandler: IPCHandler?
   let notificationCenter = UNUserNotificationCenter.current()
@@ -27,6 +47,30 @@ class NotificationController: NSObject, IPCController, UNUserNotificationCenterD
     
     if event.type == "schedule" {
       handleSchedule(event)
+    }
+    
+    if event.type == "get-scheduled" {
+      handleGetScheduled(event)
+    }
+    
+    if event.type == "get-displayed" {
+      handleGetDisplayed(event)
+    }
+    
+    if event.type == "cancel-all-scheduled" {
+      handleCancelAllScheduled()
+    }
+    
+    if event.type == "dismiss-all-displayed" {
+      handleDismissAllDisplayed()
+    }
+    
+    if event.type == "cancel-scheduled" {
+      handleCancelScheduled(event)
+    }
+    
+    if event.type == "dismiss-displayed" {
+      handleDismissDisplayed(event)
     }
     
     return true
@@ -116,5 +160,57 @@ class NotificationController: NSObject, IPCController, UNUserNotificationCenterD
         toJsonString(from: ["id": error != nil ? identifier : nil])
       )
     }
+  }
+  
+  func handleGetScheduled(_ event: IncomingIPCEvent) {
+    self.notificationCenter.getPendingNotificationRequests { requests in
+      let scheduled = requests.map { request in
+        ScheduledNotification(
+          id: request.identifier,
+          repeats: request.trigger?.repeats
+        )
+      }
+      
+      self.ipcHandler?.emit(
+        "\(event.scope):\(event.type)",
+        toJsonString(from: scheduled)
+      )
+    }
+  }
+  
+  func handleGetDisplayed(_ event: IncomingIPCEvent) {
+    self.notificationCenter.getDeliveredNotifications { notifications in
+      let displayed = notifications.map { notification in
+        DisplayedNotification(
+          id: notification.request.identifier,
+          date: notification.date.timeIntervalSince1970 * 1000
+        )
+      }
+      
+      self.ipcHandler?.emit(
+        "\(event.scope):\(event.type)",
+        toJsonString(from: displayed)
+      )
+    }
+  }
+  
+  func handleCancelAllScheduled() {
+    self.notificationCenter.removeAllPendingNotificationRequests()
+  }
+  
+  func handleDismissAllDisplayed() {
+    self.notificationCenter.removeAllDeliveredNotifications()
+  }
+  
+  func handleCancelScheduled(_ event: IncomingIPCEvent) {
+    guard let payload = event.payload, let identifiers = payload["ids"] as? [String] else { return }
+    
+    self.notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
+  }
+  
+  func handleDismissDisplayed(_ event: IncomingIPCEvent) {
+    guard let payload = event.payload, let identifiers = payload["ids"] as? [String] else { return }
+    
+    self.notificationCenter.removeDeliveredNotifications(withIdentifiers: identifiers)
   }
 }

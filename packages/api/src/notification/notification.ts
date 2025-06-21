@@ -1,12 +1,18 @@
-import { emitTwoWayEvent } from 'ipc';
+import { emitOneWayEvent, emitTwoWayEvent } from 'ipc';
 
 import { NotificationEvent } from '../events';
-import type {
-  GetPermissionsResponse,
-  NotificationPermissionStatus,
-  RequestPermissionsResponse,
-  ScheduleRequest,
-  ScheduleResponse,
+import {
+  type CancelScheduledRequest,
+  type DismissDisplayedRequest,
+  type DisplayedNotification,
+  type GetDisplayedResponse,
+  type GetPermissionsResponse,
+  type GetScheduledResponse,
+  type NotificationPermissionStatus,
+  type RequestPermissionsResponse,
+  type ScheduledNotification,
+  type ScheduleRequest,
+  type ScheduleResponse,
 } from './types';
 import { toPermissionStatus } from './utils';
 
@@ -34,10 +40,54 @@ const scheduleNotificationAsync = async (
   return response.id;
 };
 
+const getScheduledNotificationsAsync = async (): Promise<
+  ScheduledNotification[]
+> => {
+  const response = await emitTwoWayEvent<undefined, GetScheduledResponse>(
+    NotificationEvent.GetScheduledNotifications,
+  );
+  return response;
+};
+
+const getDisplayedNotificationsAsync = async (): Promise<
+  DisplayedNotification[]
+> => {
+  const response = await emitTwoWayEvent<undefined, GetDisplayedResponse>(
+    NotificationEvent.GetDisplayedNotifications,
+  );
+  return response;
+};
+
+const cancelAllScheduledNotifications = (): void => {
+  emitOneWayEvent(NotificationEvent.CancelAllScheduled);
+};
+
+const dismissAllDisplayedNotifications = (): void => {
+  emitOneWayEvent(NotificationEvent.DismissAllDisplayed);
+};
+
+const cancelScheduledNotifications = (ids: string[]): void => {
+  emitOneWayEvent<CancelScheduledRequest>(NotificationEvent.CancelScheduled, {
+    ids,
+  });
+};
+
+const dismissDisplayedNotifications = (ids: string[]): void => {
+  emitOneWayEvent<DismissDisplayedRequest>(NotificationEvent.DismissDisplayed, {
+    ids,
+  });
+};
+
 const notification = {
   getPermissionsAsync,
   requestPermissionsAsync,
   scheduleNotificationAsync,
+  getScheduledNotificationsAsync,
+  getDisplayedNotificationsAsync,
+  cancelAllScheduledNotifications,
+  dismissAllDisplayedNotifications,
+  cancelScheduledNotifications,
+  dismissDisplayedNotifications,
 };
 
 export default notification;
