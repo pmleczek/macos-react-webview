@@ -37,6 +37,10 @@ class NotificationController: NSObject, IPCController, UNUserNotificationCenterD
   }
   
   func handle(_ event: IncomingIPCEvent) -> Bool {
+    if event.scope != "notification" {
+      return false
+    }
+    
     if event.type == "request-permissions" {
       handleRequestPermissions(event)
     }

@@ -9,6 +9,7 @@ import Cocoa
 
 struct WindowConstants {
   static let backgroundColor: NSColor = .white
+  static let darkWindowBackgroundColor: NSColor = NSColor(red: 10 / 255.0, green: 10 / 255.0, blue: 10 / 255.0, alpha: 1.0)
   static let title: String = "WebViewHost"
   static let trafficLightsX: CGFloat = 16.0
   static let trafficLightsY: CGFloat = 20.0
@@ -31,7 +32,23 @@ func makeWindow(_ contentRect: NSRect, _ delegate: WindowDelegate) -> NSWindow {
   window.title = WindowConstants.title
   window.titleVisibility = .hidden
   window.titlebarAppearsTransparent = true
-  window.backgroundColor = WindowConstants.backgroundColor
+  
+  let preferredTheme = UserDefaults.standard.string(forKey: "preferredTheme")
+  var darkMode = false
+  
+  if preferredTheme == nil {
+    UserDefaults.standard.set("system", forKey: "preferredTheme")
+    darkMode = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark"
+  } else {
+    darkMode = preferredTheme == "dark" ||
+      (preferredTheme == "system" && UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark")
+  }
+  
+  if (darkMode) {
+    window.backgroundColor = WindowConstants.darkWindowBackgroundColor
+  } else {
+    window.backgroundColor = WindowConstants.backgroundColor
+  }
   
   window.center()
   window.makeKeyAndOrderFront(nil)

@@ -1,5 +1,11 @@
 export const EventScope = {
+  Application: 'application:',
   Notification: 'notification:',
+} as const;
+
+export const ApplicationEvent = {
+  GetTheme: EventScope.Application + 'get-theme',
+  SetTheme: EventScope.Application + 'set-theme',
 } as const;
 
 export const NotificationEvent = {

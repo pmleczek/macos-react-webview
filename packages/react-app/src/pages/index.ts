@@ -1,3 +1,4 @@
+export { default as Application } from './application';
 export { default as Home } from './Home';
 export { default as Notifications } from './notifications';
 export { default as Settings } from './Settings';

@@ -73,6 +73,13 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
           .sink { [weak webView] value in
               webView?.evaluateJavaScript(value)
           }
+    
+      let theme = UserDefaults.standard.string(forKey: "preferredTheme")
+      if theme == "dark" {
+        webView.evaluateJavaScript("document.documentElement.setAttribute('dark', 'true');")
+      } else if theme == "system" {
+        webView.evaluateJavaScript("document.documentElement.setAttribute('dark', String(window.matchMedia('(prefers-color-scheme: dark)').matches));")
+      }
   }
   
   func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
