@@ -20,12 +20,16 @@
 }
 
 .container {
-  background-color: var(--background-color);
+  background-color: var(--background-primary);
   border-radius: 10px;
   width: 360px;
   animation-name: modal-enter;
   animation-duration: 150ms;
   animation-timing-function: ease-out;
+
+  :root[dark="true"] & {
+    border: 1px solid var(--border-color);
+  }
 }
 
 .header_container {
@@ -36,11 +40,11 @@
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 16px;
-  border-bottom: 1px solid var(--background-color-darker);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .icon_container {
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--border-color-secondary);
   border-radius: 16px;
   height: 32px;
   width: 32px;
@@ -54,7 +58,7 @@
   padding-bottom: 16px;
   padding-left: 20px;
   padding-right: 16px;
-  border-bottom: 1px solid var(--background-color-darker);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .title_container {
@@ -73,14 +77,14 @@
 .subtitle_label {
   font-size: 14px;
   line-height: 18px;
-  color: var(--gray-500);
+  color: var(--accent-secondary);
 }
 
 .close_button {
   padding: 0;
 
   &:hover {
-    color: var(--gray-700);
+    color: var(--text-tertiary);
   }
 }
 

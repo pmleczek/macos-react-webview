@@ -27,4 +27,28 @@
   --foreground-color: var(--gray-950);
   --foreground-light: var(--gray-900);
   --foreground-lighter: var(--gray-800);
+
+  --accent: var(--gray-400);
+  --accent-secondary: var(--gray-500);
+  --accent-tertiary: var(--gray-600);
+  --background-primary: var(--gray-0);
+  --background-secondary: var(--gray-50);
+  --border-color: var(--gray-200);
+  --border-color-secondary: var(--gray-300);
+  --text: var(--gray-950);
+  --text-secondary: var(--gray-800);
+  --text-tertiary: var(--gray-700);
+}
+
+/* Dark mode color scheme */
+:root[dark="true"] {
+  --accent: var(--gray-600);
+  --accent-tertiary: var(--gray-400);
+  --background-primary: var(--gray-950);
+  --background-secondary: var(--gray-900);
+  --border-color: var(--gray-800);
+  --border-color-secondary: var(--gray-700);
+  --text: var(--gray-50);
+  --text-secondary: var(--gray-200);
+  --text-tertiary: var(--gray-300);
 }

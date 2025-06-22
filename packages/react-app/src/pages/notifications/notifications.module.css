@@ -37,7 +37,7 @@
 }
 
 .table th {
-  background-color: var(--background-color-darker);
+  background-color: var(--border-color);
   font-weight: 500;
 }
 
@@ -52,8 +52,12 @@
     background-color: #bfdbfe !important;
   }
 
+  :root[dark="true"] &.selected {
+    background-color: #1e3a8a !important;
+  }
+
   &:hover {
-    background-color: var(--background-color-dark);
+    background-color: var(--border-color);
   }
 }
 

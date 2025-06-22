@@ -1,15 +1,17 @@
 .container {
-  background-color: var(--background-color-dark);
+  background-color: var(--background-secondary);
   height: 100%;
   width: 228px;
 }
 
 .inner_container {
-  border-right: 1px solid var(--background-color-darker);
+  border-right: 1px solid var(--border-color);
+
   height: 100%;
   padding-left: 12px;
   padding-right: 12px;
   padding-bottom: 12px;
+
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -17,14 +19,17 @@
 
 .item {
   border-radius: 6px;
-  color: var(--foreground-lighter);
+  color: var(--text-secondary);
+
   display: flex;
   align-items: center;
   gap: 8px;
   height: 32px;
+
   padding-left: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
+
   transition-property: background-color, color;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -36,11 +41,20 @@
 
   &.active {
     background-color: var(--gray-150);
-    color: var(--foreground-color);
+    color: var(--gray-950);
   }
 
   &:hover {
     background-color: var(--gray-150);
+  }
+
+  :root[dark='true'] &.active {
+    background-color: var(--gray-800);
+    color: var(--gray-50);
+  }
+
+  :root[dark='true'] &:hover {
+    background-color: var(--gray-800);
   }
 }
 
@@ -64,15 +78,19 @@
 }
 
 .header_button {
-  color: var(--gray-600);
+  color: var(--accent-tertiary);
 
   &:hover {
     color: var(--gray-800);
   }
+
+  :root[dark='true'] &:hover {
+    color: var(--gray-200);
+  }
 }
 
 .header {
-  color: var(--gray-600);
+  color: var(--accent-tertiary);
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -83,21 +101,29 @@
   align-items: center;
   justify-content: end;
   height: 44px;
-  border-right: 1px solid var(--background-color-darker);
+  border-right: 1px solid var(--border-color);
   padding-right: 12px;
 }
 
 .drag_area_button {
-  color: var(--foreground-color-lighter);
+  color: var(--gray-800);
   height: 32px;
   width: 32px;
 
+  :root[dark='true'] & {
+    color: var(--gray-200);
+  }
+
   &:disabled {
-    color: var(--gray-400);
+    color: var(--accent);
+  }
+
+  :root[dark='true'] &:disabled {
+    color: var(--gray-500);
   }
 
   &:disabled:hover {
-    background: none;
-    color: var(--gray-400);
+    background: none !important;
+    color: var(--accent);
   }
 }
