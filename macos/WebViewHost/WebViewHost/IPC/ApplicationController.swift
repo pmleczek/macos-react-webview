@@ -31,6 +31,18 @@ class ApplicationController: IPCController {
       handleGetProperty(event)
     }
     
+    if event.type == "hide" {
+      handleHide()
+    }
+    
+    if event.type == "show" {
+      handleShow()
+    }
+    
+    if event.type == "quit" {
+      handleQuit()
+    }
+    
     return true
   }
   
@@ -93,5 +105,18 @@ class ApplicationController: IPCController {
     } else {
       self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["value": "unknown"]))
     }
+  }
+  
+  func handleShow() {
+    NSApp.unhide(nil)
+    NSApp.activate(ignoringOtherApps: true)
+  }
+  
+  func handleHide() {
+    NSApp.hide(nil)
+  }
+  
+  func handleQuit() {
+    NSApp.terminate(nil)
   }
 }

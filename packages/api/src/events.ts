@@ -7,6 +7,9 @@ export const ApplicationEvent = {
   GetTheme: EventScope.Application + 'get-theme',
   SetTheme: EventScope.Application + 'set-theme',
   GetProperty: EventScope.Application + 'get-property',
+  Hide: EventScope.Application + 'hide',
+  Show: EventScope.Application + 'show',
+  Quit: EventScope.Application + 'quit',
 } as const;
 
 export const NotificationEvent = {

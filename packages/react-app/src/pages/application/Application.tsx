@@ -2,6 +2,7 @@ import { SidebarLayout } from '@layouts';
 import { Breadcrumbs, MenuBar } from 'ui';
 
 import styles from './application.module.css';
+import Controls from './Controls';
 import Properties from './Properties';
 import Theme from './Theme';
 
@@ -19,6 +20,7 @@ const Application = () => {
         <h1 className={styles.title}>Application</h1>
         <Theme />
         <Properties />
+        <Controls />
       </div>
     </SidebarLayout>
   );
