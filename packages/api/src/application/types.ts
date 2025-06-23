@@ -7,3 +7,17 @@ export interface ThemeResponse {
 export interface SetThemeRequest {
   theme: Theme;
 }
+
+export type PropertyKey =
+  | 'bundleIdentifier'
+  | 'appName'
+  | 'appVersion'
+  | 'buildNumber';
+
+export interface GetPropertyRequest {
+  key: PropertyKey;
+}
+
+export interface GetPropertyResponse {
+  value: string;
+}

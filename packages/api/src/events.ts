@@ -6,6 +6,7 @@ export const EventScope = {
 export const ApplicationEvent = {
   GetTheme: EventScope.Application + 'get-theme',
   SetTheme: EventScope.Application + 'set-theme',
+  GetProperty: EventScope.Application + 'get-property',
 } as const;
 
 export const NotificationEvent = {

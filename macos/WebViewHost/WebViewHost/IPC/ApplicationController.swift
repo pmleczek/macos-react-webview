@@ -27,6 +27,10 @@ class ApplicationController: IPCController {
       handleSetTheme(event)
     }
     
+    if event.type.hasPrefix("get-property") {
+      handleGetProperty(event)
+    }
+    
     return true
   }
   
@@ -54,5 +58,40 @@ class ApplicationController: IPCController {
     let setTheme = UserDefaults.standard.string(forKey: "preferredTheme") ?? "system"
     
     self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["theme": theme]))
+  }
+  
+  func handleGetProperty(_ event: IncomingIPCEvent) {
+    guard let payload = event.payload, let key = payload["key"] as? String else {
+      return
+    }
+    
+    var value: String?
+    
+    switch key {
+    case "bundleIdentifier":
+      if let bundleIdentifier = Bundle.main.bundleIdentifier {
+        value = bundleIdentifier
+      }
+    case "appName":
+      if let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String {
+        value = appName
+      }
+    case "appVersion":
+      if let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+        value = appVersion
+      }
+    case "buildNumber":
+      if let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+        value = buildNumber
+      }
+    default:
+      value = "unknown"
+    }
+    
+    if value != nil {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["value": value]))
+    } else {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["value": "unknown"]))
+    }
   }
 }
