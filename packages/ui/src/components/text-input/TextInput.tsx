@@ -1,3 +1,4 @@
+import cs from 'classnames';
 import { useCallback } from 'react';
 
 import Label from './Label';
@@ -5,6 +6,8 @@ import styles from './textinput.module.css';
 import type { TextInputProps } from './types';
 
 const TextInput = ({
+  autoCorrect,
+  className,
   id,
   leftItem,
   onChange,
@@ -18,13 +21,16 @@ const TextInput = ({
     [onChange],
   );
 
+  const autoCorrectValue = autoCorrect ? '' : 'off';
+
   if (leftItem) {
     return (
       <div className={styles.input_wrapper}>
         <div className={styles.item_left}>{leftItem}</div>
         <input
+          autoCorrect={autoCorrectValue}
           id={id}
-          className={styles.text_input}
+          className={cs(styles.text_input, className)}
           onChange={handleChange}
           placeholder={placeholder}
           value={value}
@@ -35,8 +41,9 @@ const TextInput = ({
 
   return (
     <input
+      autoCorrect={autoCorrectValue}
       id={id}
-      className={styles.text_input}
+      className={cs(styles.text_input, className)}
       onChange={handleChange}
       placeholder={placeholder}
       value={value}

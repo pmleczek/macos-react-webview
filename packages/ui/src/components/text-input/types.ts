@@ -6,6 +6,8 @@ export interface TextInputLabelProps {
 }
 
 export interface TextInputProps {
+  autoCorrect?: boolean;
+  className?: string;
   id?: string;
   leftItem?: ReactNode;
   onChange?: (value: string) => void;
