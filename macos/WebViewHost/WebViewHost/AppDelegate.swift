@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       )
       reactWebView.autoresizingMask = [.width, .height]
       window.contentView?.addSubview(reactWebView)
+      window.makeFirstResponder(reactWebView)
       
       let contentViewBounds = window.contentView!.bounds
       let dragRegion = DragRegionView(frame: NSRect(

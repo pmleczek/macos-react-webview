@@ -83,9 +83,39 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
   }
   
   func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-    if message.name == WebViewConstants.controllerName,
-      let payload = message.body as? String {
-        self.ipcHandler?.handle(payload)
-      }
+    if message.name == WebViewConstants.controllerName, let payload = message.body as? String {
+      self.ipcHandler?.handle(payload)
     }
+  }
+  
+  override var acceptsFirstResponder: Bool {
+      return true
+  }
+  
+  override func becomeFirstResponder() -> Bool {
+    return webView.becomeFirstResponder()
+  }
+  
+  override func performKeyEquivalent(with event: NSEvent) -> Bool {
+      if event.modifierFlags.contains(.command), let key = event.charactersIgnoringModifiers?.lowercased() {
+        print(key)
+          switch key {
+          case "a":
+              webView.perform(#selector(NSText.selectAll(_:)))
+              return true
+          case "v":
+              webView.perform(#selector(NSText.paste(_:)))
+              return true
+          case "c":
+              webView.perform(#selector(NSText.copy(_:)))
+              return true
+          case "x":
+              webView.perform(#selector(NSText.cut(_:)))
+              return true
+          default:
+              break
+          }
+      }
+      return super.performKeyEquivalent(with: event)
+  }
 }
