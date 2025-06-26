@@ -12,6 +12,7 @@ func buildMenu(_ appDelegate: AppDelegate) {
   NSApp.mainMenu = menu
   
   buildAppMenu(menu, appDelegate)
+  buildWindowMenu(menu, appDelegate)
 }
 
 func buildAppMenu(_ menu: NSMenu, _ appDelegate: AppDelegate) {
@@ -34,4 +35,24 @@ func buildAppMenu(_ menu: NSMenu, _ appDelegate: AppDelegate) {
   appMenu.addItem(withTitle: "Settings...", action: #selector(appDelegate.openSettings), keyEquivalent: ",")
   appMenu.addItem(NSMenuItem.separator())
   appMenu.addItem(withTitle: "Quit \(WindowConstants.title)", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+}
+
+func buildWindowMenu(_ menu: NSMenu, _ appDelegate: AppDelegate) {
+  let windowMenuItem = NSMenuItem()
+  menu.addItem(windowMenuItem)
+  let windowMenu = NSMenu(title: "Window")
+  windowMenuItem.submenu = windowMenu
+  
+  windowMenu.addItem(withTitle: "Minimize", action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
+  windowMenu.addItem(withTitle: "Zoom", action: #selector(NSWindow.performZoom(_:)), keyEquivalent: "")
+  
+  windowMenu.addItem(NSMenuItem.separator())
+  
+  windowMenu.addItem(
+      withTitle: "Bring All to Front",
+      action: #selector(NSApplication.arrangeInFront(_:)),
+      keyEquivalent: ""
+  )
+  
+  NSApp.windowsMenu = windowMenu
 }
