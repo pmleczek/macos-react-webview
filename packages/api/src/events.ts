@@ -1,5 +1,6 @@
 export const EventScope = {
   Application: 'application:',
+  Clipboard: 'clipboard:',
   Notification: 'notification:',
 } as const;
 
@@ -10,6 +11,16 @@ export const ApplicationEvent = {
   Hide: EventScope.Application + 'hide',
   Show: EventScope.Application + 'show',
   Quit: EventScope.Application + 'quit',
+} as const;
+
+export const ClipboardEvent = {
+  Clear: EventScope.Clipboard + 'clear',
+  ReadText: EventScope.Clipboard + 'read-text',
+  WriteText: EventScope.Clipboard + 'write-text',
+  ReadImage: EventScope.Clipboard + 'read-image',
+  WriteImage: EventScope.Clipboard + 'write-image',
+  ReadImageBase64: EventScope.Clipboard + 'read-image-base64',
+  WriteImageBase64: EventScope.Clipboard + 'write-image-base64',
 } as const;
 
 export const NotificationEvent = {

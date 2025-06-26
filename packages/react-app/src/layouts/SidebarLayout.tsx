@@ -21,6 +21,11 @@ const NAVIGATION_LINKS: SidebarItem[] = [
     to: '/application',
   },
   {
+    icon: 'clipboard',
+    label: 'Clipboard',
+    to: '/clipboard',
+  },
+  {
     icon: 'bell',
     label: 'Notifications',
     to: '/notifications',
