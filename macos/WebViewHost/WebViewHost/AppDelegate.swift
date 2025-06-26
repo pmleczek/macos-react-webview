@@ -35,6 +35,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       dragRegion.autoresizingMask = [.width, .minYMargin]
       window.contentView?.addSubview(dragRegion)
       
+      buildMenu(self)
+      
       NSApp.activate(ignoringOtherApps: true)
     }
 
@@ -43,4 +45,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
     }
+  
+  @objc func openSettings () {
+    print("Open settings")
+  }
 }
