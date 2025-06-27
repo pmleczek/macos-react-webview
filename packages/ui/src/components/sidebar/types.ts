@@ -27,6 +27,8 @@ export type SidebarItem = SidebarHeader | SidebarGroup | SidebarLink;
 
 export interface SidebarProps {
   items: SidebarItem[];
+  onToggleSearch?: () => void;
+  search?: boolean;
 }
 
 export interface SidebarLinkProps {
@@ -39,5 +41,9 @@ export interface SidebarLinkProps {
 export interface SidebarHeaderProps {
   label: string;
   icon?: IconName;
+  onClick?: () => void;
+}
+
+export interface SidebarSearchProps {
   onClick?: () => void;
 }

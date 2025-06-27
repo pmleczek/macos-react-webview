@@ -1,5 +1,6 @@
 import Header from './Header';
 import Link from './Link';
+import Search from './Search';
 import styles from './sidebar.module.css';
 import TopBar from './TopBar';
 import type { SidebarItem, SidebarProps } from './types';
@@ -48,11 +49,12 @@ const renderItem = (item: SidebarItem) => {
   );
 };
 
-const Sidebar = ({ items }: SidebarProps) => {
+const Sidebar = ({ items, onToggleSearch, search }: SidebarProps) => {
   return (
     <div className={styles.container}>
       <TopBar />
       <div className={styles.inner_container}>
+        {search && <Search onClick={onToggleSearch} />}
         {items.map((item) => renderItem(item))}
       </div>
     </div>

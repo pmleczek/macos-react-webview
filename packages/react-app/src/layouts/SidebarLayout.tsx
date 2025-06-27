@@ -1,5 +1,6 @@
+import { CommandProvider } from '@components';
 import { fetchSpaces } from '@data/query';
-import { modalAtomFamily } from '@state/atoms';
+import { commandMenuAtom, modalAtomFamily } from '@state/atoms';
 import { useQuery } from '@tanstack/react-query';
 import { useSetAtom } from 'jotai';
 import { useMemo } from 'react';
@@ -48,6 +49,7 @@ const SidebarLayout = ({ children }: LayoutProps) => {
   });
 
   const setShowModal = useSetAtom(modalAtomFamily('new-page-modal'));
+  const setShowCommand = useSetAtom(commandMenuAtom);
 
   const sidebarItems: SidebarItem[] = useMemo(() => {
     return [
@@ -58,9 +60,14 @@ const SidebarLayout = ({ children }: LayoutProps) => {
 
   return (
     <div className="sidebar-layout-container">
-      <Sidebar items={sidebarItems} />
+      <Sidebar
+        items={sidebarItems}
+        search
+        onToggleSearch={() => setShowCommand(true)}
+      />
       <div className="sidebar-layout-content-container">{children}</div>
       <NewSpaceModal />
+      <CommandProvider />
     </div>
   );
 };
