@@ -12,7 +12,7 @@ struct WindowConstants {
   static let darkWindowBackgroundColor: NSColor = NSColor(red: 10 / 255.0, green: 10 / 255.0, blue: 10 / 255.0, alpha: 1.0)
   static let title: String = "WebViewHost"
   static let trafficLightsX: CGFloat = 16.0
-  static let trafficLightsY: CGFloat = 20.0
+  static let trafficLightsY: CGFloat = 24.0
 }
 
 func makeWindow(_ contentRect: NSRect, _ delegate: WindowDelegate) -> NSWindow {
