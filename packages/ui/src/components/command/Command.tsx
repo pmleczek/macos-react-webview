@@ -1,20 +1,30 @@
-import React from 'react';
+import { useSetAtom } from 'jotai';
+import { useEffect } from 'react';
 
+import { commandStateAtom } from './atoms';
 import Body from './Body';
 import styles from './command.module.css';
 import Empty from './Empty';
 import Footer from './Footer';
 import Header from './Header';
 import Input from './Input';
+import Item from './Item';
 import Loader from './Loader';
 import type { CommandProps } from './types';
 
 const Command = ({ children, onHide, show }: CommandProps) => {
+  const setCommandState = useSetAtom(commandStateAtom);
+
+  useEffect(() => {
+    setCommandState({
+      hide: onHide,
+      selectedIndex: -1,
+    });
+  }, [onHide, setCommandState]);
+
   if (!show) {
     return null;
   }
-
-  console.log(React.Children.toArray(children));
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
@@ -32,6 +42,7 @@ Command.Empty = Empty;
 Command.Footer = Footer;
 Command.Header = Header;
 Command.Input = Input;
+Command.Item = Item;
 Command.Loader = Loader;
 
 export default Command;

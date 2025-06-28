@@ -1,7 +1,14 @@
 import { commandMenuAtom } from '@state/atoms';
 import { ipcHandler } from 'ipc';
 import { useAtom } from 'jotai';
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  type ReactElement,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { Command } from 'ui';
 
 import useCommandItems from './useCommandItems';
@@ -40,6 +47,18 @@ const CommandProvider = () => {
     if (items.loading) {
       return <Command.Loader />;
     }
+
+    const children: ReactElement[] = [];
+    if (items.navigation.length > 0) {
+      children.push(<Command.Header label="Navigation" />);
+      children.push(
+        ...items.navigation.map((item) => (
+          <Command.Item key={item.label} item={item} />
+        )),
+      );
+    }
+
+    return children;
   }, [items]);
 
   return (

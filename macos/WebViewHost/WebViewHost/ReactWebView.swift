@@ -124,6 +124,10 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
         return true
       }
     
+      if event.keyCode == 123 || event.keyCode == 124 || event.keyCode == 76 {
+        return true
+      }
+    
       return super.performKeyEquivalent(with: event)
   }
 }

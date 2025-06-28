@@ -12,39 +12,7 @@ import { Outlet } from 'react-router';
 import { Sidebar, SidebarItem } from 'ui';
 
 import NewSpaceModal from './NewSpaceModal';
-import { sidebarSpaceSection } from './utils';
-
-const NAVIGATION_LINKS: SidebarItem[] = [
-  {
-    icon: 'home',
-    label: 'Home',
-    to: '/',
-  },
-  {
-    icon: 'app_window',
-    label: 'Application',
-    to: '/application',
-  },
-  {
-    icon: 'clipboard',
-    label: 'Clipboard',
-    to: '/clipboard',
-  },
-  {
-    icon: 'bell',
-    label: 'Notifications',
-    to: '/notifications',
-  },
-  {
-    icon: 'settings',
-    label: 'Settings',
-    to: '/settings',
-  },
-  {
-    type: 'header',
-    label: 'Favorites',
-  },
-];
+import { navigationLinks, sidebarSpaceSection } from './utils';
 
 const SidebarLayout = () => {
   const { data } = useQuery({
@@ -58,7 +26,7 @@ const SidebarLayout = () => {
 
   const sidebarItems: SidebarItem[] = useMemo(() => {
     return [
-      ...NAVIGATION_LINKS,
+      ...navigationLinks,
       sidebarSpaceSection(data ?? [], () => setShowModal(true)),
     ];
   }, [data, setShowModal]);

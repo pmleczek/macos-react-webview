@@ -119,6 +119,10 @@
 
   font-size: 14px;
   line-height: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .header {
@@ -126,7 +130,8 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 600;
-  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
 }
 
 .empty_container {
@@ -156,5 +161,33 @@
 
   100% {
     rotate: 360deg;
+  }
+}
+
+.item {
+  cursor: pointer;
+
+  padding-left: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: var(--text-tertiary);
+
+  transition-property: background-color;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &.selected {
+    background-color: var(--border-color);
+  }
+
+  &.selected {
+    color: var(--text-secondary);
   }
 }

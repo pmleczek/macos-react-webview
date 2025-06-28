@@ -1,5 +1,8 @@
+import type { CommandItem } from 'ui';
+
 export interface CommandItems {
-  quickActions: unknown[];
   empty: boolean;
   loading: boolean;
+  quickActions: CommandItem[];
+  navigation: CommandItem[];
 }
