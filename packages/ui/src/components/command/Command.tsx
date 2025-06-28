@@ -22,6 +22,19 @@ const Command = ({ children, onHide, show }: CommandProps) => {
     });
   }, [onHide, setCommandState]);
 
+  useEffect(() => {
+    if (!show) {
+      setCommandState((prev) =>
+        prev
+          ? {
+              ...prev,
+              selectedIndex: -1,
+            }
+          : prev,
+      );
+    }
+  }, [show, setCommandState]);
+
   if (!show) {
     return null;
   }
