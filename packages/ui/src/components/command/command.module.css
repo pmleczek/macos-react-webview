@@ -1,0 +1,111 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: start;
+  justify-content: center;
+
+  padding-top: 96px;
+
+  animation-name: fade-in-overlay;
+  animation-duration: 150ms;
+  animation-timing-function: ease-out;
+}
+
+@keyframes fade-in-overlay {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.container {
+  width: 432px;
+  background-color: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+
+  animation-name: fade-in-container;
+  animation-duration: 150ms;
+  animation-timing-function: ease-out;
+}
+
+@keyframes fade-in-container {
+  0% {
+    opacity: 0;
+    scale: 0.95;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.input_container {
+  height: 40px;
+  position: relative;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.search_icon {
+  position: absolute;
+  color: var(--accent-tertiary);
+  left: 12px;
+  top: 11px;
+}
+
+.search_input {
+  height: 40px;
+  width: 100%;
+  padding-left: 40px;
+  font-size: 14px;
+  line-height: 18px;
+
+  &::placeholder {
+    color: var(--accent-tertiary);
+  }
+}
+
+.close_icon {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  padding: 0;
+
+  &:hover {
+    color: var(--text-tertiary);
+  }
+}
+
+.footer {
+  height: 40px;
+  border-top: 1px solid var(--border-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.key_container, .keys {
+  display: flex;
+  align-items: center;
+}
+
+.keys {
+  gap: 8px;
+}
+
+.key_container {
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-tertiary);
+  gap: 6px;
+}

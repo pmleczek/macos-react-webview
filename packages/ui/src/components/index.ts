@@ -1,5 +1,6 @@
 export { default as Breadcrumbs } from './breadcrumbs';
 export { default as Button } from './button';
+export { default as Command } from './command';
 export type { IconName } from './icon';
 export { default as Icon } from './icon';
 export { default as Kbd } from './kbd';
