@@ -98,7 +98,6 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
   
   override func performKeyEquivalent(with event: NSEvent) -> Bool {
       if event.modifierFlags.contains(.command), let key = event.charactersIgnoringModifiers?.lowercased() {
-        print(key)
           switch key {
           case "a":
               webView.perform(#selector(NSText.selectAll(_:)))
@@ -112,10 +111,19 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
           case "x":
               webView.perform(#selector(NSText.cut(_:)))
               return true
+          case "k":
+              self.ipcHandler?.emit("application:search")
+            return true
           default:
               break
           }
       }
+    
+      if event.charactersIgnoringModifiers == "\u{1B}" {
+        self.ipcHandler?.emit("application:escape")
+        return true
+      }
+    
       return super.performKeyEquivalent(with: event)
   }
 }

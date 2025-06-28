@@ -11,3 +11,7 @@ export interface CommandInputProps {
   onHide?: () => void;
   value: string;
 }
+
+export interface CommandBodyProps {
+  children?: ReactNode;
+}

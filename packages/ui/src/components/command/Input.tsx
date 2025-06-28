@@ -18,6 +18,8 @@ const Input = ({ onChange, onHide, value }: CommandInputProps) => {
       <Icon className={styles.search_icon} name="search" size={18} />
       <input
         className={styles.search_input}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
         autoCorrect="off"
         onChange={handleChange}
         placeholder="Search..."
