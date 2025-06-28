@@ -26,6 +26,7 @@ interface SidebarLink {
 export type SidebarItem = SidebarHeader | SidebarGroup | SidebarLink;
 
 export interface SidebarProps {
+  hide?: boolean;
   items: SidebarItem[];
   onToggleSearch?: () => void;
   search?: boolean;

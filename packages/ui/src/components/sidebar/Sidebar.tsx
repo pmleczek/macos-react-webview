@@ -1,3 +1,5 @@
+import cs from 'classnames';
+
 import Header from './Header';
 import Link from './Link';
 import Search from './Search';
@@ -49,7 +51,11 @@ const renderItem = (item: SidebarItem) => {
   );
 };
 
-const Sidebar = ({ items, onToggleSearch, search }: SidebarProps) => {
+const Sidebar = ({ hide, items, onToggleSearch, search }: SidebarProps) => {
+  if (hide) {
+    return <div className={cs(styles.container, styles.hidden)} />;
+  }
+
   return (
     <div className={styles.container}>
       <TopBar />

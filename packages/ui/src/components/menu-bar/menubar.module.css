@@ -5,3 +5,19 @@
   align-items: center;
   padding-left: 16px;
 }
+
+.sidebar_hidden {
+padding-left: 92px;
+}
+
+.sidebar_toggle {
+  padding: 0;
+}
+
+.separator {
+  width: 2px;
+  height: 20px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: var(--border-color);
+}

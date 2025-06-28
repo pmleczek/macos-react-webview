@@ -2,6 +2,14 @@
   background-color: var(--background-secondary);
   height: 100%;
   width: 228px;
+
+  transition-property: width;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.hidden {
+    width: 0;
+  }
 }
 
 .inner_container {

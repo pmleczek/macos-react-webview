@@ -5,3 +5,5 @@ import { atomFamily } from 'jotai/utils';
 export const modalAtomFamily = atomFamily((_modalName: string) => atom(false));
 
 export const commandMenuAtom = atom<boolean>(false);
+
+export const hideSidebarAtom = atom<boolean>(false);

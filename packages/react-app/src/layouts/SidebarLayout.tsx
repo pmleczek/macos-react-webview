@@ -1,8 +1,12 @@
 import { CommandProvider } from '@components';
 import { fetchSpaces } from '@data/query';
-import { commandMenuAtom, modalAtomFamily } from '@state/atoms';
+import {
+  commandMenuAtom,
+  hideSidebarAtom,
+  modalAtomFamily,
+} from '@state/atoms';
 import { useQuery } from '@tanstack/react-query';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useMemo } from 'react';
 import { Sidebar, SidebarItem } from 'ui';
 
@@ -48,6 +52,7 @@ const SidebarLayout = ({ children }: LayoutProps) => {
     queryFn: fetchSpaces,
   });
 
+  const hideSidebar = useAtomValue(hideSidebarAtom);
   const setShowModal = useSetAtom(modalAtomFamily('new-page-modal'));
   const setShowCommand = useSetAtom(commandMenuAtom);
 
@@ -61,6 +66,7 @@ const SidebarLayout = ({ children }: LayoutProps) => {
   return (
     <div className="sidebar-layout-container">
       <Sidebar
+        hide={hideSidebar}
         items={sidebarItems}
         search
         onToggleSearch={() => setShowCommand(true)}
