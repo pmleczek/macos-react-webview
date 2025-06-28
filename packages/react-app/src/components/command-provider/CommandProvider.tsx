@@ -1,7 +1,7 @@
 import { commandMenuAtom } from '@state/atoms';
 import { ipcHandler } from 'ipc';
 import { useAtom } from 'jotai';
-import { useCallback, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { Command } from 'ui';
 
 import useCommandItems from './useCommandItems';
@@ -32,10 +32,20 @@ const CommandProvider = () => {
     };
   }, [handleHide, setShowCommand]);
 
+  const body: ReactNode = useMemo(() => {
+    if (items.empty) {
+      return <Command.Empty message="No results found" />;
+    }
+
+    if (items.loading) {
+      return <Command.Loader />;
+    }
+  }, [items]);
+
   return (
     <Command show={showCommand} onHide={handleHide}>
       <Command.Input onHide={handleHide} value={query} onChange={setQuery} />
-      <Command.Body>Body</Command.Body>
+      <Command.Body>{body}</Command.Body>
       <Command.Footer />
     </Command>
   );

@@ -107,7 +107,7 @@
 .key_container {
   font-size: 14px;
   line-height: 18px;
-  color: var(--text-tertiary);
+  color: var(--accent-tertiary);
   gap: 6px;
 }
 
@@ -119,4 +119,42 @@
 
   font-size: 14px;
   line-height: 18px;
+}
+
+.header {
+  color: var(--accent-tertiary);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.empty_container {
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty_message {
+  font-size: 16px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.spinner {
+  color: var(--text-tertiary);
+  animation-name: rotate;
+  animation-duration: 1500ms;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotate {
+  0% {
+    rotate: 0deg;
+  }
+
+  100% {
+    rotate: 360deg;
+  }
 }

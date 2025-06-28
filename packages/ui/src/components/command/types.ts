@@ -15,3 +15,11 @@ export interface CommandInputProps {
 export interface CommandBodyProps {
   children?: ReactNode;
 }
+
+export interface CommandHeaderProps {
+  label: string;
+}
+
+export interface CommandEmptyProps {
+  message?: string;
+}

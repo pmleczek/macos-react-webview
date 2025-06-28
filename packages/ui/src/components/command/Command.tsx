@@ -2,8 +2,11 @@ import React from 'react';
 
 import Body from './Body';
 import styles from './command.module.css';
+import Empty from './Empty';
 import Footer from './Footer';
+import Header from './Header';
 import Input from './Input';
+import Loader from './Loader';
 import type { CommandProps } from './types';
 
 const Command = ({ children, onHide, show }: CommandProps) => {
@@ -25,7 +28,10 @@ const Command = ({ children, onHide, show }: CommandProps) => {
 };
 
 Command.Body = Body;
+Command.Empty = Empty;
 Command.Footer = Footer;
+Command.Header = Header;
 Command.Input = Input;
+Command.Loader = Loader;
 
 export default Command;
