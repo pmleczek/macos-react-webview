@@ -2,6 +2,7 @@ import 'ui/dist/index.css';
 
 import { Menu } from '@components/context-menu';
 import { queryClient } from '@data';
+import { SidebarLayout } from '@layouts';
 import {
   Application,
   Clipboard,
@@ -17,28 +18,33 @@ import { createHashRouter, RouterProvider } from 'react-router';
 
 const router = createHashRouter([
   {
-    path: '/',
-    Component: Home,
-  },
-  {
-    path: '/application',
-    Component: Application,
-  },
-  {
-    path: '/clipboard',
-    Component: Clipboard,
-  },
-  {
-    path: '/notifications',
-    Component: Notifications,
-  },
-  {
-    path: '/settings',
-    Component: Settings,
-  },
-  {
-    path: '/spaces/:slug',
-    Component: Space,
+    Component: SidebarLayout,
+    children: [
+      {
+        path: '/',
+        Component: Home,
+      },
+      {
+        path: '/application',
+        Component: Application,
+      },
+      {
+        path: '/clipboard',
+        Component: Clipboard,
+      },
+      {
+        path: '/notifications',
+        Component: Notifications,
+      },
+      {
+        path: '/settings',
+        Component: Settings,
+      },
+      {
+        path: '/spaces/:slug',
+        Component: Space,
+      },
+    ],
   },
 ]);
 

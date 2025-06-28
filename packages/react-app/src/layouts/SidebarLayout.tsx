@@ -8,10 +8,10 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useMemo } from 'react';
+import { Outlet } from 'react-router';
 import { Sidebar, SidebarItem } from 'ui';
 
 import NewSpaceModal from './NewSpaceModal';
-import type { LayoutProps } from './types';
 import { sidebarSpaceSection } from './utils';
 
 const NAVIGATION_LINKS: SidebarItem[] = [
@@ -46,7 +46,7 @@ const NAVIGATION_LINKS: SidebarItem[] = [
   },
 ];
 
-const SidebarLayout = ({ children }: LayoutProps) => {
+const SidebarLayout = () => {
   const { data } = useQuery({
     queryKey: ['spaces'],
     queryFn: fetchSpaces,
@@ -71,7 +71,9 @@ const SidebarLayout = ({ children }: LayoutProps) => {
         search
         onToggleSearch={() => setShowCommand(true)}
       />
-      <div className="sidebar-layout-content-container">{children}</div>
+      <div className="sidebar-layout-content-container">
+        <Outlet />
+      </div>
       <NewSpaceModal />
       <CommandProvider />
     </div>

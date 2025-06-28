@@ -1,4 +1,3 @@
-import { SidebarLayout } from '@layouts';
 import { hideSidebarAtom } from '@state/atoms';
 import { useAtom } from 'jotai';
 import { Breadcrumbs, MenuBar } from 'ui';
@@ -7,7 +6,7 @@ const Home = () => {
   const [hideSidebar, setHideSidebar] = useAtom(hideSidebarAtom);
 
   return (
-    <SidebarLayout>
+    <>
       <MenuBar
         breadcrumbs={
           <Breadcrumbs>
@@ -18,7 +17,7 @@ const Home = () => {
         sideBarHidden={hideSidebar}
         sideBarToggle
       />
-    </SidebarLayout>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ const SidebarToggle = ({ onToggle }: SidebarToggleProps) => {
       icon="panel_left"
       onClick={onToggle}
       iconProps={{ size: 16 }}
+      hoverBackground={false}
       noDrag
     />
   );

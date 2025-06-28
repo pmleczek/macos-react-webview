@@ -1,10 +1,13 @@
 import { fetchSpaces } from '@data/query';
-import { SidebarLayout } from '@layouts';
+import { hideSidebarAtom } from '@state/atoms';
 import { useQuery } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
 import { useParams } from 'react-router';
 import { Breadcrumbs, MenuBar } from 'ui';
 
 const Space = () => {
+  const [hideSidebar, setHideSidebar] = useAtom(hideSidebarAtom);
+
   const { slug } = useParams();
 
   const { data } = useQuery({
@@ -14,7 +17,7 @@ const Space = () => {
   const space = data?.find((item) => item.slug === slug);
 
   return (
-    <SidebarLayout>
+    <>
       <MenuBar
         breadcrumbs={
           space ? (
@@ -28,8 +31,11 @@ const Space = () => {
             </Breadcrumbs>
           ) : null
         }
+        onToggleSidebar={() => setHideSidebar((prev) => !prev)}
+        sideBarHidden={hideSidebar}
+        sideBarToggle
       />
-    </SidebarLayout>
+    </>
   );
 };
 
