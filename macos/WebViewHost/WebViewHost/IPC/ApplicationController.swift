@@ -43,6 +43,10 @@ class ApplicationController: IPCController {
       handleQuit()
     }
     
+    if event.type == "update-exclusion-zones" {
+      handleUpdateExclusionZones(event)
+    }
+    
     return true
   }
   
@@ -118,5 +122,19 @@ class ApplicationController: IPCController {
   
   func handleQuit() {
     NSApp.terminate(nil)
+  }
+  
+  func handleUpdateExclusionZones(_ event: IncomingIPCEvent) {
+    guard let payload = event.payload, let exclusionZones = payload["exclusionZones"] as? [[String: Double]] else {
+      return
+    }
+    
+    DispatchQueue.main.async {
+      if let dragRegionView = NSApp.windows.first?.contentView?.subviews.first(where: {
+        $0 is DragRegionView
+      }) as? DragRegionView {
+        dragRegionView.updateDragExclusionZones(dictArrayToCGRectArray(exclusionZones))
+      }
+    }
   }
 }

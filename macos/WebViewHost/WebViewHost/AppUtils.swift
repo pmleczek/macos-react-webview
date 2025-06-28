@@ -7,6 +7,22 @@
 
 import AppKit
 
+func dictToCGRect(_ dict: [String: Any]) -> CGRect? {
+  guard let x = dict["x"] as? Double,
+        let y = dict["y"] as? Double,
+        let width = dict["width"] as? Double,
+        let height = dict["height"] as? Double
+  else {
+    return nil
+  }
+  
+  return CGRect(x: x, y: y, width: width, height: height)
+}
+
+func dictArrayToCGRectArray(_ dictArray: [[String: Any]]) -> [CGRect] {
+  return dictArray.compactMap(dictToCGRect)
+}
+
 func buildMenu(_ appDelegate: AppDelegate) {
   let menu = NSMenu()
   NSApp.mainMenu = menu

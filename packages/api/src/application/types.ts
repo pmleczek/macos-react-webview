@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export type Theme = 'dark' | 'light' | 'system';
 
 export interface ThemeResponse {
@@ -20,4 +22,19 @@ export interface GetPropertyRequest {
 
 export interface GetPropertyResponse {
   value: string;
+}
+
+export interface ExclusionZone {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface UpdateExclusionZonesRequest {
+  exclusionZones: ExclusionZone[];
+}
+
+export interface NativeDragProviderProps {
+  children?: ReactNode;
 }

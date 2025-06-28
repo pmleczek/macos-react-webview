@@ -8,6 +8,7 @@ const Button = ({
   className,
   disabled,
   label,
+  noDrag,
   onClick,
   type = 'button',
   variant = 'primary',
@@ -18,6 +19,7 @@ const Button = ({
       disabled={disabled}
       onClick={onClick}
       type={type}
+      data-drag={noDrag ? 'none' : undefined}
     >
       <span className={styles.label}>{label}</span>
     </button>

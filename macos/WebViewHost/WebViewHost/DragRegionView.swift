@@ -8,12 +8,7 @@
 import Cocoa
 
 class DragRegionView: NSView {
-  var exclusionZones: [CGRect] = [
-      // Go back button
-      CGRect(x: 151, y: 10, width: 32, height: 32),
-      // Go forward button
-      CGRect(x: 183, y: 10, width: 32, height: 32)
-  ]
+  var exclusionZones: [CGRect] = []
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -27,8 +22,7 @@ class DragRegionView: NSView {
 
     override func hitTest(_ point: NSPoint) -> NSView? {
         for zone in exclusionZones {
-            let converted = convertToAppKit(zone, self.window!.frame.height)
-            if converted.contains(point) {
+            if zone.contains(point) {
                 return nil
             }
         }
@@ -50,5 +44,11 @@ class DragRegionView: NSView {
           window.performDrag(with: event)
       }
     }
+  
+  func updateDragExclusionZones(_ zones: [CGRect]) {
+    self.exclusionZones = zones.map {
+      return convertToAppKit($0, self.window!.frame.height)
+    }
+  }
 }
 

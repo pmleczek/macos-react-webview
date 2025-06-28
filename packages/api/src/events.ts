@@ -11,6 +11,7 @@ export const ApplicationEvent = {
   Hide: EventScope.Application + 'hide',
   Show: EventScope.Application + 'show',
   Quit: EventScope.Application + 'quit',
+  UpdateExclusionZones: EventScope.Application + 'update-exclusion-zones',
 } as const;
 
 export const ClipboardEvent = {

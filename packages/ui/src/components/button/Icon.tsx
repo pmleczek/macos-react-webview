@@ -10,6 +10,7 @@ const Icon = ({
   hoverBackground = true,
   icon,
   iconProps,
+  noDrag,
   onClick,
   type = 'button',
 }: IconButtonProps) => {
@@ -23,6 +24,7 @@ const Icon = ({
       disabled={disabled}
       onClick={onClick}
       type={type}
+      data-drag={noDrag ? 'none' : undefined}
     >
       <IconComponent {...iconProps} name={icon} />
     </button>

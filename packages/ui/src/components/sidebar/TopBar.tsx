@@ -17,6 +17,7 @@ const TopBar = () => {
         icon="arrow_left"
         iconProps={{ size: 16 }}
         onClick={() => navigate(-1)}
+        noDrag
       />
       <Button.Icon
         className={styles.drag_area_button}
@@ -24,6 +25,7 @@ const TopBar = () => {
         icon="arrow_right"
         iconProps={{ size: 16 }}
         onClick={() => navigate(1)}
+        noDrag
       />
     </div>
   );

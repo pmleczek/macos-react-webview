@@ -6,6 +6,7 @@ import type { IconName } from '../icon';
 interface BaseButtonProps {
   className?: string;
   disabled?: boolean;
+  noDrag?: boolean;
   onClick?: () => void;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }

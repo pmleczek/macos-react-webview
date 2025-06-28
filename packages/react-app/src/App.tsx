@@ -11,6 +11,7 @@ import {
   Space,
 } from '@pages';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { NativeDragProvider } from 'api';
 import { ipcHandler, IPCHandlerProvider } from 'ipc';
 import { createHashRouter, RouterProvider } from 'react-router';
 
@@ -45,8 +46,10 @@ const App = () => {
   return (
     <IPCHandlerProvider ipcHandler={ipcHandler}>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <Menu />
+        <NativeDragProvider>
+          <RouterProvider router={router} />
+          <Menu />
+        </NativeDragProvider>
       </QueryClientProvider>
     </IPCHandlerProvider>
   );
