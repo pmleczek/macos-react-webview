@@ -7,7 +7,7 @@ const context = await esbuild.context({
   format: 'esm',
   jsx: 'automatic',
   target: ['es6'],
-  external: ['classnames', 'react', 'react-dom', 'react-router'],
+  external: ['classnames', 'jotai', 'react', 'react-dom', 'react-router'],
   sourcemap: true,
   loader: {
     '.css': 'css',
