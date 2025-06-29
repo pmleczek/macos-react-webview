@@ -1,37 +1,21 @@
-import { useMemo } from 'react';
-import { useNavigate } from 'react-router';
-import type { CommandItem } from 'ui';
-
-import { navigationLinks } from '../../layouts/utils';
+import { useNavigationActions, useQuickActions } from './hooks';
 import { CommandItems } from './types';
 
-const quickActions: CommandItem[] = [];
-
 const useCommandItems = (query: string): CommandItems => {
-  const navigate = useNavigate();
+  // Navigation actions
+  const navigation = useNavigationActions(query);
 
+  // Quick actions
+  const quickActions = useQuickActions(query);
+
+  const empty = [navigation, quickActions].every((arr) => arr.length === 0);
   const loading = false;
-
-  const navigation: CommandItem[] = useMemo(() => {
-    const matching = navigationLinks
-      .filter((item) => item.type === undefined)
-      .filter((link) =>
-        link.label.toLowerCase().includes(query.toLocaleLowerCase()),
-      );
-    return matching.slice(0, Math.min(matching.length, 4)).map((link) => ({
-      action: () => navigate(link.to),
-      icon: link.icon,
-      label: link.label,
-    }));
-  }, [navigate, query]);
-
-  const empty = navigation.length === 0;
 
   return {
     empty,
     loading,
     navigation,
-    quickActions: [],
+    quickActions,
   };
 };
 

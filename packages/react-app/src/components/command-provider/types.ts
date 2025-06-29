@@ -6,3 +6,7 @@ export interface CommandItems {
   quickActions: CommandItem[];
   navigation: CommandItem[];
 }
+
+export interface CommandItemWithKeywords extends CommandItem {
+  keywords: string[];
+}

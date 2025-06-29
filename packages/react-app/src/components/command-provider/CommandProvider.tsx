@@ -13,7 +13,23 @@ import { Command } from 'ui';
 
 import useCommandItems from './useCommandItems';
 
+const debounce = <T extends (...args: unknown[]) => void>(
+  fn: T,
+  delay: number,
+): T => {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+
+  return function (this: unknown, ...args: unknown[]) {
+    if (timer) clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  } as T;
+};
+
 const CommandProvider = () => {
+  const [inputValue, setInputValue] = useState<string>('');
   const [query, setQuery] = useState<string>('');
   const [showCommand, setShowCommand] = useAtom(commandMenuAtom);
 
@@ -23,6 +39,18 @@ const CommandProvider = () => {
     setShowCommand(false);
     setQuery('');
   }, [setShowCommand]);
+
+  const debouncedUpdateQuery = useMemo(() => {
+    return debounce((value: string) => setQuery(value), 250);
+  }, []);
+
+  const handleChange = useCallback(
+    (value: string) => {
+      setInputValue(value);
+      debouncedUpdateQuery(value);
+    },
+    [debouncedUpdateQuery],
+  );
 
   useEffect(() => {
     const searchListener = ipcHandler.register('application:search', () => {
@@ -49,6 +77,16 @@ const CommandProvider = () => {
     }
 
     const children: ReactElement[] = [];
+
+    if (items.quickActions.length > 0) {
+      children.push(<Command.Header label="Quick Actions" />);
+      children.push(
+        ...items.quickActions.map((item) => (
+          <Command.Item key={item.label} item={item} />
+        )),
+      );
+    }
+
     if (items.navigation.length > 0) {
       children.push(<Command.Header label="Navigation" />);
       children.push(
@@ -63,7 +101,11 @@ const CommandProvider = () => {
 
   return (
     <Command show={showCommand} onHide={handleHide}>
-      <Command.Input onHide={handleHide} value={query} onChange={setQuery} />
+      <Command.Input
+        onHide={handleHide}
+        value={inputValue}
+        onChange={handleChange}
+      />
       <Command.Body>{body}</Command.Body>
       <Command.Footer />
     </Command>
