@@ -21,6 +21,7 @@ class IPCHandler: ObservableObject {
   private var controllers: [IPCController] = [
     ApplicationController(),
     ClipboardController(),
+    FileSystemController(),
     NotificationController()
   ]
   

@@ -1,6 +1,7 @@
 export const EventScope = {
   Application: 'application:',
   Clipboard: 'clipboard:',
+  FileSystem: 'filesystem:',
   Notification: 'notification:',
 } as const;
 
@@ -22,6 +23,11 @@ export const ClipboardEvent = {
   WriteImage: EventScope.Clipboard + 'write-image',
   ReadImageBase64: EventScope.Clipboard + 'read-image-base64',
   WriteImageBase64: EventScope.Clipboard + 'write-image-base64',
+} as const;
+
+export const FileSystemEvent = {
+  OpenDialog: EventScope.FileSystem + 'open-dialog',
+  OpenSaveDialog: EventScope.FileSystem + 'open-save-dialog',
 } as const;
 
 export const NotificationEvent = {
