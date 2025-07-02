@@ -4,6 +4,7 @@ import { Breadcrumbs, MenuBar } from 'ui';
 
 import Dialog from './Dialog';
 import styles from './filesystem.module.css';
+import FSOperations from './FSOperations';
 
 const FileSystem = () => {
   const [hideSidebar, setHideSidebar] = useAtom(hideSidebarAtom);
@@ -22,6 +23,7 @@ const FileSystem = () => {
       />
       <div className={styles.container}>
         <Dialog />
+        <FSOperations />
       </div>
     </>
   );

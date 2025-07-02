@@ -22,11 +22,7 @@ const Dialog = () => {
   return (
     <div>
       <h2 className={styles.subtitle}>Dialog</h2>
-      <p>
-        <span className={styles.property_name}>
-          Selected files/directories:{' '}
-        </span>
-      </p>
+      <p className={styles.property_name}>Selected files/directories: </p>
       <ul>
         {selectedFiles.map((file: string) => (
           <li key={file}>{file}</li>
