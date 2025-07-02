@@ -28,6 +28,8 @@ export const ClipboardEvent = {
 export const FileSystemEvent = {
   OpenDialog: EventScope.FileSystem + 'open-dialog',
   OpenSaveDialog: EventScope.FileSystem + 'open-save-dialog',
+  ReadFile: EventScope.FileSystem + 'read-file',
+  WriteFile: EventScope.FileSystem + 'write-file',
 } as const;
 
 export const NotificationEvent = {

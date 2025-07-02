@@ -29,3 +29,33 @@ export interface OpenSaveDialogRequest {
 export interface OpenSaveDialogResponse {
   result: string;
 }
+
+export interface ReadFileRequest {
+  path: string;
+}
+
+export type ReadFileResponse =
+  | {
+      content: string;
+    }
+  | {
+      error: string;
+    };
+
+export interface WriteFileOptions {
+  append?: boolean;
+}
+
+export interface WriteFileRequest {
+  path: string;
+  content: string;
+  options?: WriteFileOptions;
+}
+
+export type WriteFileResponse =
+  | {
+      result: boolean;
+    }
+  | {
+      error: string;
+    };
