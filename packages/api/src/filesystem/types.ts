@@ -59,3 +59,27 @@ export type WriteFileResponse =
   | {
       error: string;
     };
+
+export interface ReadDirectoryRequest {
+  path: string;
+}
+
+export type ReadDirectoryResponse =
+  | {
+      result: string[];
+    }
+  | {
+      error: string;
+    };
+
+export interface MakeDirectoryRequest {
+  path: string;
+}
+
+export type MakeDirectoryResponse =
+  | {
+      result: boolean;
+    }
+  | {
+      error: string;
+    };

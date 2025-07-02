@@ -2,6 +2,10 @@ import { emitTwoWayEvent } from 'ipc';
 
 import { FileSystemEvent } from '../events';
 import type {
+  MakeDirectoryRequest,
+  MakeDirectoryResponse,
+  ReadDirectoryRequest,
+  ReadDirectoryResponse,
   ReadFileRequest,
   ReadFileResponse,
   WriteFileOptions,
@@ -37,6 +41,34 @@ export const writeFileAsync = async (
       options,
     },
   );
+
+  if ('error' in result) {
+    throw new Error(result.error);
+  }
+
+  return result.result;
+};
+
+export const readDirectoryAsync = async (path: string): Promise<string[]> => {
+  const result = await emitTwoWayEvent<
+    ReadDirectoryRequest,
+    ReadDirectoryResponse
+  >(FileSystemEvent.ReadDirectory, { path });
+
+  if ('error' in result) {
+    throw new Error(result.error);
+  }
+
+  return result.result;
+};
+
+export const makeDirectoryAsync = async (path: string): Promise<boolean> => {
+  const result = await emitTwoWayEvent<
+    MakeDirectoryRequest,
+    MakeDirectoryResponse
+  >(FileSystemEvent.MakeDirectory, {
+    path,
+  });
 
   if ('error' in result) {
     throw new Error(result.error);

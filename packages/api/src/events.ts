@@ -30,6 +30,8 @@ export const FileSystemEvent = {
   OpenSaveDialog: EventScope.FileSystem + 'open-save-dialog',
   ReadFile: EventScope.FileSystem + 'read-file',
   WriteFile: EventScope.FileSystem + 'write-file',
+  ReadDirectory: EventScope.FileSystem + 'read-directory',
+  MakeDirectory: EventScope.FileSystem + 'make-directory',
 } as const;
 
 export const NotificationEvent = {

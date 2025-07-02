@@ -36,6 +36,14 @@ class FileSystemController: IPCController {
       handleWriteFile(event)
     }
     
+    if event.type == "read-directory" {
+      handleReadDirectory(event)
+    }
+    
+    if event.type == "make-directory" {
+      handleMakeDirectory(event)
+    }
+    
     return true
   }
   
@@ -132,6 +140,34 @@ class FileSystemController: IPCController {
         try content.write(to: URL(fileURLWithPath: path), atomically: true, encoding: .utf8)
       }
       
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["result": true]))
+    } catch {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": createErrorMessage(error)]))
+    }
+  }
+  
+  func handleReadDirectory(_ event: IncomingIPCEvent) {
+    guard let path = event.payload?["path"] as? String else {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Path to the directory hasn't been passed"]))
+      return
+    }
+    
+    do {
+      let contents = try FileManager.default.contentsOfDirectory(atPath: path)
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["result": contents]))
+    } catch {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": createErrorMessage(error)]))
+    }
+  }
+  
+  func handleMakeDirectory(_ event: IncomingIPCEvent) {
+    guard let path = event.payload?["path"] as? String else {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Path to the directory to be created hasn't been passed"]))
+      return
+    }
+    
+    do {
+      try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
       self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["result": true]))
     } catch {
       self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": createErrorMessage(error)]))
