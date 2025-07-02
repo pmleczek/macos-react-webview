@@ -38,6 +38,7 @@ const CommandProvider = () => {
   const handleHide = useCallback(() => {
     setShowCommand(false);
     setQuery('');
+    setInputValue('');
   }, [setShowCommand]);
 
   const debouncedUpdateQuery = useMemo(() => {

@@ -27,6 +27,12 @@ export const getNavigationActions = (
       action: () => navigate('/clipboard'),
     },
     {
+      icon: 'folder',
+      label: 'File System',
+      keywords: [...commonKeywords, 'filesystem', 'file', 'system'],
+      action: () => navigate('/filesystem'),
+    },
+    {
       icon: 'bell',
       label: 'Notifications',
       keywords: [...commonKeywords, 'notifications'],

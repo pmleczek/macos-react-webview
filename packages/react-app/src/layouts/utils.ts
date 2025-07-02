@@ -18,6 +18,11 @@ export const navigationLinks: SidebarItem[] = [
     to: '/clipboard',
   },
   {
+    icon: 'folder',
+    label: 'File System',
+    to: '/filesystem',
+  },
+  {
     icon: 'bell',
     label: 'Notifications',
     to: '/notifications',

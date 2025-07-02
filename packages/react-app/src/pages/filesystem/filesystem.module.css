@@ -37,16 +37,6 @@
   display: flex;
   align-items: center;
   justify-content: start;
+  flex-wrap: wrap;
   gap: 12px;
-}
-
-.text_input {
-  margin-bottom: 12px;
-}
-
-.image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  object-position: center;
 }
