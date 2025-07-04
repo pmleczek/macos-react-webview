@@ -83,3 +83,58 @@ export type MakeDirectoryResponse =
   | {
       error: string;
     };
+
+export interface MoveRequest {
+  from: string;
+  to: string;
+}
+
+export type MoveResponse =
+  | {
+      result: boolean;
+    }
+  | {
+      error: string;
+    };
+
+export interface CopyRequest {
+  from: string;
+  to: string;
+}
+
+export type CopyResponse =
+  | {
+      result: boolean;
+    }
+  | {
+      error: string;
+    };
+
+export interface RemoveRequest {
+  path: string;
+}
+
+export type RemoveResponse =
+  | {
+      result: boolean;
+    }
+  | {
+      error: string;
+    };
+
+export interface GetInfoRequest {
+  path: string;
+}
+
+export type GetInfoResponse =
+  | {
+      exists: false;
+    }
+  | { error: string }
+  | {
+      exists: true;
+      isDirectory: boolean;
+      createdAt: number;
+      modifiedAt: number;
+      size: number;
+    };

@@ -6,7 +6,16 @@
 //
 
 import AppKit
+import Foundation
 import UniformTypeIdentifiers
+
+struct FileInfoResult: Codable {
+    let exists: Bool
+    let size: Int
+    let createdAt: Double?
+    let lastModified: Double?
+    let isDirectory: Bool
+}
 
 class FileSystemController: IPCController {
   var ipcHandler: IPCHandler?
@@ -42,6 +51,22 @@ class FileSystemController: IPCController {
     
     if event.type == "make-directory" {
       handleMakeDirectory(event)
+    }
+    
+    if event.type == "move" {
+      handleMove(event)
+    }
+    
+    if event.type == "copy" {
+      handleCopy(event)
+    }
+    
+    if event.type == "remove" {
+      handleRemove(event)
+    }
+    
+    if event.type == "get-info" {
+      handleGetInfo(event)
     }
     
     return true
@@ -174,6 +199,85 @@ class FileSystemController: IPCController {
     }
   }
   
+  func handleMove(_ event: IncomingIPCEvent) {
+    guard let from = event.payload?["from"] as? String,
+          let to = event.payload?["to"] as? String else {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "moveAsync requires both 'from' and 'to' arguments to be passed"]))
+      return
+    }
+    
+    do {
+      try FileManager.default.moveItem(atPath: from, toPath: to)
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["result": true]))
+    } catch {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": createErrorMessage(error)]))
+    }
+  }
+  
+  func handleCopy(_ event: IncomingIPCEvent) {
+    guard let from = event.payload?["from"] as? String,
+          let to = event.payload?["to"] as? String else {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "copyAsync requires both 'from' and 'to' arguments to be passed"]))
+      return
+    }
+    
+    do {
+      try FileManager.default.copyItem(atPath: from, toPath: to)
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["result": true]))
+    } catch {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": createErrorMessage(error)]))
+    }
+  }
+  
+  func handleRemove(_ event: IncomingIPCEvent) {
+    guard let path = event.payload?["path"] as? String else {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "removeAsync requires 'path'  argument to be passed"]))
+      return
+    }
+    
+    do {
+      try FileManager.default.removeItem(atPath: path)
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["result": true]))
+    } catch {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": createErrorMessage(error)]))
+    }
+  }
+  
+  func handleGetInfo(_ event: IncomingIPCEvent) {
+    guard let path = event.payload?["path"] as? String else {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "getInfoAsync requires 'path'  argument to be passed"]))
+      return
+    }
+    
+    do {
+      if !FileManager.default.fileExists(atPath: path) {
+        self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["exists": false]))
+        return
+      }
+      
+      let attributes = try FileManager.default.attributesOfItem(atPath: path)
+      let url = URL(fileURLWithPath: path)
+      let isDirectoryResourceValue = try url.resourceValues(forKeys: [.isDirectoryKey])
+      
+      let createdAt = (attributes[.creationDate] as? Date)?.timeIntervalSince1970
+      let lastModified = (attributes[.modificationDate] as? Date)?.timeIntervalSince1970
+      let size = attributes[.size] as? UInt64 ?? 0
+      let isDirectory = isDirectoryResourceValue.isDirectory ?? false
+      
+      let result = FileInfoResult(
+        exists: true,
+        size: Int(size),
+        createdAt: createdAt,
+        lastModified: lastModified,
+        isDirectory: isDirectory
+      )
+      
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: result))
+    } catch {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": createErrorMessage(error)]))
+    }
+  }
+  
   private let typeMapping: [String: UTType] = [
       "pdf": .pdf,
       "gif": .gif,
@@ -211,3 +315,4 @@ class FileSystemController: IPCController {
       }
   }
 }
+

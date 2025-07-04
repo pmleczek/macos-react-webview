@@ -32,6 +32,10 @@ export const FileSystemEvent = {
   WriteFile: EventScope.FileSystem + 'write-file',
   ReadDirectory: EventScope.FileSystem + 'read-directory',
   MakeDirectory: EventScope.FileSystem + 'make-directory',
+  Move: EventScope.FileSystem + 'move',
+  Copy: EventScope.FileSystem + 'copy',
+  Remove: EventScope.FileSystem + 'remove',
+  GetInfo: EventScope.FileSystem + 'get-info',
 } as const;
 
 export const NotificationEvent = {
