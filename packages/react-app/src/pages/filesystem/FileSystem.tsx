@@ -3,8 +3,10 @@ import { useAtom } from 'jotai';
 import { Breadcrumbs, MenuBar } from 'ui';
 
 import Dialog from './Dialog';
+import Directory from './Directory';
 import styles from './filesystem.module.css';
-import FSOperations from './FSOperations';
+import Operations from './Operations';
+import ReadWrite from './ReadWrite';
 
 const FileSystem = () => {
   const [hideSidebar, setHideSidebar] = useAtom(hideSidebarAtom);
@@ -23,7 +25,9 @@ const FileSystem = () => {
       />
       <div className={styles.container}>
         <Dialog />
-        <FSOperations />
+        <ReadWrite />
+        <Directory />
+        <Operations />
       </div>
     </>
   );
