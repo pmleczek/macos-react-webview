@@ -6,13 +6,30 @@
 //
 
 import Cocoa
+import SwiftData
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var window: NSWindow!
     private let windowDelegate = WindowDelegate()
     private let ipcHandler = IPCHandler()
+    private var modelContainer: ModelContainer!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+      do {
+#if DEBUG
+        let inMemory = false
+#else
+        let inMemory = false
+#endif // DEBUG
+        let schema = Schema([Item.self])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: inMemory)
+        modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
+      } catch {
+        fatalError("Failed to create ModelContainer: \(error.localizedDescription)")
+      }
+      
+      ipcHandler.setModelContext(modelContainer.mainContext)
+      
       window = makeWindow(NSMakeRect(0, 0, 1200, 800), windowDelegate)
       positionTrafficLights(window)
       

@@ -5,6 +5,7 @@
 //  Created by Patryk Mleczek on 6/19/25.
 //
 
+import SwiftData
 import UserNotifications
 
 struct ScheduledNotification: Codable {
@@ -29,11 +30,16 @@ struct DisplayedNotification: Codable {
 
 class NotificationController: NSObject, IPCController, UNUserNotificationCenterDelegate {
   var ipcHandler: IPCHandler?
+  var modelContext: ModelContext?
   let notificationCenter = UNUserNotificationCenter.current()
   
   func setIpcHandler(_ ipcHandler: IPCHandler) {
     self.ipcHandler = ipcHandler
     self.notificationCenter.delegate = self
+  }
+  
+  func setModelContext(_ modelContext: ModelContext) {
+    return
   }
   
   func handle(_ event: IncomingIPCEvent) -> Bool {

@@ -15,22 +15,23 @@ struct IncomingIPCEvent {
 }
 
 class IPCHandler: ObservableObject {
-//  private var modelContext: ModelContext? = nil
+  private var modelContext: ModelContext? = nil
   private var viewModel: WebViewModel? = nil
   
   private var controllers: [IPCController] = [
     ApplicationController(),
     ClipboardController(),
+    DataController(),
     FileSystemController(),
     NotificationController()
   ]
   
-//  func setModelContext(_ modelContext: ModelContext) {
-//    self.modelContext = modelContext
-//    for controller in controllers {
-//      controller.setModelContext(modelContext)
-//    }
-//  }
+  func setModelContext(_ modelContext: ModelContext) {
+    self.modelContext = modelContext
+    for controller in controllers {
+      controller.setModelContext(modelContext)
+    }
+  }
   
   func setViewModel(_ viewModel: WebViewModel) {
     self.viewModel = viewModel

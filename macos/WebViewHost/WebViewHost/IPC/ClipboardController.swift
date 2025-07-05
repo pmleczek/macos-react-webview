@@ -6,12 +6,18 @@
 //
 
 import AppKit
+import SwiftData
 
 class ClipboardController: IPCController {
   var ipcHandler: IPCHandler?
+  var modelContext: ModelContext?
   
   func setIpcHandler(_ ipcHandler: IPCHandler) {
     self.ipcHandler = ipcHandler
+  }
+  
+  func setModelContext(_ modelContext: ModelContext) {
+    return
   }
   
   func handle(_ event: IncomingIPCEvent) -> Bool {

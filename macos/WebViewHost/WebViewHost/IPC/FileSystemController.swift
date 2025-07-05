@@ -7,6 +7,7 @@
 
 import AppKit
 import Foundation
+import SwiftData
 import UniformTypeIdentifiers
 
 struct FileInfoResult: Codable {
@@ -19,9 +20,14 @@ struct FileInfoResult: Codable {
 
 class FileSystemController: IPCController {
   var ipcHandler: IPCHandler?
+  var modelContext: ModelContext?
   
   func setIpcHandler(_ ipcHandler: IPCHandler) {
     self.ipcHandler = ipcHandler
+  }
+  
+  func setModelContext(_ modelContext: ModelContext) {
+    self.modelContext = modelContext
   }
   
   func handle(_ event: IncomingIPCEvent) -> Bool {

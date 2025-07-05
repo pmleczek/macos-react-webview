@@ -27,6 +27,9 @@ func toJsonString(from object: Codable) -> String {
     let jsonData = try encoder.encode(object)
     if let jsonString = String(data: jsonData, encoding: .utf8) {
       return jsonString
+        .replacingOccurrences(of: "\\", with: "\\\\")
+        .replacingOccurrences(of: "\"", with: "\\\"")
+        .replacingOccurrences(of: "'", with: "\\'")
     }
   } catch {
     return ""
