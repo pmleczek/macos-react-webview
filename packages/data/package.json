@@ -2,8 +2,16 @@
   "name": "data",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "dev": "bun release:types && bun dev.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "release:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
+    "release": "rm -rf dist && bun release:types && bun build.ts"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "esbuild": "^0.25.5"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
