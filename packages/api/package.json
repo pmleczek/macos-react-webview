@@ -2,15 +2,14 @@
   "name": "api",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "types": "dist/types",
   "type": "module",
   "scripts": {
-    "dev": "bun dev.ts",
+    "dev": "bun release:types && bun dev.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "release": "bun build.ts"
-  },
-  "dependencies": {
-    "ipc": "workspace:*"
+    "release:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
+    "release": "rm -rf dist && bun release:types && bun build.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -18,6 +17,7 @@
     "esbuild": "^0.25.5"
   },
   "peerDependencies": {
+    "ipc": "*",
     "react": ">=19.0.0",
     "typescript": "^5.0.0"
   }

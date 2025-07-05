@@ -1,6 +1,8 @@
 {
   "name": "data",
-  "module": "index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/types",
   "type": "module",
   "scripts": {
     "dev": "bun release:types && bun dev.ts",
@@ -9,14 +11,12 @@
     "release:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "release": "rm -rf dist && bun release:types && bun build.ts"
   },
-  "dependencies": {
-    "ipc": "workspace:*"
-  },
   "devDependencies": {
     "@types/bun": "latest",
     "esbuild": "^0.25.5"
   },
   "peerDependencies": {
+    "ipc": "*",
     "typescript": "^5.0.0"
   }
 }

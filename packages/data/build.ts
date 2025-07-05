@@ -6,6 +6,7 @@ await esbuild.build({
   outdir: 'dist',
   format: 'esm',
   target: ['es6'],
+  external: ['ipc'],
   sourcemap: true,
   logLevel: 'info',
 });

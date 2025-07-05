@@ -6,6 +6,7 @@ const context = await esbuild.context({
   outdir: 'dist',
   format: 'esm',
   target: ['es6'],
+  external: ['ipc'],
   sourcemap: true,
   logLevel: 'info',
 });

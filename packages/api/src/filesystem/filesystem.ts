@@ -2,9 +2,9 @@ import { emitTwoWayEvent } from 'ipc';
 
 import { FileSystemEvent } from '../events';
 import {
-  GetInfoRequest,
   type CopyRequest,
   type CopyResponse,
+  type GetInfoRequest,
   type GetInfoResponse,
   type MakeDirectoryRequest,
   type MakeDirectoryResponse,
