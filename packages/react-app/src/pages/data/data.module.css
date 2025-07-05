@@ -1,0 +1,44 @@
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  overflow-y: scroll;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+  max-height: calc(100vh - 44px);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.title {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 500;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.property_name {
+  font-weight: 500;
+  user-select: text;
+  cursor: text;
+}
+
+.button_container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  gap: 12px;
+}

@@ -2,6 +2,7 @@ import { SidebarLayout } from '@layouts';
 import {
   Application,
   Clipboard,
+  Data,
   FileSystem,
   Home,
   Notifications,
@@ -24,6 +25,10 @@ const rootRouter = createHashRouter([
       {
         path: '/clipboard',
         Component: Clipboard,
+      },
+      {
+        path: '/data',
+        Component: Data,
       },
       {
         path: '/filesystem',

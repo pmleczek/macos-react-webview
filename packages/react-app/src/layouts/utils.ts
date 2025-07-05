@@ -17,6 +17,11 @@ export const navigationLinks: SidebarItem[] = [
     to: '/clipboard',
   },
   {
+    icon: 'data',
+    label: 'Data',
+    to: '/data',
+  },
+  {
     icon: 'folder',
     label: 'File System',
     to: '/filesystem',
@@ -30,9 +35,5 @@ export const navigationLinks: SidebarItem[] = [
     icon: 'settings',
     label: 'Settings',
     to: '/settings',
-  },
-  {
-    type: 'header',
-    label: 'Favorites',
   },
 ];
