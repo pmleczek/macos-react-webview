@@ -32,6 +32,10 @@ class DataController: IPCController {
       handleFetchItem(event)
     case "item-create":
       handleCreateItem(event)
+    case "item-delete":
+      handleDeleteItem(event)
+    case "item-update":
+      handleUpdateItem(event)
     default:
       break
     }
@@ -108,6 +112,79 @@ class DataController: IPCController {
       self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["item": itemDTO]))
     } catch {
       self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Creating item failed"]))
+    }
+  }
+  
+  func handleDeleteItem(_ event: IncomingIPCEvent) {
+    guard let modelContext else {
+      return
+    }
+    
+    guard let id = event.payload?["id"] as? String else {
+      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "No 'id' passed"]))
+      return
+    }
+    
+    guard let uuid = UUID(uuidString: id) else {
+      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Cannot convert 'id' to UUID"]))
+      return
+    }
+    
+    let fetchDescriptor = FetchDescriptor<Item>(predicate: #Predicate { item in
+      item.id == uuid
+    })
+    
+    do {
+      let items = try modelContext.fetch(fetchDescriptor)
+      guard let itemToDelete = items.first else {
+        ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Cannot find item with specified 'id'"]))
+        return
+      }
+      
+      modelContext.delete(itemToDelete)
+      try modelContext.save()
+      
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["item": ItemDTO(from: itemToDelete)]))
+    } catch {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Deleting item failed"]))
+    }
+  }
+  
+  func handleUpdateItem(_ event: IncomingIPCEvent) {
+    guard let modelContext else {
+      return
+    }
+    
+    guard let payload = event.payload as? [String: Any],
+          let id = payload["id"] as? String,
+          let title = payload["title"] as? String else {
+      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Method requires 'id' and 'title' to be passed"]))
+      return
+    }
+    
+    guard let uuid = UUID(uuidString: id) else {
+      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Cannot convert 'id' to UUID"]))
+      return
+    }
+    
+    let fetchDescriptor = FetchDescriptor<Item>(predicate: #Predicate { item in
+      item.id == uuid
+    })
+    
+    do {
+      guard let item = try modelContext.fetch(fetchDescriptor).first else {
+        ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Item with specified 'id' was not found"]))
+        return
+      }
+      
+      item.title = title
+      item.updatedAt = Date.now.timeIntervalSince1970
+      
+      try modelContext.save()
+      
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["item": ItemDTO(from: item)]))
+    } catch {
+      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Deleting item failed"]))
     }
   }
 }

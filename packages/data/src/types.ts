@@ -36,3 +36,24 @@ export type CreateItemResponse =
       item: Item;
     }
   | { error: string };
+
+export interface DeleteItemRequest {
+  id: string;
+}
+
+export type DeleteItemResponse =
+  | {
+      item: Item;
+    }
+  | { error: string };
+
+export interface UpdateItemRequest {
+  id: string;
+  title: string;
+}
+
+export type UpdateItemResponse =
+  | {
+      item: Item;
+    }
+  | { error: string };
