@@ -15,7 +15,7 @@ export interface OpenDialogResponse {
 
 export interface SaveDialogOptions {
   title?: string;
-  defaultName?: boolean;
+  defaultName?: string;
   otherFileTypes?: boolean;
   canCreateDirectories?: boolean;
   allowedTypes?: string[];
