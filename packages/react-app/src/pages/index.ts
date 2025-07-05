@@ -4,4 +4,3 @@ export { default as FileSystem } from './filesystem';
 export { default as Home } from './home';
 export { default as Notifications } from './notifications';
 export { default as Settings } from './settings';
-export { default as Space } from './Space';

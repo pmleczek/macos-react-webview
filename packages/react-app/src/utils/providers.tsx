@@ -1,8 +1,9 @@
-import { queryClient } from '@data';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { NativeDragProvider } from 'api';
 import { ipcHandler, IPCHandlerProvider } from 'ipc';
 import type { FC, ReactNode } from 'react';
+
+import queryClient from './queryClient';
 
 interface ProviderProps {
   children?: ReactNode;

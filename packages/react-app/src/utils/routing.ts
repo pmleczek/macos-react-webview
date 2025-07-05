@@ -6,7 +6,6 @@ import {
   Home,
   Notifications,
   Settings,
-  Space,
 } from '@pages';
 import { createHashRouter } from 'react-router';
 
@@ -37,10 +36,6 @@ const rootRouter = createHashRouter([
       {
         path: '/settings',
         Component: Settings,
-      },
-      {
-        path: '/spaces/:slug',
-        Component: Space,
       },
     ],
   },
