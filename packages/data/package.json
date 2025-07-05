@@ -9,6 +9,9 @@
     "release:types": "tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "release": "rm -rf dist && bun release:types && bun build.ts"
   },
+  "dependencies": {
+    "ipc": "workspace:*"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "esbuild": "^0.25.5"
