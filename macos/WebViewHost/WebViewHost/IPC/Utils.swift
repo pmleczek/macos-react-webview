@@ -59,3 +59,11 @@ func toJavaScript(_ eventType: String, _ payload: String) -> String {
   window.dispatchEvent(event);
   """
 }
+
+func sendIPCResponse(_ event: IncomingIPCEvent, payload: (any Codable)?) {
+  if let payload {
+    IPCHandler.shared.emit("\(event.scope):\(event.type)", toJsonString(from: payload))
+  } else {
+    IPCHandler.shared.emit("\(event.scope):\(event.type)")
+  }
+}

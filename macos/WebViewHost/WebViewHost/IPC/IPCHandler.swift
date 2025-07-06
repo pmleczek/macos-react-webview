@@ -15,6 +15,8 @@ struct IncomingIPCEvent {
 }
 
 class IPCHandler: ObservableObject {
+  static let shared = IPCHandler()
+  
   private var modelContext: ModelContext? = nil
   private var viewModel: WebViewModel? = nil
   
@@ -35,9 +37,6 @@ class IPCHandler: ObservableObject {
   
   func setViewModel(_ viewModel: WebViewModel) {
     self.viewModel = viewModel
-    for controller in controllers {
-      controller.setIpcHandler(self)
-    }
   }
   
   func emit(_ event: String, _ payload: String = "{}") {

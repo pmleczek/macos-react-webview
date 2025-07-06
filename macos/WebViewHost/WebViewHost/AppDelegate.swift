@@ -11,7 +11,6 @@ import SwiftData
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var window: NSWindow!
     private let windowDelegate = WindowDelegate()
-    private let ipcHandler = IPCHandler()
     private var modelContainer: ModelContainer!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -28,15 +27,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         fatalError("Failed to create ModelContainer: \(error.localizedDescription)")
       }
       
-      ipcHandler.setModelContext(modelContainer.mainContext)
+      IPCHandler.shared.setModelContext(modelContainer.mainContext)
       
       window = makeWindow(NSMakeRect(0, 0, 1200, 800), windowDelegate)
       positionTrafficLights(window)
       
       let reactWebView = ReactWebView(
           frame: window.contentView!.bounds,
-          viewModel: WebViewModel(),
-          ipcHandler: ipcHandler
+          viewModel: WebViewModel()
       )
       reactWebView.autoresizingMask = [.width, .height]
       window.contentView?.addSubview(reactWebView)

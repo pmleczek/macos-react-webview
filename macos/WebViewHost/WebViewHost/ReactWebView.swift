@@ -23,14 +23,12 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
   private var webView: WKWebView!
   private var viewModel: WebViewModel
   private var onSendValueFromNative: AnyCancellable?
-  private var ipcHandler: IPCHandler?
   
-  init(frame: NSRect, viewModel: WebViewModel, ipcHandler: IPCHandler) {
+  init(frame: NSRect, viewModel: WebViewModel) {
     self.viewModel = viewModel
     super.init(frame: frame)
     
-    self.ipcHandler = ipcHandler
-    self.ipcHandler?.setViewModel(self.viewModel)
+    IPCHandler.shared.setViewModel(self.viewModel)
     
     let preferences = WKWebpagePreferences()
     preferences.allowsContentJavaScript = true
@@ -84,7 +82,7 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
   
   func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
     if message.name == WebViewConstants.controllerName, let payload = message.body as? String {
-      self.ipcHandler?.handle(payload)
+      IPCHandler.shared.handle(payload)
     }
   }
   
@@ -112,7 +110,7 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
               webView.perform(#selector(NSText.cut(_:)))
               return true
           case "k":
-              self.ipcHandler?.emit("application:search")
+            IPCHandler.shared.emit("application:search")
             return true
           default:
               break
@@ -120,7 +118,7 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
       }
     
       if event.charactersIgnoringModifiers == "\u{1B}" {
-        self.ipcHandler?.emit("application:escape")
+        IPCHandler.shared.emit("application:escape")
         return true
       }
     

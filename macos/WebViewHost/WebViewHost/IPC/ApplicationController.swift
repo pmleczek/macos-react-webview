@@ -5,9 +5,6 @@
 //  Created by Patryk Mleczek on 6/21/25.
 //
 
-import AppKit
-import SwiftData
-
 class ApplicationController: BaseIPCController {
   override func handle(_ event: IncomingIPCEvent) -> Bool {
     if event.scope != "application" {
@@ -15,55 +12,40 @@ class ApplicationController: BaseIPCController {
     }
     
     switch event.type {
-    case "get-theme":
-      handleGetTheme(event)
-    case "set-theme":
-      handleSetTheme(event)
-    case "hide":
+    case ApplicationEvent.GetTheme:
+      let theme = ApplicationService.getTheme()
+      sendIPCResponse(event, payload: ["theme": theme])
+
+    case ApplicationEvent.SetTheme:
+      if let theme = event.payload?["theme"] as? String {
+        let result = ApplicationService.setTheme(theme)
+        sendIPCResponse(event, payload: ["theme": result])
+      }
+
+    case ApplicationEvent.UpdateExclusionZones:
+      if let exclusionZones = event.payload?["exclusionZones"] as? [[String: Double]] {
+        ApplicationService.updateExclusionZones(exclusionZones)
+      }
+
+    case let x where x.hasPrefix(ApplicationEvent.GetPropertyPrefix):
+      if let key = event.payload?["key"] as? String {
+        let value = ApplicationService.getProperty(for: key)
+        sendIPCResponse(event, payload: ["value": value])
+      }
+      
+    case ApplicationEvent.Hide:
       ApplicationService.hideApplication()
-    case "show":
+
+    case ApplicationEvent.Show:
       ApplicationService.showApplication()
-    case "quit":
+
+    case ApplicationEvent.Quit:
       ApplicationService.quitApplication()
-    case "update-exclusion-zones":
-      handleUpdateExclusionZones(event)
-    case let x where x.hasPrefix("get-property"):
-      handleGetProperty(event)
+
     default:
       break
     }
     
     return true
-  }
-  
-  func handleGetTheme(_ event: IncomingIPCEvent) {
-    let theme = ApplicationService.getTheme()
-    self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["theme": theme]))
-  }
-  
-  func handleSetTheme(_ event: IncomingIPCEvent) {
-    guard let payload = event.payload, let theme = payload["theme"] as? String else {
-      return
-    }
-    
-    let result = ApplicationService.setTheme(theme)
-    self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["theme": result]))
-  }
-  
-  func handleGetProperty(_ event: IncomingIPCEvent) {
-    guard let payload = event.payload, let key = payload["key"] as? String else {
-      return
-    }
-    
-    let value = ApplicationService.getProperty(for: key)
-    self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["value": value]))
-  }
-  
-  func handleUpdateExclusionZones(_ event: IncomingIPCEvent) {
-    guard let payload = event.payload, let exclusionZones = payload["exclusionZones"] as? [[String: Double]] else {
-      return
-    }
-    
-    ApplicationService.updateExclusionZones(exclusionZones)
   }
 }
