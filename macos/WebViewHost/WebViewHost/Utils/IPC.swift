@@ -20,7 +20,7 @@ func jsonToDict(_ jsonString: String) -> [String: Any]? {
   }
 }
 
-func toJsonString(from object: Codable) -> String {
+func toJsonString(from object: Encodable) -> String {
   let encoder = JSONEncoder()
   
   do {
@@ -60,10 +60,16 @@ func toJavaScript(_ eventType: String, _ payload: String) -> String {
   """
 }
 
-func sendIPCResponse(_ event: IncomingIPCEvent, payload: (any Codable)?) {
+func sendIPCResponse(_ event: IncomingIPCEvent, payload: (any Encodable)?) {
   if let payload {
     IPCHandler.shared.emit("\(event.scope):\(event.type)", toJsonString(from: payload))
   } else {
     IPCHandler.shared.emit("\(event.scope):\(event.type)")
+  }
+}
+
+func sendIPCError(_ event: IncomingIPCEvent, error: String?) {
+  if let error {
+    IPCHandler.shared.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": error]))
   }
 }

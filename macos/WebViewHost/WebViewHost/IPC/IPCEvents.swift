@@ -24,3 +24,16 @@ struct ClipboardEvent {
   static let ReadImageBase64 = "read-image-base64"
   static let WriteImageBase64 = "write-image-base64"
 }
+
+struct FileSystemEvent {
+  static let OpenDialog = "open-dialog"
+  static let OpenSaveDialog = "open-save-dialog"
+  static let ReadFile = "read-file"
+  static let WriteFile = "write-file"
+  static let ReadDirectory = "read-directory"
+  static let MakeDirectory = "make-directory"
+  static let Move = "move"
+  static let Copy = "copy"
+  static let Remove = "remove"
+  static let GetInfo = "get-info"
+}
