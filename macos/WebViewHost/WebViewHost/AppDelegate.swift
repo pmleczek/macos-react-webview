@@ -28,6 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
       
       IPCHandler.shared.setModelContext(modelContainer.mainContext)
+      _ = NotificationService.shared
       
       window = makeWindow(NSMakeRect(0, 0, 1200, 800), windowDelegate)
       positionTrafficLights(window)

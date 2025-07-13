@@ -37,3 +37,15 @@ struct FileSystemEvent {
   static let Remove = "remove"
   static let GetInfo = "get-info"
 }
+
+struct NotificationEvent {
+  static let RequestPermissions = "request-permissions"
+  static let GetPermissions = "get-permissions"
+  static let Schedule = "schedule"
+  static let GetScheduled = "get-scheduled"
+  static let GetDisplayed = "get-displayed"
+  static let CancelAllScheduled = "cancel-all-scheduled"
+  static let DismissAllDisplayed = "dismiss-all-displayed"
+  static let CancelScheduled = "cancel-scheduled"
+  static let DismissDisplayed = "dismiss-displayed"
+}
