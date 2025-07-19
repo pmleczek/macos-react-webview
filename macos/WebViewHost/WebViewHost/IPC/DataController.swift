@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import SwiftData
 
-class DataController: DataIPCController {
+class DataController: IPCController {
   override func handle(_ event: IncomingIPCEvent) -> Bool {
     if event.scope != "data" {
       return false
@@ -33,14 +32,8 @@ class DataController: DataIPCController {
   }
   
   func handleFetchAllItems(_ event: IncomingIPCEvent) {
-    guard let modelContext else {
-      return
-    }
-    
-    let fetchDescriptor = FetchDescriptor<Item>(sortBy: [SortDescriptor(\.createdAt, order: .reverse)])
-    
     do {
-      let items = try modelContext.fetch(fetchDescriptor)
+      let items = try ItemRepository.all()
       let itemDTOs = items.map {
         return ItemDTO(from: $0)
       }
@@ -51,28 +44,15 @@ class DataController: DataIPCController {
   }
   
   func handleFetchItem(_ event: IncomingIPCEvent) {
-    guard let modelContext else {
-      return
-    }
-    
     guard let id = event.payload?["id"] as? String else {
       sendIPCError(event, error: "No 'id' passed")
       return
     }
     
-    guard let uuid = UUID(uuidString: id) else {
-      sendIPCError(event, error: "Cannot convert 'id' to UUID")
-      return
-    }
-    
-    let fetchDescriptor = FetchDescriptor<Item>(predicate: #Predicate { item in
-      item.id == uuid
-    })
-    
     do {
-      let items = try modelContext.fetch(fetchDescriptor)
-      if let firstResult = items.first {
-        sendIPCResponse(event, payload: ["item": ItemDTO(from: firstResult)])
+      let item = try ItemRepository.get(id)
+      if item != nil {
+        sendIPCResponse(event, payload: ["item": ItemDTO(from: item!)])
       } else {
         sendIPCResponse(event, payload: ["item": nil as ItemDTO?])
       }
@@ -82,20 +62,19 @@ class DataController: DataIPCController {
   }
   
   func handleCreateItem(_ event: IncomingIPCEvent) {
-    guard let modelContext else {
-      return
-    }
-    
     guard let payloadItem = event.payload?["item"] as? [String: Any],
           let title = payloadItem["title"] as? String else {
       sendIPCError(event, error: "No 'item.title' passed")
       return
     }
     
-    let item = Item(title: title)
     do {
-      modelContext.insert(item)
-      try modelContext.save()
+      guard let item = try ItemRepository.create(
+        Item(title: title)
+      ) else {
+        sendIPCError(event, error: "Creating item failed")
+        return
+      }
       
       let itemDTO = ItemDTO(from: item)
       sendIPCResponse(event, payload: ["item": itemDTO])
@@ -105,45 +84,24 @@ class DataController: DataIPCController {
   }
   
   func handleDeleteItem(_ event: IncomingIPCEvent) {
-    guard let modelContext else {
-      return
-    }
-    
     guard let id = event.payload?["id"] as? String else {
       sendIPCError(event, error: "No 'id' passed")
       return
     }
     
-    guard let uuid = UUID(uuidString: id) else {
-      sendIPCError(event, error: "Cannot convert 'id' to UUID")
-      return
-    }
-    
-    let fetchDescriptor = FetchDescriptor<Item>(predicate: #Predicate { item in
-      item.id == uuid
-    })
-    
     do {
-      let items = try modelContext.fetch(fetchDescriptor)
-      guard let itemToDelete = items.first else {
-        sendIPCError(event, error: "Cannot find item with specified 'id'")
+      guard let item = try ItemRepository.delete(id) else {
+        sendIPCError(event, error: "Deleting item failed")
         return
       }
       
-      modelContext.delete(itemToDelete)
-      try modelContext.save()
-      
-      sendIPCResponse(event, payload: ["item": ItemDTO(from: itemToDelete)])
+      sendIPCResponse(event, payload: ["item": ItemDTO(from: item)])
     } catch {
       sendIPCError(event, error: "Deleting item failed")
     }
   }
   
   func handleUpdateItem(_ event: IncomingIPCEvent) {
-    guard let modelContext else {
-      return
-    }
-    
     guard let payload = event.payload,
           let id = payload["id"] as? String,
           let title = payload["title"] as? String else {
@@ -151,29 +109,15 @@ class DataController: DataIPCController {
       return
     }
     
-    guard let uuid = UUID(uuidString: id) else {
-      sendIPCError(event, error: "Cannot convert 'id' to UUID")
-      return
-    }
-    
-    let fetchDescriptor = FetchDescriptor<Item>(predicate: #Predicate { item in
-      item.id == uuid
-    })
-    
     do {
-      guard let item = try modelContext.fetch(fetchDescriptor).first else {
-        sendIPCError(event, error: "Item with specified 'id' was not found")
+      guard let item = try ItemRepository.update(id, title) else {
+        sendIPCError(event, error: "Updating item failed")
         return
       }
       
-      item.title = title
-      item.updatedAt = Date.now.timeIntervalSince1970
-      
-      try modelContext.save()
-      
       sendIPCResponse(event, payload: ["item": ItemDTO(from: item)])
     } catch {
-      sendIPCError(event, error: "Deleting item failed")
+      sendIPCError(event, error: "Updating item failed")
     }
   }
 }

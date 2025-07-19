@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftData
 
 struct IncomingIPCEvent {
   let scope: String
@@ -17,23 +16,15 @@ struct IncomingIPCEvent {
 class IPCHandler: ObservableObject {
   static let shared = IPCHandler()
   
-  private var modelContext: ModelContext? = nil
   private var viewModel: WebViewModel? = nil
   
-  private var controllers: [IPCControllerBase] = [
+  private var controllers: [IPCController] = [
     ApplicationController(),
     ClipboardController(),
     DataController(),
     FileSystemController(),
     NotificationController()
   ]
-  
-  func setModelContext(_ modelContext: ModelContext) {
-    self.modelContext = modelContext
-    for controller in controllers {
-      controller.setModelContext(modelContext)
-    }
-  }
   
   func setViewModel(_ viewModel: WebViewModel) {
     self.viewModel = viewModel

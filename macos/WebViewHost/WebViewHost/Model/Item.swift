@@ -6,21 +6,21 @@
 //
 
 import Foundation
-import SwiftData
+import GRDB
 
-@Model
-class Item {
-  @Attribute(.unique)
-  var id: UUID
+struct Item: Codable, FetchableRecord, PersistableRecord, Identifiable {
+  var id: String
   var title: String
   var createdAt: Double
   var updatedAt: Double
   
   init(title: String) {
-    self.id = UUID()
+    self.id = UUID().uuidString
     self.title = title
-    self.createdAt = Date.now.timeIntervalSince1970
-    self.updatedAt = Date.now.timeIntervalSince1970
+    
+    let timestamp = Date().timeIntervalSince1970
+    self.createdAt = timestamp
+    self.updatedAt = timestamp
   }
 }
 
@@ -30,8 +30,8 @@ struct ItemDTO: Codable {
   var createdAt: Double
   var updatedAt: Double
   
-  init(id: UUID, title: String, createdAt: Double, updatedAt: Double) {
-    self.id = id.uuidString
+  init(id: String, title: String, createdAt: Double, updatedAt: Double) {
+    self.id = id
     self.title = title
     self.createdAt = createdAt
     self.updatedAt = updatedAt
