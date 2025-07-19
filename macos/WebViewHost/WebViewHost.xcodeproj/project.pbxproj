@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		879D9E7B2E2BE25E00C65B7C /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 879D9E7A2E2BE25E00C65B7C /* GRDB */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		873D25B12DFCADD20001FFEE /* WebViewHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				879D9E7B2E2BE25E00C65B7C /* GRDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = WebViewHost;
 			packageProductDependencies = (
+				879D9E7A2E2BE25E00C65B7C /* GRDB */,
 			);
 			productName = WebViewHost;
 			productReference = 873D25B12DFCADD20001FFEE /* WebViewHost.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 873D25A82DFCADD20001FFEE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				879D9E792E2BE25E00C65B7C /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 873D25B22DFCADD20001FFEE /* Products */;
 			projectDirPath = "";
@@ -321,6 +330,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		879D9E792E2BE25E00C65B7C /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		879D9E7A2E2BE25E00C65B7C /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 879D9E792E2BE25E00C65B7C /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 873D25A92DFCADD20001FFEE /* Project object */;
 }
