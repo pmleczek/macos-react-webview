@@ -20,7 +20,7 @@ class IPCHandler: ObservableObject {
   private var modelContext: ModelContext? = nil
   private var viewModel: WebViewModel? = nil
   
-  private var controllers: [IPCController] = [
+  private var controllers: [IPCControllerBase] = [
     ApplicationController(),
     ClipboardController(),
     DataController(),

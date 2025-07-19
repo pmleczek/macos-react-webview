@@ -5,7 +5,7 @@
 //  Created by Patryk Mleczek on 6/21/25.
 //
 
-class ApplicationController: BaseIPCController {
+class ApplicationController: IPCController {
   override func handle(_ event: IncomingIPCEvent) -> Bool {
     if event.scope != "application" {
       return false

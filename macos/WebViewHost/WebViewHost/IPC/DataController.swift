@@ -8,33 +8,22 @@
 import Foundation
 import SwiftData
 
-class DataController: IPCController {
-  var ipcHandler: IPCHandler?
-  var modelContext: ModelContext?
-  
-  func setIpcHandler(_ ipcHandler: IPCHandler) {
-    self.ipcHandler = ipcHandler
-  }
-  
-  func setModelContext(_ modelContext: ModelContext) {
-    self.modelContext = modelContext
-  }
-  
-  func handle(_ event: IncomingIPCEvent) -> Bool {
+class DataController: DataIPCController {
+  override func handle(_ event: IncomingIPCEvent) -> Bool {
     if event.scope != "data" {
       return false
     }
     
     switch event.type {
-    case "item-fetch-all":
+    case DataEvent.Item.FetchAll:
       handleFetchAllItems(event)
-    case "item-fetch":
+    case DataEvent.Item.Fetch:
       handleFetchItem(event)
-    case "item-create":
+    case DataEvent.Item.Create:
       handleCreateItem(event)
-    case "item-delete":
+    case DataEvent.Item.Delete:
       handleDeleteItem(event)
-    case "item-update":
+    case DataEvent.Item.Update:
       handleUpdateItem(event)
     default:
       break
@@ -55,9 +44,9 @@ class DataController: IPCController {
       let itemDTOs = items.map {
         return ItemDTO(from: $0)
       }
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["items": itemDTOs]))
+      sendIPCResponse(event, payload: ["items": itemDTOs])
     } catch {
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Fetching items failed"]))
+      sendIPCError(event, error: "Fetching items failed")
     }
   }
   
@@ -67,12 +56,12 @@ class DataController: IPCController {
     }
     
     guard let id = event.payload?["id"] as? String else {
-      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "No 'id' passed"]))
+      sendIPCError(event, error: "No 'id' passed")
       return
     }
     
     guard let uuid = UUID(uuidString: id) else {
-      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Cannot convert 'id' to UUID"]))
+      sendIPCError(event, error: "Cannot convert 'id' to UUID")
       return
     }
     
@@ -83,12 +72,12 @@ class DataController: IPCController {
     do {
       let items = try modelContext.fetch(fetchDescriptor)
       if let firstResult = items.first {
-        self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["item": ItemDTO(from: firstResult)]))
+        sendIPCResponse(event, payload: ["item": ItemDTO(from: firstResult)])
       } else {
-        self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["item": nil as ItemDTO?]))
+        sendIPCResponse(event, payload: ["item": nil as ItemDTO?])
       }
     } catch {
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Fetching item failed"]))
+      sendIPCError(event, error: "Fetching item failed")
     }
   }
   
@@ -99,7 +88,7 @@ class DataController: IPCController {
     
     guard let payloadItem = event.payload?["item"] as? [String: Any],
           let title = payloadItem["title"] as? String else {
-      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "No 'item.title' passed"]))
+      sendIPCError(event, error: "No 'item.title' passed")
       return
     }
     
@@ -109,9 +98,9 @@ class DataController: IPCController {
       try modelContext.save()
       
       let itemDTO = ItemDTO(from: item)
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["item": itemDTO]))
+      sendIPCResponse(event, payload: ["item": itemDTO])
     } catch {
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Creating item failed"]))
+      sendIPCError(event, error: "Creating item failed")
     }
   }
   
@@ -121,12 +110,12 @@ class DataController: IPCController {
     }
     
     guard let id = event.payload?["id"] as? String else {
-      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "No 'id' passed"]))
+      sendIPCError(event, error: "No 'id' passed")
       return
     }
     
     guard let uuid = UUID(uuidString: id) else {
-      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Cannot convert 'id' to UUID"]))
+      sendIPCError(event, error: "Cannot convert 'id' to UUID")
       return
     }
     
@@ -137,16 +126,16 @@ class DataController: IPCController {
     do {
       let items = try modelContext.fetch(fetchDescriptor)
       guard let itemToDelete = items.first else {
-        ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Cannot find item with specified 'id'"]))
+        sendIPCError(event, error: "Cannot find item with specified 'id'")
         return
       }
       
       modelContext.delete(itemToDelete)
       try modelContext.save()
       
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["item": ItemDTO(from: itemToDelete)]))
+      sendIPCResponse(event, payload: ["item": ItemDTO(from: itemToDelete)])
     } catch {
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Deleting item failed"]))
+      sendIPCError(event, error: "Deleting item failed")
     }
   }
   
@@ -155,15 +144,15 @@ class DataController: IPCController {
       return
     }
     
-    guard let payload = event.payload as? [String: Any],
+    guard let payload = event.payload,
           let id = payload["id"] as? String,
           let title = payload["title"] as? String else {
-      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Method requires 'id' and 'title' to be passed"]))
+      sendIPCError(event, error: "Method requires 'id' and 'title' to be passed")
       return
     }
     
     guard let uuid = UUID(uuidString: id) else {
-      ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Cannot convert 'id' to UUID"]))
+      sendIPCError(event, error: "Cannot convert 'id' to UUID")
       return
     }
     
@@ -173,7 +162,7 @@ class DataController: IPCController {
     
     do {
       guard let item = try modelContext.fetch(fetchDescriptor).first else {
-        ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Item with specified 'id' was not found"]))
+        sendIPCError(event, error: "Item with specified 'id' was not found")
         return
       }
       
@@ -182,9 +171,9 @@ class DataController: IPCController {
       
       try modelContext.save()
       
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["item": ItemDTO(from: item)]))
+      sendIPCResponse(event, payload: ["item": ItemDTO(from: item)])
     } catch {
-      self.ipcHandler?.emit("\(event.scope):\(event.type)", toJsonString(from: ["error": "Deleting item failed"]))
+      sendIPCError(event, error: "Deleting item failed")
     }
   }
 }

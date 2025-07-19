@@ -5,7 +5,7 @@
 //  Created by Patryk Mleczek on 6/19/25.
 //
 
-class NotificationController: BaseIPCController {
+class NotificationController: IPCController {
   override func handle(_ event: IncomingIPCEvent) -> Bool {
     if event.scope != "notification" {
       return false

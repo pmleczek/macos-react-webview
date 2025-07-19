@@ -5,7 +5,7 @@
 //  Created by Patryk Mleczek on 6/23/25.
 //
 
-class ClipboardController: BaseIPCController {
+class ClipboardController: IPCController {
   override func handle(_ event: IncomingIPCEvent) -> Bool {
     if event.scope != "clipboard" {
       return false

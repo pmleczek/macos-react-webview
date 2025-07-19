@@ -5,7 +5,7 @@
 //  Created by Patryk Mleczek on 6/29/25.
 //
 
-class FileSystemController: BaseIPCController {
+class FileSystemController: IPCController {
   override func handle(_ event: IncomingIPCEvent) -> Bool {
     if event.scope != "filesystem" {
       return false

@@ -25,6 +25,16 @@ struct ClipboardEvent {
   static let WriteImageBase64 = "write-image-base64"
 }
 
+struct DataEvent {
+  struct Item {
+    static let FetchAll = "item-fetch-all"
+    static let Fetch = "item-fetch"
+    static let Create = "item-create"
+    static let Update = "item-update"
+    static let Delete = "item-delete"
+  }
+}
+
 struct FileSystemEvent {
   static let OpenDialog = "open-dialog"
   static let OpenSaveDialog = "open-save-dialog"
