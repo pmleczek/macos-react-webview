@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		879D9E7B2E2BE25E00C65B7C /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 879D9E7A2E2BE25E00C65B7C /* GRDB */; };
+		879D9E872E2D2F4800C65B7C /* dist in Resources */ = {isa = PBXBuildFile; fileRef = 879D9E862E2D2F4800C65B7C /* dist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		873D25B12DFCADD20001FFEE /* WebViewHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		879D9E862E2D2F4800C65B7C /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dist; path = "../../packages/react-app/dist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -37,6 +39,7 @@
 		873D25A82DFCADD20001FFEE = {
 			isa = PBXGroup;
 			children = (
+				879D9E862E2D2F4800C65B7C /* dist */,
 				873D25B32DFCADD20001FFEE /* WebViewHost */,
 				873D25B22DFCADD20001FFEE /* Products */,
 			);
@@ -118,6 +121,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				879D9E872E2D2F4800C65B7C /* dist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
