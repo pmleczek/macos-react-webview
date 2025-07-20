@@ -27,13 +27,21 @@ const DataExample = <T,>({ label, method, input }: DataExampleProps<T>) => {
   }, [input, inputValue, method]);
 
   return (
-    <div>
+    <div className={styles.example}>
       <h2 className={styles.subtitle}>{label}</h2>
       <h2 className={styles.property_name}>
         {label} state: {JSON.stringify(state, null, 2)}
       </h2>
-      {input && <TextInput value={inputValue} onChange={setInputValue} />}
-      <Button label={label} onClick={handleAction} />
+      {input && (
+        <TextInput
+          className={styles.text_input}
+          value={inputValue}
+          onChange={setInputValue}
+        />
+      )}
+      <div className={styles.button_container}>
+        <Button label={label} onClick={handleAction} />
+      </div>
     </div>
   );
 };
