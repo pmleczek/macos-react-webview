@@ -1,0 +1,8 @@
+included:
+- macos/WebViewHost/WebViewHost
+excluded:
+- build
+- .build
+- SourcePackages
+- DerivedData
+- Pods

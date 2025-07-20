@@ -11,6 +11,8 @@
     "format:native": "swift-format format -i ./macos/WebViewHost/WebViewHost/**/*.swift",
     "lint": "bun --filter '*' lint",
     "lint:fix": "bun --filter '*' lint:fix",
+    "lint:native": "swiftlint --config .swiftlint.yml",
+    "lint:native:fix": "swiftlint --fix --config .swiftlint.yml",
     "release": "BUILD_TYPE=Release bun scripts/build.ts"
   },
   "devDependencies": {
