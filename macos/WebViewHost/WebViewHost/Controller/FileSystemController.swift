@@ -10,20 +10,20 @@ class FileSystemController: IPCController {
     if event.scope != "filesystem" {
       return false
     }
-    
+
     switch event.type {
     case FileSystemEvent.OpenDialog:
       handleAsyncArray(
         { FileSystemService.openDialog(event.payload?["options"] as? [String: Any], $0) },
         event: event
       )
-      
+
     case FileSystemEvent.OpenSaveDialog:
       handleAsyncString(
         { FileSystemService.openSaveDialog(event.payload?["options"] as? [String: Any], $0) },
         event: event
       )
-      
+
     case FileSystemEvent.ReadFile:
       handleValue(
         FileSystemService.readFile(event.payload?["path"] as? String),
@@ -40,13 +40,13 @@ class FileSystemController: IPCController {
         ),
         event
       )
-      
+
     case FileSystemEvent.ReadDirectory:
       handleValue(
         FileSystemService.readDirectory(event.payload?["path"] as? String),
         event: event
       )
-      
+
     case FileSystemEvent.MakeDirectory:
       handleVoid(
         FileSystemService.makeDirectory(
@@ -54,7 +54,7 @@ class FileSystemController: IPCController {
         ),
         event
       )
-      
+
     case FileSystemEvent.Move:
       handleVoid(
         FileSystemService.move(
@@ -63,7 +63,7 @@ class FileSystemController: IPCController {
         ),
         event
       )
-      
+
     case FileSystemEvent.Copy:
       handleVoid(
         FileSystemService.copy(
@@ -72,23 +72,23 @@ class FileSystemController: IPCController {
         ),
         event
       )
-      
+
     case FileSystemEvent.Remove:
       handleVoid(
         FileSystemService.remove(event.payload?["path"] as? String),
         event
       )
-      
+
     case FileSystemEvent.GetInfo:
       handleRawValue(
         FileSystemService.getInfo(event.payload?["path"] as? String),
         event: event
       )
-    
+
     default:
       break
     }
-    
+
     return true
   }
 }

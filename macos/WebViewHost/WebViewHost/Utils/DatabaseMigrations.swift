@@ -9,7 +9,7 @@ import GRDB
 
 func makeMigrator() -> DatabaseMigrator {
   var migrator = DatabaseMigrator()
-  
+
   migrator.registerMigration("Create item") { db in
     try db.create(table: "item") { t in
       t.column("id", .text).primaryKey()
@@ -18,6 +18,6 @@ func makeMigrator() -> DatabaseMigrator {
       t.column("updatedAt", .double).notNull()
     }
   }
-  
+
   return migrator
 }

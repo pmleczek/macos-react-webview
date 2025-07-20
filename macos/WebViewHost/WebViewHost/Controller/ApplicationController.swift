@@ -10,7 +10,7 @@ class ApplicationController: IPCController {
     if event.scope != "application" {
       return false
     }
-    
+
     switch event.type {
     case ApplicationEvent.GetTheme:
       let theme = ApplicationService.getTheme()
@@ -32,7 +32,7 @@ class ApplicationController: IPCController {
         let value = ApplicationService.getProperty(for: key)
         sendIPCResponse(event, payload: ["value": value])
       }
-      
+
     case ApplicationEvent.Hide:
       ApplicationService.hideApplication()
 
@@ -45,7 +45,7 @@ class ApplicationController: IPCController {
     default:
       break
     }
-    
+
     return true
   }
 }

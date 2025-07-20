@@ -11,7 +11,7 @@ func jsonToDict(_ jsonString: String) -> [String: Any]? {
   guard let data = jsonString.data(using: .utf8) else {
     return nil
   }
-  
+
   do {
     let object = try JSONSerialization.jsonObject(with: data, options: [])
     return object as? [String: Any]
@@ -22,11 +22,12 @@ func jsonToDict(_ jsonString: String) -> [String: Any]? {
 
 func toJsonString(from object: Encodable) -> String {
   let encoder = JSONEncoder()
-  
+
   do {
     let jsonData = try encoder.encode(object)
     if let jsonString = String(data: jsonData, encoding: .utf8) {
-      return jsonString
+      return
+        jsonString
         .replacingOccurrences(of: "\\", with: "\\\\")
         .replacingOccurrences(of: "\"", with: "\\\"")
         .replacingOccurrences(of: "'", with: "\\'")
@@ -34,30 +35,30 @@ func toJsonString(from object: Encodable) -> String {
   } catch {
     return ""
   }
-  
+
   return ""
 }
 
 func parseEvent(_ eventType: String) -> (scope: String, type: String)? {
   let parts = eventType.split(separator: ":", maxSplits: 1).map(String.init)
-  
+
   guard parts.count == 2 else {
     return nil
   }
-  
+
   return (scope: parts[0], type: parts[1])
 }
 
 func toJavaScript(_ eventType: String, _ payload: String) -> String {
   return """
-  var event = new CustomEvent('webview-event', {
-    detail: {
-      type: '\(eventType)',
-      payload: '\(payload)'
-    }
-  });
-  window.dispatchEvent(event);
-  """
+    var event = new CustomEvent('webview-event', {
+      detail: {
+        type: '\(eventType)',
+        payload: '\(payload)'
+      }
+    });
+    window.dispatchEvent(event);
+    """
 }
 
 func sendIPCResponse(_ event: IncomingIPCEvent, payload: (any Encodable)?) {

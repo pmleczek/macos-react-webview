@@ -14,19 +14,19 @@ class ItemRepository {
     }
     return item
   }
-  
+
   static func all() throws -> [Item] {
     try DatabaseService.shared.dbQueue.read { db in
       try Item.fetchAll(db)
     }
   }
-  
+
   static func get(_ id: String) throws -> Item? {
     try DatabaseService.shared.dbQueue.read { db in
       try Item.fetchOne(db, key: id)
     }
   }
-  
+
   static func update(_ id: String, _ title: String) throws -> Item? {
     return try DatabaseService.shared.dbQueue.write { db in
       if var item = try Item.fetchOne(db, key: id) {
@@ -35,11 +35,11 @@ class ItemRepository {
         try item.update(db)
         return item
       }
-      
+
       return nil
     }
   }
-  
+
   static func delete(_ id: String) throws -> Item? {
     try DatabaseService.shared.dbQueue.write { db in
       guard let item = try Item.fetchOne(db, key: id) else { return nil }
