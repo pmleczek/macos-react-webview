@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "BUILD_TYPE=Debug bun scripts/build.ts",
+    "format:native": "swift-format format -i ./macos/WebViewHost/WebViewHost/**/*.swift",
     "lint": "bun --filter '*' lint",
     "lint:fix": "bun --filter '*' lint:fix",
     "release": "BUILD_TYPE=Release bun scripts/build.ts"
