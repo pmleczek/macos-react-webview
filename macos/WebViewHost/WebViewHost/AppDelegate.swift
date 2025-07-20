@@ -17,12 +17,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       } catch {
         fatalError("Failed to initialize database: \(error)")
       }
-      
+
       _ = NotificationService.shared
-      
-      window = makeWindow(NSMakeRect(0, 0, 1200, 800), windowDelegate)
+
+      window = makeWindow(NSRect(x: 0, y: 0, width: 1200, height: 800), windowDelegate)
       positionTrafficLights(window)
-      
+
       let reactWebView = ReactWebView(
           frame: window.contentView!.bounds,
           viewModel: WebViewModel()
@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       reactWebView.autoresizingMask = [.width, .height]
       window.contentView?.addSubview(reactWebView)
       window.makeFirstResponder(reactWebView)
-      
+
       let contentViewBounds = window.contentView!.bounds
       let dragRegion = DragRegionView(frame: NSRect(
         x: 0,
@@ -40,9 +40,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       ))
       dragRegion.autoresizingMask = [.width, .minYMargin]
       window.contentView?.addSubview(dragRegion)
-      
+
       buildMenu(self)
-      
+
       NSApp.activate(ignoringOtherApps: true)
     }
 
@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
     }
-  
+
   @objc func openSettings () {
     print("Open settings")
   }

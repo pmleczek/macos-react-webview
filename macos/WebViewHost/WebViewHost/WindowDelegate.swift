@@ -12,12 +12,12 @@ class WindowDelegate: NSObject, NSWindowDelegate {
     let window = NSApp.windows.first!
     positionTrafficLights(window)
   }
-  
+
   func windowWillExitFullScreen(_ notification: Notification) {
     let window = NSApp.windows.first!
     setTrafficLightsHidden(window, true)
   }
-  
+
   func windowDidExitFullScreen(_ notification: Notification) {
     let window = NSApp.windows.first!
     positionTrafficLights(window)

@@ -34,7 +34,7 @@ let typeMapping: [String: UTType] = [
   "js": .javaScript,
   "jpeg": .jpeg,
   "png": .png,
-  "txt": .plainText,
+  "txt": .plainText
 ]
 
 func toUTType(_ string: String) -> UTType? {

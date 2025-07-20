@@ -20,11 +20,6 @@ struct ScheduledNotification: Codable {
 struct DisplayedNotification: Codable {
   let id: String
   let date: Double
-
-  init(id: String, date: Double) {
-    self.id = id
-    self.date = date
-  }
 }
 
 class NotificationService: NSObject, UNUserNotificationCenterDelegate {
@@ -50,7 +45,7 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
   }
 
   func requestPermissions(completion: @escaping (Bool) -> Void) {
-    notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+    notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
       completion(granted)
     }
   }
@@ -89,7 +84,7 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
 
     let repeats = request["repeats"] as? Bool ?? false
 
-    var trigger: UNNotificationTrigger? = nil
+    var trigger: UNNotificationTrigger?
     if let interval = request["timeInterval"] as? Double {
       trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: repeats)
     } else if let payloadDate = request["date"] as? [String: Int] {

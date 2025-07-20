@@ -44,8 +44,7 @@ class ApplicationService {
       }
     case "appVersion":
       if let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
-        as? String
-      {
+        as? String {
         return appVersion
       }
     case "buildNumber":

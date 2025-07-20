@@ -55,8 +55,7 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
       }
     #else
       if let url = Bundle.main.url(
-        forResource: "index", withExtension: "html", subdirectory: "dist")
-      {
+        forResource: "index", withExtension: "html", subdirectory: "dist") {
         webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
       }
     #endif  // DEBUG
@@ -101,8 +100,7 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
 
   override func performKeyEquivalent(with event: NSEvent) -> Bool {
     if event.modifierFlags.contains(.command),
-      let key = event.charactersIgnoringModifiers?.lowercased()
-    {
+      let key = event.charactersIgnoringModifiers?.lowercased() {
       switch key {
       case "a":
         webView.perform(#selector(NSText.selectAll(_:)))

@@ -16,14 +16,14 @@ struct IncomingIPCEvent {
 class IPCHandler: ObservableObject {
   static let shared = IPCHandler()
 
-  private var viewModel: WebViewModel? = nil
+  private var viewModel: WebViewModel?
 
   private var controllers: [IPCController] = [
     ApplicationController(),
     ClipboardController(),
     DataController(),
     FileSystemController(),
-    NotificationController(),
+    NotificationController()
   ]
 
   func setViewModel(_ viewModel: WebViewModel) {
