@@ -2,6 +2,9 @@ disabled_rules:
 - identifier_name
 - cyclomatic_complexity
 
+trailing_comma:
+  mandatory_comma: true
+
 included:
 - macos/WebViewHost/WebViewHost
 excluded:
