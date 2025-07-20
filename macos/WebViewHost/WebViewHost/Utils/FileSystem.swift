@@ -34,7 +34,7 @@ let typeMapping: [String: UTType] = [
   "js": .javaScript,
   "jpeg": .jpeg,
   "png": .png,
-  "txt": .plainText
+  "txt": .plainText,
 ]
 
 func toUTType(_ string: String) -> UTType? {
@@ -46,9 +46,11 @@ func toUTType(_ string: String) -> UTType? {
 }
 
 func handleVoid(_ result: FileSystemServiceResponse, _ event: IncomingIPCEvent) {
-  result.successful
-    ? sendIPCResponse(event, payload: ["result": true])
-    : sendIPCError(event, error: result.error)
+  if result.successful {
+    sendIPCResponse(event, payload: ["result": true])
+  } else {
+    sendIPCError(event, error: result.error)
+  }
 }
 
 func handleValue<T: Encodable>(

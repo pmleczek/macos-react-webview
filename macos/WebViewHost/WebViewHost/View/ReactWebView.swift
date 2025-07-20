@@ -77,6 +77,7 @@ class ReactWebView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
       webView.evaluateJavaScript("document.documentElement.setAttribute('dark', 'true');")
     } else if theme == "system" {
       webView.evaluateJavaScript(
+        // swiftlint:disable:next line_length
         "document.documentElement.setAttribute('dark', String(window.matchMedia('(prefers-color-scheme: dark)').matches));"
       )
     }

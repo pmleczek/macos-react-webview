@@ -9,6 +9,7 @@ import AppKit
 
 typealias FileSystemServiceResponse = (successful: Bool, error: String?)
 
+// swiftlint:disable large_tuple
 typealias FileSystemServiceResponseWithData<T> = (successful: Bool, error: String?, data: T?)
 
 struct FileInfoResult: Codable {
@@ -230,3 +231,4 @@ class FileSystemService {
     }
   }
 }
+// swiftlint:enable large_tuple

@@ -88,30 +88,7 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     if let interval = request["timeInterval"] as? Double {
       trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: repeats)
     } else if let payloadDate = request["date"] as? [String: Int] {
-      var date = DateComponents()
-
-      if let year = payloadDate["year"] {
-        date.year = year
-      }
-      if let month = payloadDate["month"] {
-        date.month = month
-      }
-      if let day = payloadDate["day"] {
-        date.day = day
-      }
-      if let hour = payloadDate["hour"] {
-        date.hour = hour
-      }
-      if let minute = payloadDate["minute"] {
-        date.minute = minute
-      }
-      if let second = payloadDate["second"] {
-        date.second = second
-      }
-      if let weekday = payloadDate["weekday"] {
-        date.weekday = weekday
-      }
-
+      let date = buildNotficationDate(payloadDate)
       trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: repeats)
     }
 
@@ -154,5 +131,33 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
 
   func dismissDisplayed(_ ids: [String]) {
     notificationCenter.removeDeliveredNotifications(withIdentifiers: ids)
+  }
+
+  private func buildNotficationDate(_ payloadDate: [String: Int]) -> DateComponents {
+    var date = DateComponents()
+
+    if let year = payloadDate["year"] {
+      date.year = year
+    }
+    if let month = payloadDate["month"] {
+      date.month = month
+    }
+    if let day = payloadDate["day"] {
+      date.day = day
+    }
+    if let hour = payloadDate["hour"] {
+      date.hour = hour
+    }
+    if let minute = payloadDate["minute"] {
+      date.minute = minute
+    }
+    if let second = payloadDate["second"] {
+      date.second = second
+    }
+    if let weekday = payloadDate["weekday"] {
+      date.weekday = weekday
+    }
+
+    return date
   }
 }

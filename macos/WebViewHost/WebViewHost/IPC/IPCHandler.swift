@@ -23,7 +23,7 @@ class IPCHandler: ObservableObject {
     ClipboardController(),
     DataController(),
     FileSystemController(),
-    NotificationController()
+    NotificationController(),
   ]
 
   func setViewModel(_ viewModel: WebViewModel) {
@@ -47,10 +47,9 @@ class IPCHandler: ObservableObject {
     if let (scope, type) = parseEvent(eventType) {
       let payload = eventDict["payload"] as? [String: Any]
       let incomingEvent = IncomingIPCEvent(scope: scope, type: type, payload: payload)
-      for controller in controllers {
-        if controller.handle(incomingEvent) {
-          break
-        }
+
+      for controller in controllers where controller.handle(incomingEvent) {
+        break
       }
     }
   }

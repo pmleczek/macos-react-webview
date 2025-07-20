@@ -21,10 +21,8 @@ class DragRegionView: NSView {
   }
 
   override func hitTest(_ point: NSPoint) -> NSView? {
-    for zone in exclusionZones {
-      if zone.contains(point) {
-        return nil
-      }
+    for zone in exclusionZones where zone.contains(point) {
+      return nil
     }
 
     return super.hitTest(point)

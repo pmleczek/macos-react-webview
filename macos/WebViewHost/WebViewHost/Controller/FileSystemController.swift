@@ -6,6 +6,7 @@
 //
 
 class FileSystemController: IPCController {
+  // swiftlint:disable function_body_length
   override func handle(_ event: IncomingIPCEvent) -> Bool {
     if event.scope != "filesystem" {
       return false
@@ -91,4 +92,5 @@ class FileSystemController: IPCController {
 
     return true
   }
+  // swiftlint:enable function_body_length
 }
