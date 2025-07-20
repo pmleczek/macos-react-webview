@@ -30,7 +30,7 @@ export interface ScheduleRequest {
     year?: number;
     hour?: number;
     minute?: number;
-    seconds?: number;
+    second?: number;
     weekday?: number;
   };
 }
@@ -48,7 +48,7 @@ export type GetScheduledResponse = ScheduledNotification[];
 
 export interface DisplayedNotification {
   id: string;
-  date: Date;
+  date: number;
 }
 
 export type GetDisplayedResponse = DisplayedNotification[];

@@ -25,7 +25,9 @@ const APP_PROPERTIES: ApplicationPropertyEntry[] = [
 ];
 
 const Properties = () => {
-  const [values, setValues] = useState<Record<PropertyKey, string>>({});
+  const [values, setValues] = useState<Partial<Record<PropertyKey, string>>>(
+    {},
+  );
 
   const getValues = useCallback(async () => {
     APP_PROPERTIES.forEach(async (entry) => {

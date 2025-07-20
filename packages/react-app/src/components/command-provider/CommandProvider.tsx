@@ -13,7 +13,8 @@ import { Command } from 'ui';
 
 import useCommandItems from './useCommandItems';
 
-const debounce = <T extends (...args: unknown[]) => void>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const debounce = <T extends (...args: any) => void>(
   fn: T,
   delay: number,
 ): T => {
